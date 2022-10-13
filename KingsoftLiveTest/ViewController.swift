@@ -215,6 +215,7 @@ class ViewController: UIViewController {
     
     @objc func didBecomeActive() {
         streamerKit?.aCapDev.start()
+        // run 3rd background music app
     }
     
     // MARK: - Background publish

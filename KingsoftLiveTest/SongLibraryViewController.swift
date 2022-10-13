@@ -42,19 +42,42 @@ class SongLibraryViewController: UIViewController {
     // MARK: - Library Songs
     @objc func songTap(_ tap: UITapGestureRecognizer) {
         
+        // update state
+        hieuthu2SongView.subviews.forEach { view in
+            view.tintColor = .white
+        }
+        
+        songtungSongView.subviews.forEach { view in
+            view.tintColor = .white
+        }
+        
+        monoSongView.subviews.forEach { view in
+            view.tintColor = .white
+        }
+        
         var songName = ""
         switch tap.view?.tag {
         case 1:
             songName = "mono"
+            monoSongView.subviews.forEach { view in
+                view.tintColor = .orange
+            }
         case 2:
             songName = "sontung"
+            songtungSongView.subviews.forEach { view in
+                view.tintColor = .orange
+            }
         case 3:
             songName = "hieuthu2"
+            hieuthu2SongView.subviews.forEach { view in
+                view.tintColor = .orange
+            }
         default:
             return
         }
         guard let songPath = Bundle.main.path(forResource: songName, ofType: "mp3") else { return }
         self.delegate?.didSelectSong(urlString: songPath)
+        
         isRunning = true
         playPaustBtn.setTitle("Pause", for: .normal)
         
@@ -77,6 +100,8 @@ class SongLibraryViewController: UIViewController {
         streamKit.aMixer.setMixVolume(sender.value, of: streamKit.bgmTrack)
     }
     
+
+    
     
     @IBAction func playPauseTap(_ sender: Any) {
         guard let kit = streamKit else { return }
@@ -88,6 +113,15 @@ class SongLibraryViewController: UIViewController {
             isRunning = true
             playPaustBtn.setTitle("Pause", for: .normal)
             kit.bgmPlayer.resumeBgm()
+        }
+    }
+}
+
+
+extension UILabel {
+    open override var tintColor: UIColor! {
+        didSet {
+            textColor = tintColor
         }
     }
 }
