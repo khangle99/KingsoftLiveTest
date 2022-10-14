@@ -20,6 +20,18 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6e-wJ-vgu">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiG-6t-XzI" userLabel="AudioStateName">
+                                <rect key="frame" x="8" y="854" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFA-M3-prr" userLabel="StreamStateLabel">
+                                <rect key="frame" x="8" y="843" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9g-cD-MkH">
                                 <rect key="frame" x="164.5" y="823" width="85.5" height="31"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
@@ -76,7 +88,7 @@
                                 </subviews>
                             </stackView>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ngm-qF-izD" userLabel="Song library">
-                                <rect key="frame" x="42" y="224" width="331" height="448"/>
+                                <rect key="frame" x="41.5" y="224" width="331" height="448"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
@@ -86,16 +98,10 @@
                                     <segue destination="nck-nX-9kd" kind="embed" identifier="songlib" id="P9f-FL-XPn"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiG-6t-XzI" userLabel="AudioStateName">
-                                <rect key="frame" x="8" y="854" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxt-qH-19x" userLabel="Audio Mixer">
-                                <rect key="frame" x="0.0" y="462" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="zGU-wz-urc" userLabel="mixer view height"/>
+                                    <constraint firstAttribute="height" id="zGU-wz-urc" userLabel="mixer view height"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -106,6 +112,21 @@
                                     <segue destination="W5E-Pl-vdr" kind="embed" identifier="mixer" id="1Yo-u0-BMp"/>
                                 </connections>
                             </containerView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNb-o6-q6e" userLabel="Record button">
+                                <rect key="frame" x="266" y="822.5" width="32" height="32"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="rec-button"/>
+                                <connections>
+                                    <action selector="recordTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lcL-Y2-RH9"/>
+                                </connections>
+                            </button>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rec" translatesAutoresizingMaskIntoConstraints="NO" id="xvF-Gs-o1t" userLabel="rec image view">
+                                <rect key="frame" x="16" y="60" width="32" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="IrD-ms-eBV"/>
+                                    <constraint firstAttribute="height" constant="24" id="NCc-wK-rDy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -116,18 +137,24 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pxt-qH-19x" secondAttribute="trailing" id="Cdy-Xr-qi9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="M9g-cD-MkH" secondAttribute="bottom" constant="8" id="DPh-Jt-1G2"/>
                             <constraint firstAttribute="bottom" secondItem="k6e-wJ-vgu" secondAttribute="bottom" id="DkH-RX-NhQ"/>
+                            <constraint firstItem="PNb-o6-q6e" firstAttribute="leading" secondItem="M9g-cD-MkH" secondAttribute="trailing" constant="16" id="Hj0-4i-P30"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="Hnc-2K-wR3"/>
                             <constraint firstItem="TiG-6t-XzI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="MRx-Bi-9nL"/>
                             <constraint firstItem="k6e-wJ-vgu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Q0k-zf-MKb"/>
                             <constraint firstItem="k6e-wJ-vgu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="U6F-QU-03F"/>
+                            <constraint firstItem="xvF-Gs-o1t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Us7-bF-Zef"/>
+                            <constraint firstItem="xvF-Gs-o1t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="V5Z-Ph-5zu"/>
+                            <constraint firstItem="TiG-6t-XzI" firstAttribute="top" secondItem="sFA-M3-prr" secondAttribute="bottom" constant="11" id="XFe-pB-MkC"/>
                             <constraint firstItem="Fga-ud-NDf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="ZCC-xz-btM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TiG-6t-XzI" secondAttribute="bottom" constant="8" id="dbT-v6-lNu"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j4y-wF-nEA"/>
                             <constraint firstItem="M9g-cD-MkH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kAV-Ss-OI8"/>
+                            <constraint firstItem="PNb-o6-q6e" firstAttribute="centerY" secondItem="M9g-cD-MkH" secondAttribute="centerY" id="pMV-8F-eNS"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="tuJ-ds-BOM"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uJg-kA-1OL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fga-ud-NDf" secondAttribute="trailing" constant="8" id="uqF-It-yOh"/>
                             <constraint firstItem="Pxt-qH-19x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xMa-5M-hXw"/>
+                            <constraint firstItem="sFA-M3-prr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="zyj-wb-xg6"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Dlj-C8-g0B" appends="YES" id="QZA-RV-VYw"/>
@@ -137,9 +164,12 @@
                         <outlet property="audioStateLabel" destination="TiG-6t-XzI" id="v0T-Tb-Gx2"/>
                         <outlet property="mixerViewHeight" destination="zGU-wz-urc" id="Too-eM-C7Q"/>
                         <outlet property="previewView" destination="k6e-wJ-vgu" id="YmA-dA-02i"/>
+                        <outlet property="recImageView" destination="xvF-Gs-o1t" id="93Q-Nv-Kh1"/>
+                        <outlet property="recordBtn" destination="PNb-o6-q6e" id="0Yp-8Y-48o"/>
                         <outlet property="songLibaryButton" destination="kRn-y1-PEE" id="Lrr-zv-eNh"/>
                         <outlet property="songLibraryView" destination="Ngm-qF-izD" id="vP0-y2-miS"/>
                         <outlet property="startLiveBtn" destination="M9g-cD-MkH" id="e4z-hm-4Jj"/>
+                        <outlet property="streamStateLabel" destination="sFA-M3-prr" id="z9O-3v-0ti"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -330,6 +360,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="jiN-59-xDa"/>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="1Pp-5V-j8Z"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dbW-u0-GtX" secondAttribute="trailing" id="4F1-Ik-30B"/>
@@ -360,11 +391,11 @@
             <objects>
                 <viewController id="W5E-Pl-vdr" customClass="MixerViewController" customModule="KingsoftLiveTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" alpha="0.65000000000000002" contentMode="scaleToFill" id="XNa-2Q-Fuv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yt6-s0-A2n">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                 <subviews>
                                     <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7vh-QE-mFP" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="527.5"/>
@@ -693,6 +724,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="SKZ-Uh-o6j"/>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="FQ8-ZT-PAB"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="yt6-s0-A2n" secondAttribute="bottom" id="AXu-zj-ijB"/>
@@ -732,6 +764,8 @@
         <image name="microphone-black-shape" width="32" height="32"/>
         <image name="music-sound-wave-line" width="32" height="32"/>
         <image name="old-man" width="64" height="64"/>
+        <image name="rec" width="32" height="32"/>
+        <image name="rec-button" width="32" height="32"/>
         <image name="stage" width="64" height="64"/>
         <image name="stereo" width="32" height="32"/>
         <image name="switch-camera" width="32" height="32"/>

@@ -8,13 +8,18 @@
 import UIKit
 import GPUImage
 import libksygpulive
+import Photos
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var previewView: UIView!
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
+    @IBOutlet weak var recImageView: UIImageView!
+    @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet weak var audioStateLabel: UILabel!
+    
+    @IBOutlet weak var streamStateLabel: UILabel!
     @IBOutlet weak var startLiveBtn: UIButton!
     
     @IBOutlet weak var songLibaryButton: UIButton!
@@ -38,6 +43,11 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.videoCodec = .X264
         streamerKit?.streamerBase.audioCodec = .AAC
         
+        // configure performance
+        streamerKit?.streamerBase.liveScene = .showself
+        streamerKit?.streamerBase.recScene = .constantBitRate
+        streamerKit?.streamerBase.videoEncodePerf = .per_Balance
+        
         
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
@@ -45,6 +55,8 @@ class ViewController: UIViewController {
         streamerKit?.startPreview(previewView)
         observeBGM()
         handleRouteInterrupt()
+        observeStreamState()
+        observeRecordState()
     }
     
     private func observeBGM() {
@@ -177,11 +189,38 @@ class ViewController: UIViewController {
         if kit.streamerBase.isStreaming() {
             kit.streamerBase.stopStream()
             startLiveBtn.setTitle("Start Live", for: .normal)
+            if PHPhotoLibrary.authorizationStatus() == .authorized {
+                recordBtn.isHidden = true
+            }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.1.8/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.63.57/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
+            recordBtn.isHidden = false
         }
-        
+    }
+    
+    private func observeStreamState() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onStreamStateChange(notification:)), name: NSNotification.Name.KSYStreamStateDidChange, object: nil)
+    }
+    
+    @objc func onStreamStateChange(notification: Notification) {
+        switch streamerKit?.streamerBase.streamState {
+        case .idle:
+            streamStateLabel.text = "Idle"
+        case .connecting:
+            streamStateLabel.text = "Connecting"
+        case .connected:
+            streamStateLabel.text = "Connected"
+        case .disconnecting:
+            streamStateLabel.text = "Disconnecting"
+        case .error:
+            guard let errorCode = streamerKit?.streamerBase.streamErrorCode,
+            let errorName = streamerKit?.streamerBase.getKSYStreamErrorCodeName(errorCode) else { return }
+            
+            streamStateLabel.text = "Error: \(errorName)"
+        default:
+            break
+        }
     }
     
     @IBAction func outsideTap(_ sender: Any) {
@@ -252,6 +291,89 @@ class ViewController: UIViewController {
         
     }
     
+    
+    // MARK: - Record while push
+    
+    private var isRecording = false {
+        didSet {
+            recImageView.isHidden = !isRecording
+            onRecordOptionChange(isRecording)
+        }
+    }
+    
+    @IBAction func recordTap(_ sender: Any) {
+        isRecording.toggle()
+    }
+    
+    private var recordFileURL: URL?
+    
+    private func onRecordOptionChange(_ shouldRecord: Bool) {
+        if shouldRecord {
+            
+            let documentDirectoryUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            guard let fileURL = documentDirectoryUrl?.appendingPathComponent("hello.mp4") else { return }
+
+            deleteFile(url: fileURL)
+            recordFileURL = fileURL
+            streamerKit?.streamerBase.startBypassRecord(fileURL)
+        } else {
+            streamerKit?.streamerBase.stopBypassRecord()
+        }
+    }
+    
+    private func observeRecordState() {
+        streamerKit?.streamerBase.bypassRecordStateChange = { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .idle:
+                break
+            case .recording:
+                break
+            case .stopped:
+                // save to album
+                guard let recordFileURL = self.recordFileURL else {
+                    return
+                }
+                
+                self.saveToAlbum(url: recordFileURL)
+                break
+            case .error:
+                // errorhandle
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    private func deleteFile(url: URL) {
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch _ {
+                
+            }
+        }
+    }
+    
+    private func saveToAlbum(url: URL) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }) { saved, error in
+            if saved {
+                DispatchQueue.main.sync {
+                    let alertController = UIAlertController(title: "Your video was successfully saved", message: nil, preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
 }
 

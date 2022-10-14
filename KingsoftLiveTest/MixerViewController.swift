@@ -43,9 +43,9 @@ class MixerViewController: UIViewController {
             view.layer.cornerRadius = 6
         }
         
-        aCapDev?.audioProcessingCallback = { buffer in
-            
-        }
+//        aCapDev?.audioProcessingCallback = { buffer in
+//            
+//        }
     }
     
     func startStopAudioCapture() {

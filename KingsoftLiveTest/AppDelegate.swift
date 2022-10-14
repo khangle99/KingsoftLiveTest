@@ -7,28 +7,50 @@
 
 import UIKit
 import AVFAudio
+import Photos
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // configure AudioSession
         let session = AVAudioSession.sharedInstance()
         session.bInterruptOtherAudio = false
         session.bAllowBluetooth = true
+        
+        if  PHPhotoLibrary.authorizationStatus() == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { status in
+                switch status {
+                  case .notDetermined:
+                      break
+                  case .restricted:
+                    break
+                  case .denied:
+                    break
+                  case .authorized:
+                    break
+                  case .limited:
+                    break
+                  @unknown default:
+                      fatalError()
+                  }
+            }
+        }
+      
+        
         return true
     }
 
     // MARK: UISceneSession Lifecycle
-
+    @available(iOS 13.0, *)
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    @available(iOS 13.0, *)
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
