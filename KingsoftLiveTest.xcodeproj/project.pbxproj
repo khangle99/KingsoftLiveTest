@@ -18,6 +18,7 @@
 		1A0A2C4628F7185C009C16BF /* hieuthu2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4528F7185C009C16BF /* hieuthu2.mp3 */; };
 		1A0A2C4828F71882009C16BF /* SongLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */; };
 		1A0A2C4C28F7BAF1009C16BF /* MixerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */; };
+		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		1A0A2C4528F7185C009C16BF /* hieuthu2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hieuthu2.mp3; sourceTree = "<group>"; };
 		1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongLibraryViewController.swift; sourceTree = "<group>"; };
 		1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerViewController.swift; sourceTree = "<group>"; };
+		1AE4518028FAE62E008EE1A4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KingsoftLiveTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		785B5834F586AF620ABD2A15 /* Pods-KingsoftLiveTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.debug.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A76530D244A7BDD5AAB9B3 /* Pods-KingsoftLiveTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.release.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				1A03EC7228F5831E0006A745 /* Info.plist */,
 				1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */,
 				1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */,
+				1AE4518028FAE62E008EE1A4 /* TestViewController.swift */,
 			);
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				1A03EC6928F5831C0006A745 /* ViewController.swift in Sources */,
 				1A0A2C4828F71882009C16BF /* SongLibraryViewController.swift in Sources */,
 				1A03EC6528F5831C0006A745 /* AppDelegate.swift in Sources */,
+				1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */,
 				1A03EC6728F5831C0006A745 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

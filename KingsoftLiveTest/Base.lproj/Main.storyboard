@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6e-wJ-vgu">
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6e-wJ-vgu" customClass="GPUImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiG-6t-XzI" userLabel="AudioStateName">
@@ -163,7 +163,7 @@
                     <connections>
                         <outlet property="audioStateLabel" destination="TiG-6t-XzI" id="v0T-Tb-Gx2"/>
                         <outlet property="mixerViewHeight" destination="zGU-wz-urc" id="Too-eM-C7Q"/>
-                        <outlet property="previewView" destination="k6e-wJ-vgu" id="YmA-dA-02i"/>
+                        <outlet property="previewView" destination="k6e-wJ-vgu" id="mIM-Cb-lEk"/>
                         <outlet property="recImageView" destination="xvF-Gs-o1t" id="93Q-Nv-Kh1"/>
                         <outlet property="recordBtn" destination="PNb-o6-q6e" id="0Yp-8Y-48o"/>
                         <outlet property="songLibaryButton" destination="kRn-y1-PEE" id="Lrr-zv-eNh"/>
@@ -385,6 +385,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fma-Op-3lS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1035.5072463768117" y="-18.080357142857142"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="rae-pl-74x">
+            <objects>
+                <viewController id="jsw-Hp-ij2" customClass="TestViewController" customModule="KingsoftLiveTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FPB-Vw-Vab">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNv-CT-9c4" userLabel="Preview" customClass="GPUImageView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tyZ-rz-6Zj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tyZ-rz-6Zj" firstAttribute="bottom" secondItem="SNv-CT-9c4" secondAttribute="bottom" id="6jL-5X-5uX"/>
+                            <constraint firstItem="SNv-CT-9c4" firstAttribute="top" secondItem="tyZ-rz-6Zj" secondAttribute="top" id="6yG-aQ-T52"/>
+                            <constraint firstItem="SNv-CT-9c4" firstAttribute="leading" secondItem="tyZ-rz-6Zj" secondAttribute="leading" id="A3S-73-xdk"/>
+                            <constraint firstItem="tyZ-rz-6Zj" firstAttribute="trailing" secondItem="SNv-CT-9c4" secondAttribute="trailing" id="cZD-hS-HIb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="previewView" destination="SNv-CT-9c4" id="uKj-RU-uts"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cqn-li-j1u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2159" y="175"/>
         </scene>
         <!--Mixer View Controller-->
         <scene sceneID="oGP-Jc-2I5">
