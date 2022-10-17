@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var startLiveBtn: UIButton!
     
     private var cameraPosition: AVCaptureDevice.Position = .front
+    @IBOutlet weak var focusView: UIImageView!
     
     @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
@@ -75,6 +76,8 @@ class ViewController: UIViewController {
         handleRouteInterrupt()
         observeStreamState()
         observeRecordState()
+        
+        focusView.frame.size = CGSize(width: 80, height: 80)
     }
     
     private func observeBGM() {
@@ -411,6 +414,65 @@ class ViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - CAMERA API (FOCUS, APERTURE)
+    
+    @IBAction func previewTouch(_ tapReg: UITapGestureRecognizer) {
+        //guard let touch = touches.first,
+        guard let kit = streamerKit else { return }
+        let viewPoint = tapReg.location(in: tapReg.view)
+        let point = convertToPointOfInterestFromViewCoordinates(viewCoordinates: viewPoint, in: tapReg.view!)
+        kit.exposure(at: point)
+        kit.focus(at: point)
+        focusView.center = viewPoint
+        focusView.transform = .init(scaleX: 1.5, y: 1.5)
+        focusView.alpha = 1
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.focusView.transform = .identity
+        }, completion: { _ in
+            self.focusView.alpha = 0
+        })
+  
+    }
+    
+    private func convertToPointOfInterestFromViewCoordinates(viewCoordinates: CGPoint, in view: UIView) -> CGPoint {
+        var pointOfInterest = CGPoint.init(x: 0.5, y: 0.5)
+        let frameSize = view.frame.size
+        guard let kit = streamerKit else {
+            return pointOfInterest
+        }
+        let apertureSize = kit.captureDimension()
+        let point = viewCoordinates
+        let apertureRatio = apertureSize.height / apertureSize.width
+        let viewRatio = frameSize.width / frameSize.height
+        var xc: CGFloat = 0.5
+        var yc: CGFloat = 0.5
+        
+        if viewRatio > apertureRatio {
+            let y2 = frameSize.height
+            let x2 = frameSize.height * apertureRatio
+            let x1 = frameSize.width
+            let blackBar = (x1 - x2) / 2
+            if point.x >= blackBar && point.x <= blackBar + x2 {
+                
+                xc = point.y / y2
+                yc = CGFloat(1.0) - ((point.x - blackBar) / x2)
+            }
+        } else {
+            let y2 = frameSize.width / apertureRatio
+            let y1 = frameSize.height
+            let x2 = frameSize.width
+            let blackBar = (y1 - y2) / 2
+            if point.y >= blackBar && point.y <= blackBar + y2 {
+                xc = ((point.y - blackBar) / y2)
+                yc = 1.0 - (point.x / x2)
+            }
+        }
+        pointOfInterest = CGPoint.init(x: xc, y: yc)
+        
+        return pointOfInterest
     }
     
 }

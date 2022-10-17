@@ -19,6 +19,10 @@
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6e-wJ-vgu" customClass="GPUImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Orn-Ka-LaL" appends="YES" id="P1B-8a-muf"/>
+                                </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiG-6t-XzI" userLabel="AudioStateName">
                                 <rect key="frame" x="8" y="854" width="0.0" height="0.0"/>
@@ -188,6 +192,10 @@
                                     <constraint firstAttribute="trailing" secondItem="7KF-sa-MDT" secondAttribute="trailing" constant="16" id="scp-Ym-TJN"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera_focus_red" translatesAutoresizingMaskIntoConstraints="NO" id="ghg-N1-asr" userLabel="Focus View">
+                                <rect key="frame" x="87" y="88" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -228,6 +236,7 @@
                         <outlet property="audioStateLabel" destination="TiG-6t-XzI" id="v0T-Tb-Gx2"/>
                         <outlet property="filterView" destination="nEC-SM-0tI" id="HKr-Wb-Eil"/>
                         <outlet property="filterViewBottom" destination="mVQ-rh-D1K" id="gxx-Ph-f1e"/>
+                        <outlet property="focusView" destination="ghg-N1-asr" id="zR1-yY-Imr"/>
                         <outlet property="mixerViewHeight" destination="zGU-wz-urc" id="Too-eM-C7Q"/>
                         <outlet property="previewView" destination="k6e-wJ-vgu" id="mIM-Cb-lEk"/>
                         <outlet property="recImageView" destination="xvF-Gs-o1t" id="93Q-Nv-Kh1"/>
@@ -242,6 +251,11 @@
                 <tapGestureRecognizer id="Dlj-C8-g0B">
                     <connections>
                         <action selector="outsideTap:" destination="BYZ-38-t0r" id="XZS-vC-n00"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Orn-Ka-LaL">
+                    <connections>
+                        <action selector="previewTouch:" destination="BYZ-38-t0r" id="qQe-HH-Wxe"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -848,6 +862,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera_focus_red" width="75" height="75"/>
         <image name="customize" width="64" height="64"/>
         <image name="dj-mixer" width="32" height="32"/>
         <image name="ear" width="32" height="32"/>
