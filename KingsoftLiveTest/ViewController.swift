@@ -22,14 +22,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var streamStateLabel: UILabel!
     @IBOutlet weak var startLiveBtn: UIButton!
     
-    @IBOutlet weak var songLibaryButton: UIButton!
     private var cameraPosition: AVCaptureDevice.Position = .front
     
+    @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
     private var isShowSongLibrary = false {
         didSet {
             UIView.animate(withDuration: 0.2) {
                 self.songLibraryView.alpha = self.isShowSongLibrary ? 1 : 0
+            }
+        }
+    }
+    
+    @IBOutlet weak var filterView: UIView!
+    private let beautyFilter = KSYBeautifyFaceFilter()
+    @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
+    
+    private var isShowBeautyConfigure: Bool = false {
+        didSet {
+            if isShowBeautyConfigure {
+                self.filterViewBottom.constant = 0
+            } else {
+                self.filterViewBottom.constant = -(filterView.frame.height + view.safeAreaInsets.bottom)
+            }
+            UIView.animate(withDuration: 0.2) {
+                self.view.layoutIfNeeded()
             }
         }
     }
@@ -48,11 +65,12 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.recScene = .constantBitRate
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
         
-        
+        streamerKit?.setupFilter(beautyFilter)
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
         streamerKit?.streamDimension = CGSize(width: 1280, height: 720)
         streamerKit?.startPreview(previewView)
+    
         observeBGM()
         handleRouteInterrupt()
         observeStreamState()
@@ -161,10 +179,17 @@ class ViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isShowBeautyConfigure = false
+    }
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         let orientation = UIApplication.shared.statusBarOrientation
         streamerKit?.videoOrientation = orientation
+        let saveValue = isShowBeautyConfigure
+       isShowBeautyConfigure = saveValue
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -288,10 +313,23 @@ class ViewController: UIViewController {
     
     // MARK: - Filter
     @IBAction func beautyTap(_ sender: Any) {
-        
+        isShowBeautyConfigure.toggle()
     }
     
+    @IBAction func grindSliderDidChange(_ sender: UISlider) {
+        beautyFilter?.grindRatio = CGFloat(sender.value)
+    }
     
+    @IBAction func whitenSliderDidChange(_ sender: UISlider) {
+        beautyFilter?.whitenRatio = CGFloat(sender.value)
+    }
+    @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
+        if sender.isOn {
+            streamerKit?.setupFilter(beautyFilter)
+        } else {
+            streamerKit?.setupFilter(nil)
+        }
+    }
     // MARK: - Record while push
     
     private var isRecording = false {

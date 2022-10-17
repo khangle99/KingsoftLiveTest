@@ -127,6 +127,67 @@
                                     <constraint firstAttribute="height" constant="24" id="NCc-wK-rDy"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEC-SM-0tI" userLabel="FilterView">
+                                <rect key="frame" x="8" y="658" width="398" height="204"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DCP-Il-T7S" userLabel="Grind Slider">
+                                        <rect key="frame" x="14" y="91.5" width="370" height="31"/>
+                                        <connections>
+                                            <action selector="grindSliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="kHt-tn-NKb"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bc-UG-9wo">
+                                        <rect key="frame" x="16" y="63" width="366" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whiten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-0w-Ips">
+                                        <rect key="frame" x="16" y="137.5" width="366" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YGm-jH-3sc" userLabel="Beauty Active Switch">
+                                        <rect key="frame" x="333" y="16" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="beautySwitchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ayi-xU-oXf"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pY5-xn-N68">
+                                        <rect key="frame" x="16" y="19" width="57" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KF-sa-MDT" userLabel="Whiten Slider">
+                                        <rect key="frame" x="14" y="166" width="370" height="31"/>
+                                        <connections>
+                                            <action selector="whitenSliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="cyg-YX-sFO"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DCP-Il-T7S" secondAttribute="trailing" constant="16" id="1f7-Fl-PwM"/>
+                                    <constraint firstAttribute="trailing" secondItem="YGm-jH-3sc" secondAttribute="trailing" constant="16" id="77Y-Fl-Bvu"/>
+                                    <constraint firstItem="pY5-xn-N68" firstAttribute="leading" secondItem="nEC-SM-0tI" secondAttribute="leading" constant="16" id="BHp-lH-zpG"/>
+                                    <constraint firstItem="2Bc-UG-9wo" firstAttribute="leading" secondItem="nEC-SM-0tI" secondAttribute="leading" constant="16" id="E29-N7-jOz"/>
+                                    <constraint firstItem="7KF-sa-MDT" firstAttribute="top" secondItem="PnH-0w-Ips" secondAttribute="bottom" constant="8" id="Iia-Fm-f2M"/>
+                                    <constraint firstItem="PnH-0w-Ips" firstAttribute="leading" secondItem="nEC-SM-0tI" secondAttribute="leading" constant="16" id="Jyk-LY-yMy"/>
+                                    <constraint firstAttribute="bottom" secondItem="7KF-sa-MDT" secondAttribute="bottom" constant="8" id="KGe-dt-YTs"/>
+                                    <constraint firstItem="7KF-sa-MDT" firstAttribute="leading" secondItem="nEC-SM-0tI" secondAttribute="leading" constant="16" id="KO5-M9-TEG"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Bc-UG-9wo" secondAttribute="trailing" constant="16" id="MIM-yn-4F8"/>
+                                    <constraint firstItem="DCP-Il-T7S" firstAttribute="top" secondItem="2Bc-UG-9wo" secondAttribute="bottom" constant="8" id="Pd3-zv-9MN"/>
+                                    <constraint firstItem="PnH-0w-Ips" firstAttribute="top" secondItem="DCP-Il-T7S" secondAttribute="bottom" constant="16" id="Xil-IH-xoH"/>
+                                    <constraint firstAttribute="trailing" secondItem="PnH-0w-Ips" secondAttribute="trailing" constant="16" id="YS6-29-xkQ"/>
+                                    <constraint firstItem="pY5-xn-N68" firstAttribute="centerY" secondItem="YGm-jH-3sc" secondAttribute="centerY" id="bvW-Qq-twm"/>
+                                    <constraint firstItem="YGm-jH-3sc" firstAttribute="top" secondItem="nEC-SM-0tI" secondAttribute="top" constant="16" id="du1-67-5aj"/>
+                                    <constraint firstItem="2Bc-UG-9wo" firstAttribute="top" secondItem="YGm-jH-3sc" secondAttribute="bottom" constant="16" id="fSd-qa-atI"/>
+                                    <constraint firstItem="DCP-Il-T7S" firstAttribute="leading" secondItem="nEC-SM-0tI" secondAttribute="leading" constant="16" id="rGd-OY-Yg6"/>
+                                    <constraint firstAttribute="trailing" secondItem="7KF-sa-MDT" secondAttribute="trailing" constant="16" id="scp-Ym-TJN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -139,6 +200,7 @@
                             <constraint firstAttribute="bottom" secondItem="k6e-wJ-vgu" secondAttribute="bottom" id="DkH-RX-NhQ"/>
                             <constraint firstItem="PNb-o6-q6e" firstAttribute="leading" secondItem="M9g-cD-MkH" secondAttribute="trailing" constant="16" id="Hj0-4i-P30"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="Hnc-2K-wR3"/>
+                            <constraint firstItem="nEC-SM-0tI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="KGc-yg-idN"/>
                             <constraint firstItem="TiG-6t-XzI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="MRx-Bi-9nL"/>
                             <constraint firstItem="k6e-wJ-vgu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Q0k-zf-MKb"/>
                             <constraint firstItem="k6e-wJ-vgu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="U6F-QU-03F"/>
@@ -149,7 +211,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TiG-6t-XzI" secondAttribute="bottom" constant="8" id="dbT-v6-lNu"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j4y-wF-nEA"/>
                             <constraint firstItem="M9g-cD-MkH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kAV-Ss-OI8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nEC-SM-0tI" secondAttribute="bottom" id="mVQ-rh-D1K" userLabel="filterConfigureBottom"/>
                             <constraint firstItem="PNb-o6-q6e" firstAttribute="centerY" secondItem="M9g-cD-MkH" secondAttribute="centerY" id="pMV-8F-eNS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nEC-SM-0tI" secondAttribute="trailing" constant="8" id="rIF-Wk-uo8"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="tuJ-ds-BOM"/>
                             <constraint firstItem="Ngm-qF-izD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uJg-kA-1OL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fga-ud-NDf" secondAttribute="trailing" constant="8" id="uqF-It-yOh"/>
@@ -162,6 +226,8 @@
                     </view>
                     <connections>
                         <outlet property="audioStateLabel" destination="TiG-6t-XzI" id="v0T-Tb-Gx2"/>
+                        <outlet property="filterView" destination="nEC-SM-0tI" id="HKr-Wb-Eil"/>
+                        <outlet property="filterViewBottom" destination="mVQ-rh-D1K" id="gxx-Ph-f1e"/>
                         <outlet property="mixerViewHeight" destination="zGU-wz-urc" id="Too-eM-C7Q"/>
                         <outlet property="previewView" destination="k6e-wJ-vgu" id="mIM-Cb-lEk"/>
                         <outlet property="recImageView" destination="xvF-Gs-o1t" id="93Q-Nv-Kh1"/>
