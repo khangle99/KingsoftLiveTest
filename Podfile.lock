@@ -15,20 +15,24 @@ PODS:
     - libksygpulive/mediacore_enc_lite
     - libksygpulive/yuv
   - libksygpulive/yuv (3.0.4)
+  - OpenCV (3.0.0)
 
 DEPENDENCIES:
   - libksygpulive/KSYGPUResource
   - libksygpulive/libksygpulive
+  - OpenCV (= 3.0.0)
 
 SPEC REPOS:
   trunk:
     - GPUImage
     - libksygpulive
+    - OpenCV
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   libksygpulive: aca3eb30e7a38ee6565feb52feb82ccc0103ce43
+  OpenCV: be07c02f0d8f125f1d40d261e66a66cb66ece3b3
 
-PODFILE CHECKSUM: 1d5bf735b0b7a3dde828ea88d522efd8e2f28726
+PODFILE CHECKSUM: d0fc697b52ac582d99244401388fb9e10fc2d7e6
 
 COCOAPODS: 1.11.3

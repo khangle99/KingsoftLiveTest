@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import GPUImage
 import libksygpulive
 import Photos
 
@@ -221,9 +220,10 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.1.5/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.28.57/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
+            
         }
     }
     
@@ -486,24 +486,9 @@ extension ViewController: SongLibraryViewControllerDelegate {
         } else {
             streamerKit?.bgmPlayer.startPlayBgm(urlString, isLoop: false)
         }
-        
-        
     }
 }
 
 extension ViewController: MixerViewControllerDelegate {
     
-}
-
-
-extension UIView {
-    func rotate360Degrees(duration: CFTimeInterval = 3) {
-        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotateAnimation.fromValue = 0.0
-        rotateAnimation.toValue = CGFloat(Double.pi * 2)
-        rotateAnimation.isRemovedOnCompletion = false
-        rotateAnimation.duration = duration
-        rotateAnimation.repeatCount=Float.infinity
-        self.layer.add(rotateAnimation, forKey: nil)
-    }
 }
