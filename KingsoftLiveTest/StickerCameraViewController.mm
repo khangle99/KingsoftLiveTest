@@ -118,11 +118,11 @@
 //@implementation StickerCameraViewController
 //
 //- (void)viewDidLoad {
-//    
+//
 //    [super viewDidLoad];
 //    self.lastUpStickerTime = [NSDate timeIntervalSinceReferenceDate];
 //    self.gpuImagesCache = [NSMutableDictionary new];
-//    
+//
 //
 //    self.sessionPreset = AVCaptureSessionPreset1280x720;
 //    self.cameraSize = CGSizeMake(720,1280);
@@ -130,15 +130,15 @@
 //    self.videoCamera = [[VideoCamera alloc] initWithSessionPreset:self.sessionPreset cameraPosition:AVCaptureDevicePositionFront useYuv:NO];
 //    self.videoCamera.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
 //    [self.videoCamera setDelegate:self];
-//    
+//
 //    self.GPUView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , SCREEN_HEIGHT)];
 //    self.GPUView.backgroundColor = [UIColor redColor];
 //    [self.cameraView addSubview:self.GPUView];
-//    
+//
 //    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTap:)];
 //    [doubleTap setNumberOfTapsRequired:2];
 //    [self.GPUView addGestureRecognizer:doubleTap];
-//    
+//
 //    self.faceWidgetFilter = [GPUImageFaceWidgetComposeFilter new];
 //    self.cropFilter = [[GPUImageCropFilter alloc] init];
 //    self.cropFilter.cropRegion = CGRectMake(0, 0, 1.0, 1.0);
@@ -156,7 +156,7 @@
 //    self.faceWidgetFilter4.imgSize = self.cameraSize;
 //    self.faceWidgetFilter5 = [GPUImageFaceWidgetComposeFilter new];
 //    self.faceWidgetFilter5.imgSize = self.cameraSize;
-//    
+//
 //    self.facDetector =[[FaceDetect alloc] init :false];
 //    self.placeholderImg = [[GPUImagePicture alloc] initWithImage:[UIImage imageNamed:@"rec"]];
 //}
@@ -171,12 +171,12 @@
 //            [[UIApplication sharedApplication] openURL:settingsUrl];
 //        }]];
 //        [self presentViewController:alert animated:YES completion:^{
-//            
+//
 //        }];
 //    }
 //    if(audioPermission == AVAudioSessionRecordPermissionUndetermined){
 //        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-//            
+//
 //        }];
 //    }
 //
@@ -326,7 +326,7 @@
 ////    if(!self.stickerPath){
 ////        return;
 ////    }
-//    
+//
 //    // update vi tri mesh, skin voi AI OpenCV
 //    [self grepFacesForSampleBuffer:sampleBuffer];
 //
@@ -334,7 +334,7 @@
 //    if(!self.detectoredFace){
 //        return;
 //    }
-//    
+//
 //    // select image cua item, update vi tri sticker
 //    int i = 0;
 //    for (NSDictionary *item in self.stickerConfig[@"items"]) { // duyet toan bo item cua sticker set
@@ -344,7 +344,7 @@
 //                dispatch_async(dispatch_get_main_queue(), ^{
 //                    self.hintLabel.hidden = YES;
 //                });
-//                
+//
 //                useFrameIndex = self.mouthStickerFrameIndex;
 //                self.mouthStickerFrameIndex++;
 //                if(self.mouthStickerFrameIndex > [item[@"frames"] intValue]){
@@ -425,32 +425,32 @@
 //    size_t bytesPerRow;
 //    int format_opencv;
 //    format_opencv = CV_8UC4;
-// 
+//
 //    bufferAddress = CVPixelBufferGetBaseAddress(imageBuffer);
 //    width = CVPixelBufferGetWidth(imageBuffer);
 //    height = CVPixelBufferGetHeight(imageBuffer);
 //    bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-//    
+//
 //    cv::Mat image((int)height, (int)width, format_opencv, bufferAddress, bytesPerRow); // anh cv::Mat
 //    CVPixelBufferUnlockBaseAddress( imageBuffer, 0 );
-//    
+//
 //    // b2: resize va chuyen sang gray image
 //    float scale = 0.35;
 //    if(self.isFrontCamera){
 //        scale = 0.3;
 //    }
-//    
+//
 //    cv::resize(image(cv::Rect(0,160,720,960)),image,cv::Size(scale*image.cols,scale*image.cols * 1.33),0 ,0 ,cv::INTER_NEAREST);
 //    __block cv::Mat_<uint8_t> gray_image;
 //    cv::cvtColor(image, gray_image, CV_BGR2GRAY); // chuyen sang gray image, de tang toc phan tich
-// 
+//
 //    // call opencv phan tich mat
 //    NSArray *faces = [self.facDetector landmark:gray_image scale:scale lowModel:false isFrontCamera:self.isFrontCamera];
 //    gray_image.release();
 //    // su dung faces data sau khi tich hop
 //    NSLog(@"Count %lu", (unsigned long)faces.count);
-//   // [self GPUVCWillOutputFeatures:faces];
-//    
+//    [self GPUVCWillOutputFeatures:faces];
+//
 //}
 //
 ////UIScrollViewDelegate

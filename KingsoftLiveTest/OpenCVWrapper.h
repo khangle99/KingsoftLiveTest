@@ -9,6 +9,9 @@
 #import <CoreMedia/CoreMedia.h>
 
 @interface OpenCVWrapper : NSObject
+@property (retain, atomic)NSDictionary *stickerConfig;
+@property CGSize cameraSize;
+
 + (NSString *)openCVVersionString;
 - (void)configure;
 - (void)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer;

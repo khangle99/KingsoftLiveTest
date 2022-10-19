@@ -29,6 +29,7 @@ class TestViewController: UIViewController, GPUImageVideoCameraDelegate {
         print("version \( OpenCVWrapper.openCVVersionString())")
         openCV = OpenCVWrapper()
         openCV.configure()
+        openCV.cameraSize = CGSize(width: 720, height: 1280)
         streamKit.streamerBase.videoCodec = .X264;
         streamKit.videoOrientation = .portrait
         
@@ -41,6 +42,7 @@ class TestViewController: UIViewController, GPUImageVideoCameraDelegate {
         streamKit.videoProcessingCallback = { sampleBuffer in
             guard let sampleBuffer = sampleBuffer else { return }
             let faces = self.openCV.grepFaces(for: sampleBuffer)
+            // su dung faces data len sticker filter
         }
         streamKit.streamerBase.streamStateChange = { state in
             print(state.rawValue)
@@ -50,6 +52,18 @@ class TestViewController: UIViewController, GPUImageVideoCameraDelegate {
         //        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         //            self.streamKit.streamerBase.startStream(URL(string: "rtmp://192.168.1.5/live/hello"))
         //        }
+        setupSticker()
+    }
+    
+    private func setupSticker() {
+        let stickerPath = Bundle.main.resourcePath?.appending("/stickers/100009")
+        
+        guard let stickerPath = stickerPath,
+              let data = NSData(contentsOfFile: stickerPath.appending("/config.json")),
+              let dictionary = try? JSONSerialization.jsonObject(with: data as Data) as? [AnyHashable: Any] else { return }
+
+        openCV.stickerConfig = dictionary
+        
     }
     
     func convertBuffer(from image: UIImage) -> CVPixelBuffer? {
