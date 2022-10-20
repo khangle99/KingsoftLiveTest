@@ -101,7 +101,7 @@ typedef enum{
     return faces;
 }
 
-- (void)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer{
+- (NSArray *)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     // b1: tao ra anh cv::Mat
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress( imageBuffer, 0 );
@@ -135,10 +135,10 @@ typedef enum{
     gray_image.release();
     // su dung faces data sau khi tich hop
     NSLog(@"Count %lu", (unsigned long)faces.count);
-    [self GPUVCWillOutputFeatures:faces];
+    return [self GPUVCWillOutputFeatures:faces];
 }
 
-- (void)GPUVCWillOutputFeatures:(NSArray *)faceArray
+- (NSArray *)GPUVCWillOutputFeatures:(NSArray *)faceArray
 {
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     // MARK: - reset if no face
@@ -163,7 +163,7 @@ typedef enum{
 //        self.faceFilter.items = nil;
         self.mouthOpening = NO;
 //        self.mouthStickerFrameIndex = 0;
-        return; // exit
+        return [NSArray new];
     }
 
     self.lastDetectorFaceTime = now;
@@ -416,9 +416,10 @@ typedef enum{
     }
  
     faceArray=nil;
-    for (NSDictionary *faceParam in faceParameArray) {
-        NSLog(@"faceParam: %@", [faceParam description]);
-    }
+//    for (NSDictionary *faceParam in faceParameArray) {
+//        NSLog(@"faceParam: %@", [faceParam description]);
+//    }
+    return faceParameArray;
     // MARK: update vi tri cua tung filter sticker ()
 //    int i = 0;
 //    for (NSDictionary *item in self.stickerConfig[@"items"]) {

@@ -489,7 +489,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="previewView" destination="SNv-CT-9c4" id="uKj-RU-uts"/>
+                        <outlet property="previewView" destination="SNv-CT-9c4" id="TcV-K5-T3t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cqn-li-j1u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
