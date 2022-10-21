@@ -27,7 +27,6 @@
 		1A08FD2428FFADD600395879 /* myFaceAR.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD0E28FFADD600395879 /* myFaceAR.mm */; };
 		1A08FD2528FFADD600395879 /* FDet.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD0F28FFADD600395879 /* FDet.mm */; };
 		1A08FD2628FFADD600395879 /* CLM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD1828FFADD600395879 /* CLM.mm */; };
-		1A08FD2928FFB6F400395879 /* StickerCameraViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD2828FFB6F400395879 /* StickerCameraViewController.mm */; };
 		1A08FD2F28FFC13700395879 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD2E28FFC13700395879 /* Utils.m */; };
 		1A08FD3129000E4000395879 /* stickers in Resources */ = {isa = PBXBuildFile; fileRef = 1A08FD3029000E4000395879 /* stickers */; };
 		1A08FD34290050B100395879 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A08FD33290050B100395879 /* Category.m */; };
@@ -41,7 +40,7 @@
 		1A70F2C228FFA2030009510B /* model in Resources */ = {isa = PBXBuildFile; fileRef = 1A70F2C128FFA2030009510B /* model */; };
 		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
 		1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */; };
-		1AFAAE6829023D8C00521ADA /* StickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* StickerManager.swift */; };
+		1AFAAE6829023D8C00521ADA /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* FilterManager.swift */; };
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,8 +83,6 @@
 		1A08FD1628FFADD600395879 /* Warp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Warp.hpp; sourceTree = "<group>"; };
 		1A08FD1728FFADD600395879 /* FaceDetect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceDetect.h; sourceTree = "<group>"; };
 		1A08FD1828FFADD600395879 /* CLM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CLM.mm; sourceTree = "<group>"; };
-		1A08FD2728FFB6F400395879 /* StickerCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerCameraViewController.h; sourceTree = "<group>"; };
-		1A08FD2828FFB6F400395879 /* StickerCameraViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StickerCameraViewController.mm; sourceTree = "<group>"; };
 		1A08FD2D28FFC13700395879 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		1A08FD2E28FFC13700395879 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		1A08FD3029000E4000395879 /* stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stickers; sourceTree = "<group>"; };
@@ -104,7 +101,7 @@
 		1A70F2C128FFA2030009510B /* model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model; path = KingsoftLiveTest/model; sourceTree = SOURCE_ROOT; };
 		1AE4518028FAE62E008EE1A4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animate.swift"; sourceTree = "<group>"; };
-		1AFAAE6729023D8C00521ADA /* StickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerManager.swift; sourceTree = "<group>"; };
+		1AFAAE6729023D8C00521ADA /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KingsoftLiveTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		785B5834F586AF620ABD2A15 /* Pods-KingsoftLiveTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.debug.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A76530D244A7BDD5AAB9B3 /* Pods-KingsoftLiveTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.release.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,30 +149,23 @@
 		1A03EC6328F5831C0006A745 /* KingsoftLiveTest */ = {
 			isa = PBXGroup;
 			children = (
-				1A08FD3029000E4000395879 /* stickers */,
-				1A70F2BC28FFA09C0009510B /* FaceModel */,
-				1A70F2B728FF978B0009510B /* StickerFilter */,
-				1AE4518628FD0851008EE1A4 /* Extension */,
-				1A0A2C4028F713A3009C16BF /* Resource */,
-				1A0A2C3D28F7096D009C16BF /* View */,
 				1A03EC6428F5831C0006A745 /* AppDelegate.swift */,
-				1A03EC6628F5831C0006A745 /* SceneDelegate.swift */,
-				1A03EC6828F5831C0006A745 /* ViewController.swift */,
-				1A03EC6A28F5831C0006A745 /* Main.storyboard */,
 				1A03EC6D28F5831E0006A745 /* Assets.xcassets */,
-				1A03EC6F28F5831E0006A745 /* LaunchScreen.storyboard */,
+				1AE4518628FD0851008EE1A4 /* Extension */,
+				1A70F2BC28FFA09C0009510B /* FaceModel */,
 				1A03EC7228F5831E0006A745 /* Info.plist */,
-				1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */,
-				1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */,
-				1AE4518028FAE62E008EE1A4 /* TestViewController.swift */,
-				1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */,
-				1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */,
-				1A08FD2728FFB6F400395879 /* StickerCameraViewController.h */,
-				1A08FD2828FFB6F400395879 /* StickerCameraViewController.mm */,
-				1A08FD2D28FFC13700395879 /* Utils.h */,
-				1A08FD2E28FFC13700395879 /* Utils.m */,
 				1A12CF2528FEC22E007DFF3F /* KingsoftLiveTest-Bridging-Header.h */,
-				1AFAAE6729023D8C00521ADA /* StickerManager.swift */,
+				1A03EC6F28F5831E0006A745 /* LaunchScreen.storyboard */,
+				1A03EC6A28F5831C0006A745 /* Main.storyboard */,
+				1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */,
+				1A0A2C4028F713A3009C16BF /* Resource */,
+				1A03EC6628F5831C0006A745 /* SceneDelegate.swift */,
+				1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */,
+				1AFAAE692902421F00521ADA /* FilterManager */,
+				1A08FD3029000E4000395879 /* stickers */,
+				1AE4518028FAE62E008EE1A4 /* TestViewController.swift */,
+				1A0A2C3D28F7096D009C16BF /* View */,
+				1A03EC6828F5831C0006A745 /* ViewController.swift */,
 			);
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
@@ -260,6 +250,19 @@
 				1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		1AFAAE692902421F00521ADA /* FilterManager */ = {
+			isa = PBXGroup;
+			children = (
+				1A70F2B728FF978B0009510B /* StickerFilter */,
+				1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */,
+				1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */,
+				1A08FD2D28FFC13700395879 /* Utils.h */,
+				1A08FD2E28FFC13700395879 /* Utils.m */,
+				1AFAAE6729023D8C00521ADA /* FilterManager.swift */,
+			);
+			path = FilterManager;
 			sourceTree = "<group>";
 		};
 		E945A0AE78B9D20213467BC7 /* Frameworks */ = {
@@ -395,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AFAAE6829023D8C00521ADA /* StickerManager.swift in Sources */,
+				1AFAAE6829023D8C00521ADA /* FilterManager.swift in Sources */,
 				1A08FD1E28FFADD600395879 /* ATM.mm in Sources */,
 				1A08FD2228FFADD600395879 /* FaceDetect.mm in Sources */,
 				1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */,
@@ -411,7 +414,6 @@
 				1A08FD1A28FFADD600395879 /* Detector.mm in Sources */,
 				1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */,
 				1A08FD2128FFADD600395879 /* Warp.cpp in Sources */,
-				1A08FD2928FFB6F400395879 /* StickerCameraViewController.mm in Sources */,
 				1A08FD1D28FFADD600395879 /* IO.cpp in Sources */,
 				1A03EC6528F5831C0006A745 /* AppDelegate.swift in Sources */,
 				1A08FD1B28FFADD600395879 /* FCheck.cpp in Sources */,

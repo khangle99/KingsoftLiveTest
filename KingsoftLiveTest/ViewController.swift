@@ -34,9 +34,12 @@ class ViewController: UIViewController {
         }
     }
     
+    // filter
     @IBOutlet weak var filterView: UIView!
-    private let beautyFilter = KSYBeautifyFaceFilter()
+    
     @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
+    
+    private var filterManager = FilterManager.shared
     
     private var isShowBeautyConfigure: Bool = false {
         didSet {
@@ -59,16 +62,19 @@ class ViewController: UIViewController {
         //isShowSongLibrary = false
         streamerKit?.streamerBase.videoCodec = .X264
         streamerKit?.streamerBase.audioCodec = .AAC
+        streamerKit?.capturePixelFormat = kCVPixelFormatType_32BGRA
+        streamerKit?.videoFPS = 30
         
         // configure performance
         streamerKit?.streamerBase.liveScene = .showself
         streamerKit?.streamerBase.recScene = .constantBitRate
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
         
-        streamerKit?.setupFilter(beautyFilter)
+        streamerKit?.setupFilter(filterManager.composedFilter())
+       
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
-        streamerKit?.streamDimension = CGSize(width: 1280, height: 720)
+        streamerKit?.streamDimension = CGSize(width: 720, height: 1280)
         streamerKit?.startPreview(previewView)
     
         observeBGM()
@@ -77,6 +83,11 @@ class ViewController: UIViewController {
         observeRecordState()
         
         focusView.frame.size = CGSize(width: 80, height: 80)
+        
+        streamerKit?.videoProcessingCallback = { [weak self] buffer in
+            self?.filterManager.configureFaceWidget(sampleBuffer: buffer)
+        }
+        
     }
     
     private func observeBGM() {
@@ -320,19 +331,24 @@ class ViewController: UIViewController {
     }
     
     @IBAction func grindSliderDidChange(_ sender: UISlider) {
-        beautyFilter?.grindRatio = CGFloat(sender.value)
+        filterManager.grindRatio = CGFloat(sender.value)
     }
     
     @IBAction func whitenSliderDidChange(_ sender: UISlider) {
-        beautyFilter?.whitenRatio = CGFloat(sender.value)
+        filterManager.whitenRatio = CGFloat(sender.value)
     }
     @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
-        if sender.isOn {
-            streamerKit?.setupFilter(beautyFilter)
-        } else {
-            streamerKit?.setupFilter(nil)
-        }
+        filterManager.isBeautyOn = sender.isOn
+        streamerKit?.setupFilter(filterManager.composedFilter())
+        
     }
+    
+    
+    @IBAction func pigStickerDidChange(_ sender: UISwitch) {
+        filterManager.isPigStickerOn = sender.isOn
+        streamerKit?.setupFilter(filterManager.composedFilter())
+    }
+    
     // MARK: - Record while push
     
     private var isRecording = false {

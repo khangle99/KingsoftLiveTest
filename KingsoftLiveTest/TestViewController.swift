@@ -12,23 +12,11 @@ import VideoToolbox
 
 class TestViewController: UIViewController {
     
-//    private var faceWidgetPicture: GPUImagePicture?
-//    private var faceWidgetPicture1: GPUImagePicture?
-//
-//    private var faceWidgetFilter: GPUImageFaceWidgetComposeFilter!
-//    private var faceWidgetFilter1: GPUImageFaceWidgetComposeFilter!
-//    private var cameraSize = CGSize(width: 720, height: 1280)
-//    private var stickerFrameIndex: Int = 0
-//    private var stickerPath: String = ""
-//
-//    private var gpuImageCache: [String: GPUImagePicture] = [:]
-   
     @IBOutlet weak var previewView: UIView!
     
     var streamKit = KSYGPUStreamerKit(defaultCfg: ())!
     
-   // private var openCV: OpenCVWrapper!
-    private let stickerManager =  StickerManager.shared
+    private let stickerManager =  FilterManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +25,7 @@ class TestViewController: UIViewController {
         streamKit.videoOrientation = .portrait
         
         streamKit.capturePixelFormat = kCVPixelFormatType_32BGRA
-        streamKit.gpuOutputPixelFormat = kCVPixelFormatType_32BGRA
+        //streamKit.gpuOutputPixelFormat = kCVPixelFormatType_32BGRA
         
         streamKit.startPreview(previewView)
         
@@ -55,7 +43,7 @@ class TestViewController: UIViewController {
     }
     private func setupSticker() {
         // init filter
-        streamKit.setupFilter( stickerManager.setupPigSticker())
+        streamKit.setupFilter( stickerManager.composedFilter())
     }
     
     func convertBuffer(from image: UIImage) -> CVPixelBuffer? {

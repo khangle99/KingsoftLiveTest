@@ -6,10 +6,6 @@
 //  Copyright (c) 2014年 cain. All rights reserved.
 //
 
-#define PICS_TAGID 2000
-#define MYAPPID 1130177039
-#define appDomain @"http://120.24.171.134/";
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
