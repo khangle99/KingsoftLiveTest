@@ -4,3 +4,4 @@
 
 #import "OpenCVWrapper.h"
 #import "GPUImageFaceWidgetComposeFilter.h"
+#import "YUGPUImageCVPixelBufferInput.h"

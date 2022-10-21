@@ -41,6 +41,8 @@
 		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
 		1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */; };
 		1AFAAE6829023D8C00521ADA /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* FilterManager.swift */; };
+		1AFAAE6B2902824E00521ADA /* LiveRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */; };
+		1AFAAE6E2902901000521ADA /* YUGPUImageCVPixelBufferInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */; };
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +104,9 @@
 		1AE4518028FAE62E008EE1A4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animate.swift"; sourceTree = "<group>"; };
 		1AFAAE6729023D8C00521ADA /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRecorder.swift; sourceTree = "<group>"; };
+		1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUGPUImageCVPixelBufferInput.m; sourceTree = "<group>"; };
+		1AFAAE6D2902901000521ADA /* YUGPUImageCVPixelBufferInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUGPUImageCVPixelBufferInput.h; sourceTree = "<group>"; };
 		249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KingsoftLiveTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		785B5834F586AF620ABD2A15 /* Pods-KingsoftLiveTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.debug.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A76530D244A7BDD5AAB9B3 /* Pods-KingsoftLiveTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.release.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +171,7 @@
 				1AE4518028FAE62E008EE1A4 /* TestViewController.swift */,
 				1A0A2C3D28F7096D009C16BF /* View */,
 				1A03EC6828F5831C0006A745 /* ViewController.swift */,
+				1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */,
 			);
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
@@ -244,6 +250,8 @@
 		1AE4518628FD0851008EE1A4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				1AFAAE6D2902901000521ADA /* YUGPUImageCVPixelBufferInput.h */,
+				1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */,
 				1A08FD32290050B100395879 /* Category.h */,
 				1A08FD33290050B100395879 /* Category.m */,
 				1A08FCFA28FFAD9900395879 /* LandmarkDetector */,
@@ -400,6 +408,7 @@
 			files = (
 				1AFAAE6829023D8C00521ADA /* FilterManager.swift in Sources */,
 				1A08FD1E28FFADD600395879 /* ATM.mm in Sources */,
+				1AFAAE6B2902824E00521ADA /* LiveRecorder.swift in Sources */,
 				1A08FD2228FFADD600395879 /* FaceDetect.mm in Sources */,
 				1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */,
 				1A08FD2F28FFC13700395879 /* Utils.m in Sources */,
@@ -420,6 +429,7 @@
 				1A08FD1928FFADD600395879 /* Patch.cpp in Sources */,
 				1A08FD2328FFADD600395879 /* RegistrationCheck.cpp in Sources */,
 				1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */,
+				1AFAAE6E2902901000521ADA /* YUGPUImageCVPixelBufferInput.m in Sources */,
 				1A08FD1F28FFADD600395879 /* FaceAR.cpp in Sources */,
 				1A12CF2828FEC22E007DFF3F /* OpenCVWrapper.mm in Sources */,
 				1A03EC6728F5831C0006A745 /* SceneDelegate.swift in Sources */,

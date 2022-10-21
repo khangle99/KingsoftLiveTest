@@ -12,6 +12,7 @@ import Photos
 class ViewController: UIViewController {
     
     @IBOutlet weak var previewView: UIView!
+    private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
     @IBOutlet weak var recImageView: UIImageView!
@@ -53,7 +54,8 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+    // recorder
+    private var liveRecorder = LiveRecorder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.videoCodec = .X264
         streamerKit?.streamerBase.audioCodec = .AAC
         streamerKit?.capturePixelFormat = kCVPixelFormatType_32BGRA
-        streamerKit?.videoFPS = 30
+        streamerKit?.videoFPS = 24
         
         // configure performance
         streamerKit?.streamerBase.liveScene = .showself
@@ -74,20 +76,24 @@ class ViewController: UIViewController {
        
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
-        streamerKit?.streamDimension = CGSize(width: 720, height: 1280)
+        streamerKit?.streamDimension = cameraSize
         streamerKit?.startPreview(previewView)
     
         observeBGM()
         handleRouteInterrupt()
         observeStreamState()
-        observeRecordState()
         
         focusView.frame.size = CGSize(width: 80, height: 80)
         
+        // filter process
+        filterManager.cameraSize = cameraSize
         streamerKit?.videoProcessingCallback = { [weak self] buffer in
             self?.filterManager.configureFaceWidget(sampleBuffer: buffer)
         }
         
+        // setup recorder
+        liveRecorder.delegate = self
+        liveRecorder.size = cameraSize
     }
     
     private func observeBGM() {
@@ -340,7 +346,6 @@ class ViewController: UIViewController {
     @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
         filterManager.isBeautyOn = sender.isOn
         streamerKit?.setupFilter(filterManager.composedFilter())
-        
     }
     
     
@@ -363,43 +368,25 @@ class ViewController: UIViewController {
     }
     
     private var recordFileURL: URL?
+    private var pixelBufferInput: YUGPUImageCVPixelBufferInput!
     
     private func onRecordOptionChange(_ shouldRecord: Bool) {
         if shouldRecord {
-            
+            pixelBufferInput = YUGPUImageCVPixelBufferInput()
             let documentDirectoryUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             guard let fileURL = documentDirectoryUrl?.appendingPathComponent("hello.mp4") else { return }
 
             deleteFile(url: fileURL)
             recordFileURL = fileURL
-            streamerKit?.streamerBase.startBypassRecord(fileURL)
-        } else {
-            streamerKit?.streamerBase.stopBypassRecord()
-        }
-    }
-    
-    private func observeRecordState() {
-        streamerKit?.streamerBase.bypassRecordStateChange = { [weak self] state in
-            guard let self = self else { return }
-            switch state {
-            case .idle:
-                break
-            case .recording:
-                break
-            case .stopped:
-                // save to album
-                guard let recordFileURL = self.recordFileURL else {
-                    return
-                }
-                
-                self.saveToAlbum(url: recordFileURL)
-                break
-            case .error:
-                // errorhandle
-                break
-            default:
-                break
+            liveRecorder.recordFileURL = fileURL
+            // adapt ksylive pixelBuffer
+            streamerKit?.gpuToStr.videoProcessingCallback = { [weak self] buffer, time in
+                self?.pixelBufferInput.processCVPixelBuffer(buffer, frameTime: time)
             }
+
+            liveRecorder.startRecord(gpuImageOutput:pixelBufferInput)
+        } else {
+            liveRecorder.finishRecord()
         }
     }
     
@@ -502,6 +489,17 @@ extension ViewController: SongLibraryViewControllerDelegate {
         } else {
             streamerKit?.bgmPlayer.startPlayBgm(urlString, isLoop: false)
         }
+    }
+}
+
+extension ViewController: LiveRecorderDelegate {
+    func recordCompeleted() {
+        guard let url = recordFileURL else { return }
+        self.saveToAlbum(url: url)
+    }
+    
+    func recordFailWithError(_ error: Error) {
+        
     }
 }
 

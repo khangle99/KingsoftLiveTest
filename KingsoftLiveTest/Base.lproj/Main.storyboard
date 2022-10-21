@@ -116,7 +116,7 @@
                                     <segue destination="W5E-Pl-vdr" kind="embed" identifier="mixer" id="1Yo-u0-BMp"/>
                                 </connections>
                             </containerView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNb-o6-q6e" userLabel="Record button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNb-o6-q6e" userLabel="Record button">
                                 <rect key="frame" x="266" y="822.5" width="32" height="32"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="rec-button"/>
