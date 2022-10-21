@@ -41,6 +41,7 @@
 		1A70F2C228FFA2030009510B /* model in Resources */ = {isa = PBXBuildFile; fileRef = 1A70F2C128FFA2030009510B /* model */; };
 		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
 		1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */; };
+		1AFAAE6829023D8C00521ADA /* StickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* StickerManager.swift */; };
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		1A70F2C128FFA2030009510B /* model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model; path = KingsoftLiveTest/model; sourceTree = SOURCE_ROOT; };
 		1AE4518028FAE62E008EE1A4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animate.swift"; sourceTree = "<group>"; };
+		1AFAAE6729023D8C00521ADA /* StickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerManager.swift; sourceTree = "<group>"; };
 		249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KingsoftLiveTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		785B5834F586AF620ABD2A15 /* Pods-KingsoftLiveTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.debug.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A76530D244A7BDD5AAB9B3 /* Pods-KingsoftLiveTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.release.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				1A08FD2D28FFC13700395879 /* Utils.h */,
 				1A08FD2E28FFC13700395879 /* Utils.m */,
 				1A12CF2528FEC22E007DFF3F /* KingsoftLiveTest-Bridging-Header.h */,
+				1AFAAE6729023D8C00521ADA /* StickerManager.swift */,
 			);
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AFAAE6829023D8C00521ADA /* StickerManager.swift in Sources */,
 				1A08FD1E28FFADD600395879 /* ATM.mm in Sources */,
 				1A08FD2228FFADD600395879 /* FaceDetect.mm in Sources */,
 				1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */,
