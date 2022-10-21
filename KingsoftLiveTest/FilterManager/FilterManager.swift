@@ -38,7 +38,7 @@ class FilterManager {
     private var faceWidgetFilter1: GPUImageFaceWidgetComposeFilter?
     
     // skin filters
-    private let beautyFilter = KSYBeautifyFaceFilter()
+    private var beautyFilter = KSYBeautifyFaceFilter()
     
     private var stickerFrameIndex: Int = 0
     private var stickerPath: String = ""
@@ -60,6 +60,8 @@ class FilterManager {
         let filterGroup = GPUImageFilterGroup()
      
         if isBeautyOn {
+            beautyFilter?.removeAllTargets()
+            beautyFilter = KSYBeautifyFaceFilter()
             filterGroup.addFilter(beautyFilter)
             filterList.append(beautyFilter!)
         }
@@ -107,6 +109,9 @@ class FilterManager {
     
     
     func configureFaceWidget(sampleBuffer: CMSampleBuffer?) {
+        if !isPigStickerOn {
+            return
+        }
         guard let sampleBuffer = sampleBuffer,
               let filter = self.faceWidgetFilter,
               let filter1 = self.faceWidgetFilter1,

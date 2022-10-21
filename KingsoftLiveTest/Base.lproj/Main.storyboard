@@ -255,8 +255,8 @@
                         <outlet property="focusView" destination="ghg-N1-asr" id="zR1-yY-Imr"/>
                         <outlet property="mixerViewHeight" destination="zGU-wz-urc" id="Too-eM-C7Q"/>
                         <outlet property="previewView" destination="k6e-wJ-vgu" id="mIM-Cb-lEk"/>
-                        <outlet property="recImageView" destination="xvF-Gs-o1t" id="93Q-Nv-Kh1"/>
                         <outlet property="recordBtn" destination="PNb-o6-q6e" id="0Yp-8Y-48o"/>
+                        <outlet property="rectImageView" destination="xvF-Gs-o1t" id="iT9-uA-Raz"/>
                         <outlet property="songLibaryButton" destination="kRn-y1-PEE" id="Lrr-zv-eNh"/>
                         <outlet property="songLibraryView" destination="Ngm-qF-izD" id="vP0-y2-miS"/>
                         <outlet property="startLiveBtn" destination="M9g-cD-MkH" id="e4z-hm-4Jj"/>

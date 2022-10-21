@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
-    @IBOutlet weak var recImageView: UIImageView!
+    @IBOutlet weak var rectImageView: UIImageView!
     @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet weak var audioStateLabel: UILabel!
     
@@ -237,7 +237,7 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.28.57/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.127.57/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
             
@@ -358,7 +358,7 @@ class ViewController: UIViewController {
     
     private var isRecording = false {
         didSet {
-            recImageView.isHidden = !isRecording
+            rectImageView.isHidden = !isRecording
             onRecordOptionChange(isRecording)
         }
     }
