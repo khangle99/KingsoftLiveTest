@@ -6,7 +6,7 @@ target 'KingsoftLiveTest' do
   use_frameworks!
 pod 'libksygpulive/KSYGPUResource'
 pod 'libksygpulive/libksygpulive'
-pod 'OpenCV', '3.0.0'
+pod 'OpenCV', '3.4.0'
   # Pods for KingsoftLiveTest
 
 end
