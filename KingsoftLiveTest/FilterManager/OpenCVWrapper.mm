@@ -130,9 +130,7 @@ typedef enum{
  
     NSArray *faces = [self.facDetector landmark:gray_image scale:scale lowModel:false isFrontCamera:self.isFrontCamera];
     gray_image.release();
-    //[self GPUVCWillOutputFeatures:faces];
-    NSLog(@"COunt: %d", [faces count]);
-    return [[NSArray alloc] init];
+    return [self GPUVCWillOutputFeatures:faces];
 }
 
 - (NSArray *)GPUVCWillOutputFeatures:(NSArray *)faceArray

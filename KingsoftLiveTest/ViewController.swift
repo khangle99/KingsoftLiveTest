@@ -64,12 +64,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
         videoCamera.horizontallyMirrorFrontFacingCamera = true
-        videoCamera.addTarget(previewView)
         videoCamera.startCapture()
+        videoCamera.frameRate = 24
         videoCamera.delegate = self
-        openCV = OpenCVWrapper()
-        openCV.configure()
-        openCV.cameraSize = self.cameraSize
         
         songLibraryView.alpha = 0
         mixerViewHeight.constant = 0
@@ -85,12 +82,11 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
         
         streamerKit?.setupFilter(filterManager.composedFilter())
-       
+        
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
         streamerKit?.streamDimension = cameraSize
-       // streamerKit?.startPreview(previewView)
-    
+        
         observeBGM()
         handleRouteInterrupt()
         observeStreamState()
@@ -99,11 +95,11 @@ class ViewController: UIViewController {
         
         // filter process
         filterManager.cameraSize = cameraSize
-        streamerKit?.videoProcessingCallback = { [weak self] buffer in
-            //self?.filterManager.configureFaceWidget(sampleBuffer: buffer)
-            guard let buffer = buffer else { return }
-            //self?.openCV.grepFaces(for: buffer)
-        }
+ 
+        previewView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill
+        streamerKit?.vPreviewMixer.addTarget(previewView)
+        streamerKit?.aCapDev.start()
+        
         
         // setup recorder
         liveRecorder.delegate = self
@@ -251,7 +247,7 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.127.57/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.1.3/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
             
@@ -523,6 +519,7 @@ extension ViewController: MixerViewControllerDelegate {
 
 extension ViewController: GPUImageVideoCameraDelegate {
     func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
-        openCV.grepFaces(for: sampleBuffer)
+        self.filterManager.configureFaceWidget(sampleBuffer: sampleBuffer)
+        streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
     }
 }
