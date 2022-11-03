@@ -11,7 +11,7 @@ import Photos
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var previewView: GPUImageView!
     private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
@@ -27,6 +27,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
+    private var openCV: OpenCVWrapper!
+    
+    private var videoCamera: VideoCamera!
     private var isShowSongLibrary = false {
         didSet {
             UIView.animate(withDuration: 0.2) {
@@ -59,6 +62,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
+        videoCamera.horizontallyMirrorFrontFacingCamera = true
+        videoCamera.addTarget(previewView)
+        videoCamera.startCapture()
+        videoCamera.delegate = self
+        openCV = OpenCVWrapper()
+        openCV.configure()
+        openCV.cameraSize = self.cameraSize
+        
         songLibraryView.alpha = 0
         mixerViewHeight.constant = 0
         //isShowSongLibrary = false
@@ -77,7 +89,7 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
         streamerKit?.cameraPosition = cameraPosition
         streamerKit?.streamDimension = cameraSize
-        streamerKit?.startPreview(previewView)
+       // streamerKit?.startPreview(previewView)
     
         observeBGM()
         handleRouteInterrupt()
@@ -88,7 +100,9 @@ class ViewController: UIViewController {
         // filter process
         filterManager.cameraSize = cameraSize
         streamerKit?.videoProcessingCallback = { [weak self] buffer in
-            self?.filterManager.configureFaceWidget(sampleBuffer: buffer)
+            //self?.filterManager.configureFaceWidget(sampleBuffer: buffer)
+            guard let buffer = buffer else { return }
+            //self?.openCV.grepFaces(for: buffer)
         }
         
         // setup recorder
@@ -505,4 +519,10 @@ extension ViewController: LiveRecorderDelegate {
 
 extension ViewController: MixerViewControllerDelegate {
     
+}
+
+extension ViewController: GPUImageVideoCameraDelegate {
+    func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
+        openCV.grepFaces(for: sampleBuffer)
+    }
 }

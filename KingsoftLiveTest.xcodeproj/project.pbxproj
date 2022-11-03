@@ -43,6 +43,7 @@
 		73AFE5CB2913C11A00F9CA2B /* ShapePredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5BA2913C11A00F9CA2B /* ShapePredictor.mm */; };
 		73AFE5CC2913C11A00F9CA2B /* myFaceAR.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5BB2913C11A00F9CA2B /* myFaceAR.mm */; };
 		73AFE5CD2913C11A00F9CA2B /* ShapeModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5BD2913C11A00F9CA2B /* ShapeModel.cpp */; };
+		73AFE5D02913D96600F9CA2B /* VideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5CE2913D96600F9CA2B /* VideoCamera.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,8 @@
 		73AFE5BD2913C11A00F9CA2B /* ShapeModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeModel.cpp; sourceTree = "<group>"; };
 		73AFE5BE2913C11A00F9CA2B /* ShapeModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapeModel.hpp; sourceTree = "<group>"; };
 		73AFE5BF2913C11A00F9CA2B /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		73AFE5CE2913D96600F9CA2B /* VideoCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCamera.m; sourceTree = "<group>"; };
+		73AFE5CF2913D96600F9CA2B /* VideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCamera.h; sourceTree = "<group>"; };
 		785B5834F586AF620ABD2A15 /* Pods-KingsoftLiveTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.debug.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A76530D244A7BDD5AAB9B3 /* Pods-KingsoftLiveTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KingsoftLiveTest.release.xcconfig"; path = "Target Support Files/Pods-KingsoftLiveTest/Pods-KingsoftLiveTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,6 +218,8 @@
 				1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */,
 				1A08FD32290050B100395879 /* Category.h */,
 				1A08FD33290050B100395879 /* Category.m */,
+				73AFE5CF2913D96600F9CA2B /* VideoCamera.h */,
+				73AFE5CE2913D96600F9CA2B /* VideoCamera.m */,
 				1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */,
 			);
 			path = Extension;
@@ -425,6 +430,7 @@
 				73AFE5C72913C11A00F9CA2B /* CLM.mm in Sources */,
 				1AFAAE6E2902901000521ADA /* YUGPUImageCVPixelBufferInput.m in Sources */,
 				73AFE5C02913C11A00F9CA2B /* FaceAR.cpp in Sources */,
+				73AFE5D02913D96600F9CA2B /* VideoCamera.m in Sources */,
 				1A12CF2828FEC22E007DFF3F /* OpenCVWrapper.mm in Sources */,
 				1A03EC6728F5831C0006A745 /* SceneDelegate.swift in Sources */,
 				73AFE5C12913C11A00F9CA2B /* RegistrationCheck.cpp in Sources */,

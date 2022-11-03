@@ -102,7 +102,6 @@ typedef enum{
 }
 
 - (NSArray *)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    // b1: tao ra anh cv::Mat
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress( imageBuffer, 0 );
     void* bufferAddress;
@@ -117,10 +116,9 @@ typedef enum{
     height = CVPixelBufferGetHeight(imageBuffer);
     bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
     
-    cv::Mat image((int)height, (int)width, format_opencv, bufferAddress, bytesPerRow); // anh cv::Mat
+    cv::Mat image((int)height, (int)width, format_opencv, bufferAddress, bytesPerRow);
     CVPixelBufferUnlockBaseAddress( imageBuffer, 0 );
-    
-    // b2: resize va chuyen sang gray image
+ 
     float scale = 0.35;
     if(self.isFrontCamera){
         scale = 0.3;
@@ -128,14 +126,13 @@ typedef enum{
     
     cv::resize(image(cv::Rect(0,160,720,960)),image,cv::Size(scale*image.cols,scale*image.cols * 1.33),0 ,0 ,cv::INTER_NEAREST);
     __block cv::Mat_<uint8_t> gray_image;
-    cv::cvtColor(image, gray_image, CV_BGR2GRAY); // chuyen sang gray image, de tang toc phan tich
+    cv::cvtColor(image, gray_image, CV_BGR2GRAY);
  
-    // call opencv phan tich mat
     NSArray *faces = [self.facDetector landmark:gray_image scale:scale lowModel:false isFrontCamera:self.isFrontCamera];
     gray_image.release();
-    // su dung faces data sau khi tich hop
-    //NSLog(@"Count %lu", (unsigned long)faces.count);
-    return [self GPUVCWillOutputFeatures:faces];
+    //[self GPUVCWillOutputFeatures:faces];
+    NSLog(@"COunt: %d", [faces count]);
+    return [[NSArray alloc] init];
 }
 
 - (NSArray *)GPUVCWillOutputFeatures:(NSArray *)faceArray
@@ -422,24 +419,23 @@ typedef enum{
     return CGPointMake((p1.x + p2.x) / 2.0f, (p1.y + p2.y) / 2.0f);
 }
 
-
-+ (UIImage *)convertImageToGrayScale:(UIImage *)image
-{
-    CIImage *inputImage = [CIImage imageWithCGImage:image.CGImage];
-    CIContext *context = [CIContext contextWithOptions:nil];
-    
-    CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
-    [filter setValue:inputImage forKey:kCIInputImageKey];
-    [filter setValue:@(0.0) forKey:kCIInputSaturationKey];
-    
-    CIImage *outputImage = filter.outputImage;
-    
-    CGImageRef cgImageRef = [context createCGImage:outputImage fromRect:outputImage.extent];
-    
-    UIImage *result = [UIImage imageWithCGImage:cgImageRef];
-    CGImageRelease(cgImageRef);
-    return result;
-}
+//+ (UIImage *)convertImageToGrayScale:(UIImage *)image
+//{
+//    CIImage *inputImage = [CIImage imageWithCGImage:image.CGImage];
+//    CIContext *context = [CIContext contextWithOptions:nil];
+//
+//    CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
+//    [filter setValue:inputImage forKey:kCIInputImageKey];
+//    [filter setValue:@(0.0) forKey:kCIInputSaturationKey];
+//
+//    CIImage *outputImage = filter.outputImage;
+//
+//    CGImageRef cgImageRef = [context createCGImage:outputImage fromRect:outputImage.extent];
+//
+//    UIImage *result = [UIImage imageWithCGImage:cgImageRef];
+//    CGImageRelease(cgImageRef);
+//    return result;
+//}
 -(BOOL)isEmpty:(id)value{
     if(value == nil || value == Nil || value == (id)[NSNull null]){
         return YES;

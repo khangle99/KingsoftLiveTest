@@ -469,13 +469,13 @@ cv::Rect SInit::Update(cv::Mat &im,cv::Mat &s,bool rsize)
       cv::resize(im,small_,cv::Size(TSCALE*ww,TSCALE*hh),0,0,CV_INTER_LINEAR);
     }
     cv::resize(im,small_,cv::Size(TSCALE*ww,TSCALE*hh),0,0,CV_INTER_LINEAR);
-      printf("R %d %d %d %d \n",R.x,R.y,R.width,R.height);
+      //printf("R %d %d %d %d \n",R.x,R.y,R.width,R.height);
     if(0 <= R.x && 0 <= R.width && R.x + R.width <= small_.cols && 0 <= R.y && 0 <= R.height && R.y + R.height <= small_.rows){
         temp_ = small_(R).clone();
         R.x *= 1.0/TSCALE; R.y *= 1.0/TSCALE;
         R.width *= 1.0/TSCALE; R.height *= 1.0/TSCALE;
     }else{
-        printf("sss");
+        //printf("sss");
     }
     return R;
   }

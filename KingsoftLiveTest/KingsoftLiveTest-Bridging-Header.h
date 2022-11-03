@@ -5,3 +5,4 @@
 #import "OpenCVWrapper.h"
 #import "GPUImageFaceWidgetComposeFilter.h"
 #import "YUGPUImageCVPixelBufferInput.h"
+#import "VideoCamera.h"
