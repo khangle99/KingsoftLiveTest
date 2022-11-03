@@ -8,27 +8,6 @@
 
 #import "Category.h"
 
-
-@implementation UIColor (GDIAdditions)
-
-+ (UIColor *)colorWithRGBHex:(NSUInteger)hex
-{
-    return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16))/255.0f
-                           green:((float)((hex & 0xFF00) >> 8))/255.0f
-                            blue:((float)(hex & 0xFF))/255.0 alpha:1.0];
-}
-
-+ (UIColor *)colorWithARGBHex:(NSUInteger)hex
-{
-    float alpha = ((float)((hex & 0xFF000000) >> 24))/255.0f;
-    return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16))/255.0f
-                           green:((float)((hex & 0xFF00) >> 8))/255.0f
-                            blue:((float)(hex & 0xFF))/255.0f alpha:alpha];
-}
-
-@end
-
-
 @implementation NSDictionary (DeepCopy)
 - (NSMutableDictionary *)mutableDeepCopy {
     NSMutableDictionary *ret = [[NSMutableDictionary alloc] initWithCapacity:[self count]];

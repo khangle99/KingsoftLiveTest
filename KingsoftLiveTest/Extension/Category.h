@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor(GDIAdditions)
-
-+ (UIColor *)colorWithRGBHex:(NSUInteger)hex;
-+ (UIColor *)colorWithARGBHex:(NSUInteger)hex;
-
-@end
-
-
 @interface NSDictionary (DeepCopy)
 - (NSMutableDictionary *) mutableDeepCopy;
 @end

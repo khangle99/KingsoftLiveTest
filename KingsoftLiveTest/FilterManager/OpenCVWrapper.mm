@@ -143,26 +143,7 @@ typedef enum{
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     // MARK: - reset if no face
     if (!faceArray || [faceArray count]<1) {
-//        // reset toan bo sticker params cua 6 filter item
-//        NSDictionary *parames = @{ @"count" : @"0"};
-//        [self.faceWidgetFilter setStickerParams:parames];
-//        [self.faceWidgetFilter1 setStickerParams:parames];
-//        [self.faceWidgetFilter2 setStickerParams:parames];
-//        [self.faceWidgetFilter3 setStickerParams:parames];
-//        [self.faceWidgetFilter4 setStickerParams:parames];
-//        [self.faceWidgetFilter5 setStickerParams:parames];
-//        [self.meshFilter setItems:nil];
-//        self.backgroundFilter.fcount = 0;
-        self.detectoredFace = NO;
-//        if((now - self.lastDetectorFaceTime) > 0.5){ //  neu tren 0.5s tinh tu lan cuoi phat hien ra face thi hien alert view (uiimageview)
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.faceAlertView.hidden = NO;
-//                NSLog(@"");
-//            });
-//        }
-//        self.faceFilter.items = nil;
         self.mouthOpening = NO;
-//        self.mouthStickerFrameIndex = 0;
         return [NSArray new];
     }
 
@@ -416,31 +397,7 @@ typedef enum{
     }
  
     faceArray=nil;
-//    for (NSDictionary *faceParam in faceParameArray) {
-//        NSLog(@"faceParam: %@", [faceParam description]);
-//    }
     return faceParameArray;
-    // MARK: update vi tri cua tung filter sticker ()
-//    int i = 0;
-//    for (NSDictionary *item in self.stickerConfig[@"items"]) {
-//        if([item[@"position"] intValue] >= 10){
-//            continue;
-//        }
-//        if(i == 0){
-//            [self.faceWidgetFilter setStickerParams:faceParameArray[i]];
-//        }else if(i == 1){
-//            [self.faceWidgetFilter1 setStickerParams:faceParameArray[i]];
-//        }else if(i == 2){
-//            [self.faceWidgetFilter2 setStickerParams:faceParameArray[i]];
-//        }else if(i == 3){
-//            [self.faceWidgetFilter3 setStickerParams:faceParameArray[i]];
-//        }else if(i == 4){
-//            [self.faceWidgetFilter4 setStickerParams:faceParameArray[i]];
-//        }else if(i == 5){
-//            [self.faceWidgetFilter5 setStickerParams:faceParameArray[i]];
-//        }
-//        i++;
-//    }
 }
 
 -(CGPoint)midPointWithIndex:(NSInteger)index1 :(NSInteger)index2 :(NSInteger[])points {
