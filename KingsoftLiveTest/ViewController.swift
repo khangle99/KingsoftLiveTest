@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         // filter process
         filterManager.cameraSize = cameraSize
  
-        previewView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill
+        previewView.fillMode = kGPUImageFillModeStretch
         streamerKit?.vPreviewMixer.addTarget(previewView)
         streamerKit?.aCapDev.start()
         
@@ -247,7 +247,7 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.1.3/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.150.161/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
             
