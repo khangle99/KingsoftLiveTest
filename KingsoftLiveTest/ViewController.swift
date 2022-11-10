@@ -8,6 +8,7 @@
 import UIKit
 import libksygpulive
 import Photos
+import ZLivestreamSDK
 
 class ViewController: UIViewController {
     
@@ -27,7 +28,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
-    private var openCV: OpenCVWrapper!
     
     private var videoCamera: VideoCamera!
     private var isShowSongLibrary = false {
@@ -59,6 +59,8 @@ class ViewController: UIViewController {
     }
     // recorder
     private var liveRecorder = LiveRecorder()
+    
+    private var streamInfo: ZLSStreamInfo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +106,53 @@ class ViewController: UIViewController {
         // setup recorder
         liveRecorder.delegate = self
         liveRecorder.size = cameraSize
+        
+        // init zls
+        self.initSDK {[weak self] error in
+            //guard let `self` = self else { return }
+            if let error = error, error.code != ZLSErrorCode.SUCCESS.rawValue {
+                print("Init SDK got error: \(error)")
+                //self.showError(error)
+                return
+            }
+            print("Init SDK success")
+        }
+    }
+    
+    
+    fileprivate func initSDK(completion: ((ZLSError?) -> ())?) {
+        //self.showLoading()
+        ZLSSDK.shared.initialize(authenKey: AppConfig.AuthenKey,
+                                 appID: AppConfig.AppID,
+                                 appToken: AppConfig.AppToken,
+                                 apiKey: AppConfig.ApiKey,
+                                 secretKey: AppConfig.SecretKey) {[weak self] in
+//            guard let `self` = self else { return }
+//            self.hideLoading()
+            completion?(nil)
+        } onError: {[weak self] error in
+//            guard let `self` = self else { return }
+//            self.hideLoading()
+            completion?(error)
+        }
+    }
+    
+    private func stopLivetream() {
+        guard let streamID = streamInfo?.streamID else {
+            print("streamInfo is nil")
+            return
+        }
+        ZLSSDK.shared.endLivestream(streamID: streamID) { response in
+            print("\(response)")
+        } onError: {[weak self] error in
+            print("error: \(error)")
+//            DispatchQueue.main.async { [weak self] in
+//                guard let `self` = self else {
+//                    return
+//                }
+//                self.showError(error)
+//            }
+        }
     }
     
     private func observeBGM() {
@@ -247,9 +296,30 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.150.161/live/hello"))
-            startLiveBtn.setTitle("Stop Live", for: .normal)
-            recordBtn.isHidden = false
+            // zls call
+            ZLSSDK.shared.createLivestream { [weak self] streamInfo in
+                guard let `self` = self else { return }
+                self.streamInfo = streamInfo
+                print("\(streamInfo)")
+                //UIPasteboard.general.string = streamInfo.downstreamUrls?[1].url
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else {
+                        return
+                    }
+                    //self.streamInfo = streamInfo
+                    let urlString = "\(streamInfo.upstreamURL!)/\(streamInfo.streamKey!)"
+                    kit.streamerBase.startStream(URL(string: urlString))
+                    self.startLiveBtn.setTitle("Stop Live", for: .normal)
+                    self.recordBtn.isHidden = false
+                }
+            } onError: {[weak self] error in
+                guard let `self` = self else { return }
+                print("\(error)")
+//                self.showError(error)
+            }
+            
+            
+          
             
         }
     }
