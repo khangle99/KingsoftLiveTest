@@ -67,11 +67,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
-//        videoCamera.horizontallyMirrorFrontFacingCamera = true
-//        videoCamera.startCapture()
-//        videoCamera.frameRate = 24
-//        videoCamera.delegate = self
+
+        previewView.preferredFramesPerSecond = 30
         previewView.prepareForRecording()
         arFilterManager = ARFilterManager.shared
         arFilterManager.startPreview(previewView)
@@ -88,12 +85,10 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.liveScene = .showself
         streamerKit?.streamerBase.recScene = .constantBitRate
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
-        streamerKit?.streamerBase.bWithAudio = false
         
         //streamerKit?.setupFilter(filterManager.composedFilter())
         
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
-        //streamerKit?.cameraPosition = cameraPosition
         streamerKit?.streamDimension = cameraSize
         
         observeBGM()
@@ -120,6 +115,9 @@ class ViewController: UIViewController {
             self.streamerKit?.streamerBase.processVideoPixelBuffer(buff, timeInfo: time)
         }
         
+        arFilterManager.sceneView = previewView
+        arFilterManager.selectedVirtualContent = .geometry
+        previewView.delegate = arFilterManager
     }
     
     

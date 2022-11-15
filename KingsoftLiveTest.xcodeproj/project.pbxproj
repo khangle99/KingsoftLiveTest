@@ -96,6 +96,14 @@
 		73089FB829234A7A004C0A63 /* SelfSceneRecordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F7629234A7A004C0A63 /* SelfSceneRecordable.swift */; };
 		73089FB929234A7A004C0A63 /* SelfRecordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F7729234A7A004C0A63 /* SelfRecordable.swift */; };
 		73089FBA29234A7A004C0A63 /* SCNView+SelfSceneRecordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F7929234A7A004C0A63 /* SCNView+SelfSceneRecordable.swift */; };
+		73089FC929237B47004C0A63 /* VirtualContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC329237B47004C0A63 /* VirtualContent.swift */; };
+		73089FCA29237B47004C0A63 /* BlendShapeCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC429237B47004C0A63 /* BlendShapeCharacter.swift */; };
+		73089FCB29237B47004C0A63 /* VideoTexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC529237B47004C0A63 /* VideoTexturedFace.swift */; };
+		73089FCC29237B47004C0A63 /* TransformVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC629237B47004C0A63 /* TransformVisualization.swift */; };
+		73089FCD29237B47004C0A63 /* FaceOcclusionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC729237B47004C0A63 /* FaceOcclusionOverlay.swift */; };
+		73089FCE29237B47004C0A63 /* TexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FC829237B47004C0A63 /* TexturedFace.swift */; };
+		73089FD029237B67004C0A63 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 73089FCF29237B67004C0A63 /* Models.scnassets */; };
+		73089FD229237BA7004C0A63 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089FD129237BA7004C0A63 /* Utilities.swift */; };
 		73AFE5C02913C11A00F9CA2B /* FaceAR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5A42913C11900F9CA2B /* FaceAR.cpp */; };
 		73AFE5C12913C11A00F9CA2B /* RegistrationCheck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5A52913C11900F9CA2B /* RegistrationCheck.cpp */; };
 		73AFE5C22913C11A00F9CA2B /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73AFE5A62913C11900F9CA2B /* Warp.cpp */; };
@@ -233,6 +241,14 @@
 		73089F7629234A7A004C0A63 /* SelfSceneRecordable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSceneRecordable.swift; sourceTree = "<group>"; };
 		73089F7729234A7A004C0A63 /* SelfRecordable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfRecordable.swift; sourceTree = "<group>"; };
 		73089F7929234A7A004C0A63 /* SCNView+SelfSceneRecordable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNView+SelfSceneRecordable.swift"; sourceTree = "<group>"; };
+		73089FC329237B47004C0A63 /* VirtualContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualContent.swift; sourceTree = "<group>"; };
+		73089FC429237B47004C0A63 /* BlendShapeCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendShapeCharacter.swift; sourceTree = "<group>"; };
+		73089FC529237B47004C0A63 /* VideoTexturedFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTexturedFace.swift; sourceTree = "<group>"; };
+		73089FC629237B47004C0A63 /* TransformVisualization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformVisualization.swift; sourceTree = "<group>"; };
+		73089FC729237B47004C0A63 /* FaceOcclusionOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceOcclusionOverlay.swift; sourceTree = "<group>"; };
+		73089FC829237B47004C0A63 /* TexturedFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TexturedFace.swift; sourceTree = "<group>"; };
+		73089FCF29237B67004C0A63 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
+		73089FD129237BA7004C0A63 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		73AFE5A22913C11800F9CA2B /* myFaceAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFaceAR.h; sourceTree = "<group>"; };
 		73AFE5A32913C11800F9CA2B /* Patch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Patch.hpp; sourceTree = "<group>"; };
 		73AFE5A42913C11900F9CA2B /* FaceAR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FaceAR.cpp; sourceTree = "<group>"; };
@@ -398,6 +414,7 @@
 		73089DD029233BAA004C0A63 /* ARFilter */ = {
 			isa = PBXGroup;
 			children = (
+				73089FBB29236CA9004C0A63 /* Resource */,
 				73089F1F29234A79004C0A63 /* MTDMulticastDelegate */,
 				73089F2429234A79004C0A63 /* SCNRecorder */,
 				73089DD329233D00004C0A63 /* libyuv */,
@@ -717,6 +734,29 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		73089FBB29236CA9004C0A63 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				73089FC229237A7E004C0A63 /* VirtualContent */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		73089FC229237A7E004C0A63 /* VirtualContent */ = {
+			isa = PBXGroup;
+			children = (
+				73089FD129237BA7004C0A63 /* Utilities.swift */,
+				73089FCF29237B67004C0A63 /* Models.scnassets */,
+				73089FC429237B47004C0A63 /* BlendShapeCharacter.swift */,
+				73089FC729237B47004C0A63 /* FaceOcclusionOverlay.swift */,
+				73089FC829237B47004C0A63 /* TexturedFace.swift */,
+				73089FC629237B47004C0A63 /* TransformVisualization.swift */,
+				73089FC529237B47004C0A63 /* VideoTexturedFace.swift */,
+				73089FC329237B47004C0A63 /* VirtualContent.swift */,
+			);
+			path = VirtualContent;
+			sourceTree = "<group>";
+		};
 		73AFE5A12913C10700F9CA2B /* LandmarkDetector */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,6 +873,7 @@
 				1A70F2C228FFA2030009510B /* model in Resources */,
 				1A03EC6E28F5831E0006A745 /* Assets.xcassets in Resources */,
 				1A03EC6C28F5831C0006A745 /* Main.storyboard in Resources */,
+				73089FD029237B67004C0A63 /* Models.scnassets in Resources */,
 				1A0A2C4628F7185C009C16BF /* hieuthu2.mp3 in Resources */,
 				1A0A2C4228F713B7009C16BF /* sontung.mp3 in Resources */,
 			);
@@ -890,6 +931,7 @@
 				73089F9029234A7A004C0A63 /* SCNView+MetalRecordable.swift in Sources */,
 				73089F7D29234A7A004C0A63 /* VideoSettings.swift in Sources */,
 				73AFE5CA2913C11A00F9CA2B /* IO.cpp in Sources */,
+				73089FD229237BA7004C0A63 /* Utilities.swift in Sources */,
 				73089FAC29234A7A004C0A63 /* WeakCollection.swift in Sources */,
 				73AFE5C82913C11A00F9CA2B /* FCheck.cpp in Sources */,
 				73089F9729234A7A004C0A63 /* AVCaptureSession+BaseRecorder.swift in Sources */,
@@ -910,6 +952,7 @@
 				73089F9A29234A7A004C0A63 /* VideoRecording.State.swift in Sources */,
 				73089F9829234A7A004C0A63 /* IOSurface+Size.swift in Sources */,
 				73089F8329234A7A004C0A63 /* MetalTexturePool.swift in Sources */,
+				73089FCA29237B47004C0A63 /* BlendShapeCharacter.swift in Sources */,
 				1AFAAE6B2902824E00521ADA /* LiveRecorder.swift in Sources */,
 				1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */,
 				73AFE5C52913C11A00F9CA2B /* Patch.cpp in Sources */,
@@ -921,6 +964,7 @@
 				73089FB029234A7A004C0A63 /* ReadWriteLock.swift in Sources */,
 				73089F7B29234A7A004C0A63 /* MTDOriginMulticastDelegate.m in Sources */,
 				73089F7A29234A7A004C0A63 /* MTDMulticastDelegate.m in Sources */,
+				73089FCB29237B47004C0A63 /* VideoTexturedFace.swift in Sources */,
 				73089FB229234A7A004C0A63 /* Atomic.swift in Sources */,
 				73089F9C29234A7A004C0A63 /* BaseRecorder.AudioInput.swift in Sources */,
 				73089F8229234A7A004C0A63 /* VideoSettings.Codec.swift in Sources */,
@@ -948,6 +992,7 @@
 				73089F8429234A7A004C0A63 /* MetalTexture.swift in Sources */,
 				73AFE5CB2913C11A00F9CA2B /* ShapePredictor.mm in Sources */,
 				73089F8F29234A7A004C0A63 /* ARSCNView+CleanRecordable.swift in Sources */,
+				73089FC929237B47004C0A63 /* VirtualContent.swift in Sources */,
 				1A03EC6528F5831C0006A745 /* AppDelegate.swift in Sources */,
 				73089FA429234A7A004C0A63 /* ImageOutput.swift in Sources */,
 				73089F7E29234A7A004C0A63 /* VideoSettings.FileType.swift in Sources */,
@@ -965,15 +1010,18 @@
 				73AFE5C02913C11A00F9CA2B /* FaceAR.cpp in Sources */,
 				73089F9529234A7A004C0A63 /* MTLPixelFormat+Helpers.swift in Sources */,
 				73089FA129234A7A004C0A63 /* CleanRecorder.VideoInput.swift in Sources */,
+				73089FCE29237B47004C0A63 /* TexturedFace.swift in Sources */,
 				73089FAB29234A7A004C0A63 /* Property.swift in Sources */,
 				73089F8629234A7A004C0A63 /* MetalTexturePoolFactory.swift in Sources */,
 				73089FB629234A7A004C0A63 /* Observable.swift in Sources */,
 				73089FA629234A7A004C0A63 /* VideoOutput.State.swift in Sources */,
+				73089FCC29237B47004C0A63 /* TransformVisualization.swift in Sources */,
 				73AFE5D02913D96600F9CA2B /* VideoCamera.m in Sources */,
 				73089FA029234A7A004C0A63 /* CleanRecorder.swift in Sources */,
 				73089F9B29234A7A004C0A63 /* VideoSettings.ScalingMode.swift in Sources */,
 				73089F9229234A7A004C0A63 /* AudioSettings.swift in Sources */,
 				73089FAF29234A7A004C0A63 /* ReadWriteAtomic.swift in Sources */,
+				73089FCD29237B47004C0A63 /* FaceOcclusionOverlay.swift in Sources */,
 				73089DD229233BBF004C0A63 /* ARFilterManager.swift in Sources */,
 				1A12CF2828FEC22E007DFF3F /* OpenCVWrapper.mm in Sources */,
 				1A03EC6728F5831C0006A745 /* SceneDelegate.swift in Sources */,
