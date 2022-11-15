@@ -13,7 +13,7 @@ import ARKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var previewView: ARSCNView!
-    private var cameraSize = CGSize(width: 720, height: 1280)
+    private var cameraSize = CGSize(width: 1080, height: 1920)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
     @IBOutlet weak var rectImageView: UIImageView!
@@ -43,7 +43,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
     
-    //private var filterManager = FilterManager.shared
     
     private var isShowBeautyConfigure: Bool = false {
         didSet {
@@ -77,13 +76,15 @@ class ViewController: UIViewController {
         mixerViewHeight.constant = 0
         //isShowSongLibrary = false
         streamerKit?.streamerBase.videoCodec = .VT264
+        streamerKit?.streamerBase.videoMinBitrate = 2500
+        streamerKit?.streamerBase.videoMaxBitrate = 4000
         streamerKit?.streamerBase.audioCodec = .AAC
         streamerKit?.capturePixelFormat = kCVPixelFormatType_32BGRA
-        streamerKit?.videoFPS = 24
+        streamerKit?.videoFPS = 30
         
         // configure performance
-        streamerKit?.streamerBase.liveScene = .showself
-        streamerKit?.streamerBase.recScene = .constantBitRate
+        streamerKit?.streamerBase.liveScene = .game
+        streamerKit?.streamerBase.recScene = .constantQuality
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
         
         //streamerKit?.setupFilter(filterManager.composedFilter())
@@ -96,11 +97,6 @@ class ViewController: UIViewController {
         observeStreamState()
         
         focusView.frame.size = CGSize(width: 80, height: 80)
-        // filter process
-        //filterManager.cameraSize = cameraSize
- 
-//        previewView.fillMode = kGPUImageFillModeStretch
-//        streamerKit?.vPreviewMixer.addTarget(previewView)
         
         streamerKit?.aCapDev.start()
         
@@ -111,10 +107,13 @@ class ViewController: UIViewController {
         
         // setup push stream
         pixelOutput = previewView.capturePixelBuffers { [weak self] buff, time in
-            guard let `self` = self else { return }
+            guard let `self` = self,
+            self.streamerKit?.streamerBase.isStreaming() ?? false else { return }
+            
             self.streamerKit?.streamerBase.processVideoPixelBuffer(buff, timeInfo: time)
         }
         
+        // set ar sticker/ virtual content
         arFilterManager.sceneView = previewView
         arFilterManager.selectedVirtualContent = .geometry
         previewView.delegate = arFilterManager
@@ -338,8 +337,6 @@ class ViewController: UIViewController {
         streamerKit?.aCapDev.stop()
     }
 
-    
-    
     // MARK: - Mixer
     
     @IBOutlet weak var mixerViewHeight: NSLayoutConstraint!
