@@ -75,7 +75,7 @@ class SongLibraryViewController: UIViewController {
         default:
             return
         }
-        guard let songPath = Bundle.main.path(forResource: songName, ofType: "mp3") else { return }
+        guard let songPath = Bundle.main.path(forResource: "beat", ofType: "m4a") else { return }
         self.delegate?.didSelectSong(urlString: songPath)
         
         isRunning = true
