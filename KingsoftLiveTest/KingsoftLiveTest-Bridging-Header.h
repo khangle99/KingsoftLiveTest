@@ -6,3 +6,6 @@
 #import "GPUImageFaceWidgetComposeFilter.h"
 #import "YUGPUImageCVPixelBufferInput.h"
 #import "VideoCamera.h"
+#import "libyuv.h"
+#import "MTDMulticastDelegate.h"
+#import "MTDOriginMulticastDelegate.h"

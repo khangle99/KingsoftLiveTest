@@ -8,10 +8,11 @@
 import UIKit
 import libksygpulive
 import Photos
-
+import SceneKit
+import ARKit
 class ViewController: UIViewController {
     
-    @IBOutlet weak var previewView: GPUImageView!
+    @IBOutlet weak var previewView: ARSCNView!
     private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
@@ -27,9 +28,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
-    private var openCV: OpenCVWrapper!
     
-    private var videoCamera: VideoCamera!
+    //private var videoCamera: VideoCamera!
     private var isShowSongLibrary = false {
         didSet {
             UIView.animate(withDuration: 0.2) {
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
     
-    private var filterManager = FilterManager.shared
+    //private var filterManager = FilterManager.shared
     
     private var isShowBeautyConfigure: Bool = false {
         didSet {
@@ -60,18 +60,26 @@ class ViewController: UIViewController {
     // recorder
     private var liveRecorder = LiveRecorder()
     
+    // arkit
+    private var arFilterManager: ARFilterManager!
+    
+    private var pixelOutput: PixelBufferOutput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
-        videoCamera.horizontallyMirrorFrontFacingCamera = true
-        videoCamera.startCapture()
-        videoCamera.frameRate = 24
-        videoCamera.delegate = self
-        
+//        videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
+//        videoCamera.horizontallyMirrorFrontFacingCamera = true
+//        videoCamera.startCapture()
+//        videoCamera.frameRate = 24
+//        videoCamera.delegate = self
+        previewView.prepareForRecording()
+        arFilterManager = ARFilterManager.shared
+        arFilterManager.startPreview(previewView)
+        arFilterManager.next()
         songLibraryView.alpha = 0
         mixerViewHeight.constant = 0
         //isShowSongLibrary = false
-        streamerKit?.streamerBase.videoCodec = .X264
+        streamerKit?.streamerBase.videoCodec = .VT264
         streamerKit?.streamerBase.audioCodec = .AAC
         streamerKit?.capturePixelFormat = kCVPixelFormatType_32BGRA
         streamerKit?.videoFPS = 24
@@ -80,11 +88,12 @@ class ViewController: UIViewController {
         streamerKit?.streamerBase.liveScene = .showself
         streamerKit?.streamerBase.recScene = .constantBitRate
         streamerKit?.streamerBase.videoEncodePerf = .per_Balance
+        streamerKit?.streamerBase.bWithAudio = false
         
-        streamerKit?.setupFilter(filterManager.composedFilter())
+        //streamerKit?.setupFilter(filterManager.composedFilter())
         
         streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
-        streamerKit?.cameraPosition = cameraPosition
+        //streamerKit?.cameraPosition = cameraPosition
         streamerKit?.streamDimension = cameraSize
         
         observeBGM()
@@ -92,19 +101,27 @@ class ViewController: UIViewController {
         observeStreamState()
         
         focusView.frame.size = CGSize(width: 80, height: 80)
-        
         // filter process
-        filterManager.cameraSize = cameraSize
+        //filterManager.cameraSize = cameraSize
  
-        previewView.fillMode = kGPUImageFillModeStretch
-        streamerKit?.vPreviewMixer.addTarget(previewView)
+//        previewView.fillMode = kGPUImageFillModeStretch
+//        streamerKit?.vPreviewMixer.addTarget(previewView)
+        
         streamerKit?.aCapDev.start()
         
         
         // setup recorder
-        liveRecorder.delegate = self
-        liveRecorder.size = cameraSize
+//        liveRecorder.delegate = self
+//        liveRecorder.size = cameraSize
+        
+        // setup push stream
+        pixelOutput = previewView.capturePixelBuffers { [weak self] buff, time in
+            guard let `self` = self else { return }
+            self.streamerKit?.streamerBase.processVideoPixelBuffer(buff, timeInfo: time)
+        }
+        
     }
+    
     
     private func observeBGM() {
         NotificationCenter.default.addObserver(self, selector: #selector(audioDidChange(notification:)), name: NSNotification.Name.KSYAudioStateDidChange, object: nil)
@@ -247,7 +264,7 @@ class ViewController: UIViewController {
                 recordBtn.isHidden = true
             }
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.150.161/live/hello"))
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.58.161/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
             
@@ -347,21 +364,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func grindSliderDidChange(_ sender: UISlider) {
-        filterManager.grindRatio = CGFloat(sender.value)
+        //filterManager.grindRatio = CGFloat(sender.value)
     }
     
     @IBAction func whitenSliderDidChange(_ sender: UISlider) {
-        filterManager.whitenRatio = CGFloat(sender.value)
+        //filterManager.whitenRatio = CGFloat(sender.value)
     }
     @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
-        filterManager.isBeautyOn = sender.isOn
-        streamerKit?.setupFilter(filterManager.composedFilter())
+        //filterManager.isBeautyOn = sender.isOn
+        //streamerKit?.setupFilter(filterManager.composedFilter())
     }
     
     
     @IBAction func pigStickerDidChange(_ sender: UISwitch) {
-        filterManager.isPigStickerOn = sender.isOn
-        streamerKit?.setupFilter(filterManager.composedFilter())
+        //filterManager.isPigStickerOn = sender.isOn
+        //streamerKit?.setupFilter(filterManager.composedFilter())
     }
     
     // MARK: - Record while push
@@ -517,9 +534,11 @@ extension ViewController: MixerViewControllerDelegate {
     
 }
 
-extension ViewController: GPUImageVideoCameraDelegate {
-    func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
-        self.filterManager.configureFaceWidget(sampleBuffer: sampleBuffer)
-        streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
-    }
-}
+//extension ViewController: GPUImageVideoCameraDelegate {
+//    func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
+//        self.filterManager.configureFaceWidget(sampleBuffer: sampleBuffer)
+//        streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
+//    }
+//}
+
+

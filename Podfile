@@ -7,6 +7,8 @@ target 'KingsoftLiveTest' do
 pod 'libksygpulive/KSYGPUResource'
 pod 'libksygpulive/libksygpulive'
 pod 'OpenCV', '3.4.0'
+pod 'GPUImage', :path => './GPUImage'
+#pod 'SCNRecorder'
   # Pods for KingsoftLiveTest
 
 end
