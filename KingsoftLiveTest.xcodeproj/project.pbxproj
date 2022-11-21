@@ -13,6 +13,8 @@
 		1A03EC6C28F5831C0006A745 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A03EC6A28F5831C0006A745 /* Main.storyboard */; };
 		1A03EC6E28F5831E0006A745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A03EC6D28F5831E0006A745 /* Assets.xcassets */; };
 		1A03EC7128F5831E0006A745 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A03EC6F28F5831E0006A745 /* LaunchScreen.storyboard */; };
+		1A040D65292BC09200CB25D3 /* MTDMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A040D63292BC09200CB25D3 /* MTDMulticastDelegate.m */; };
+		1A040D66292BC09200CB25D3 /* MTDOriginMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A040D64292BC09200CB25D3 /* MTDOriginMulticastDelegate.m */; };
 		1A0A2C4228F713B7009C16BF /* sontung.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4128F713B7009C16BF /* sontung.mp3 */; };
 		1A0A2C4428F71819009C16BF /* mono.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4328F71819009C16BF /* mono.mp3 */; };
 		1A0A2C4628F7185C009C16BF /* hieuthu2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4528F7185C009C16BF /* hieuthu2.mp3 */; };
@@ -25,8 +27,6 @@
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
 		73089DD229233BBF004C0A63 /* ARFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089DD129233BBF004C0A63 /* ARFilterManager.swift */; };
 		73089DED29233D00004C0A63 /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73089DEC29233D00004C0A63 /* libyuv.a */; };
-		73089F7A29234A7A004C0A63 /* MTDMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73089F2229234A79004C0A63 /* MTDMulticastDelegate.m */; };
-		73089F7B29234A7A004C0A63 /* MTDOriginMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73089F2329234A79004C0A63 /* MTDOriginMulticastDelegate.m */; };
 		73089F7C29234A7A004C0A63 /* VideoRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F2529234A79004C0A63 /* VideoRecording.swift */; };
 		73089F7D29234A7A004C0A63 /* VideoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F2629234A79004C0A63 /* VideoSettings.swift */; };
 		73089F7E29234A7A004C0A63 /* VideoSettings.FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73089F2729234A79004C0A63 /* VideoSettings.FileType.swift */; };
@@ -109,6 +109,11 @@
 		1A03EC6D28F5831E0006A745 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A03EC7028F5831E0006A745 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A03EC7228F5831E0006A745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A040D60292BC09200CB25D3 /* MTDMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDMulticastDelegate.h; sourceTree = "<group>"; };
+		1A040D61292BC09200CB25D3 /* MulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulticastDelegate.h; sourceTree = "<group>"; };
+		1A040D62292BC09200CB25D3 /* MTDOriginMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDOriginMulticastDelegate.h; sourceTree = "<group>"; };
+		1A040D63292BC09200CB25D3 /* MTDMulticastDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDMulticastDelegate.m; sourceTree = "<group>"; };
+		1A040D64292BC09200CB25D3 /* MTDOriginMulticastDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDOriginMulticastDelegate.m; sourceTree = "<group>"; };
 		1A0A2C4128F713B7009C16BF /* sontung.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sontung.mp3; sourceTree = "<group>"; };
 		1A0A2C4328F71819009C16BF /* mono.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mono.mp3; sourceTree = "<group>"; };
 		1A0A2C4528F7185C009C16BF /* hieuthu2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hieuthu2.mp3; sourceTree = "<group>"; };
@@ -144,10 +149,6 @@
 		73089DE929233D00004C0A63 /* macros_msa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros_msa.h; sourceTree = "<group>"; };
 		73089DEA29233D00004C0A63 /* row.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = row.h; sourceTree = "<group>"; };
 		73089DEC29233D00004C0A63 /* libyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuv.a; sourceTree = "<group>"; };
-		73089F2029234A79004C0A63 /* MTDMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDMulticastDelegate.h; sourceTree = "<group>"; };
-		73089F2129234A79004C0A63 /* MTDOriginMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDOriginMulticastDelegate.h; sourceTree = "<group>"; };
-		73089F2229234A79004C0A63 /* MTDMulticastDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDMulticastDelegate.m; sourceTree = "<group>"; };
-		73089F2329234A79004C0A63 /* MTDOriginMulticastDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDOriginMulticastDelegate.m; sourceTree = "<group>"; };
 		73089F2529234A79004C0A63 /* VideoRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecording.swift; sourceTree = "<group>"; };
 		73089F2629234A79004C0A63 /* VideoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSettings.swift; sourceTree = "<group>"; };
 		73089F2729234A79004C0A63 /* VideoSettings.FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSettings.FileType.swift; sourceTree = "<group>"; };
@@ -285,6 +286,18 @@
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
 		};
+		1A040D5F292BC09200CB25D3 /* MTDMulticastDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1A040D60292BC09200CB25D3 /* MTDMulticastDelegate.h */,
+				1A040D61292BC09200CB25D3 /* MulticastDelegate.h */,
+				1A040D62292BC09200CB25D3 /* MTDOriginMulticastDelegate.h */,
+				1A040D63292BC09200CB25D3 /* MTDMulticastDelegate.m */,
+				1A040D64292BC09200CB25D3 /* MTDOriginMulticastDelegate.m */,
+			);
+			path = MTDMulticastDelegate;
+			sourceTree = "<group>";
+		};
 		1A0A2C4028F713A3009C16BF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,8 +321,8 @@
 		73089DD029233BAA004C0A63 /* ARFilter */ = {
 			isa = PBXGroup;
 			children = (
+				1A040D5F292BC09200CB25D3 /* MTDMulticastDelegate */,
 				73089FBB29236CA9004C0A63 /* Resource */,
-				73089F1F29234A79004C0A63 /* MTDMulticastDelegate */,
 				73089F2429234A79004C0A63 /* SCNRecorder */,
 				73089DD329233D00004C0A63 /* libyuv */,
 				73089DD129233BBF004C0A63 /* ARFilterManager.swift */,
@@ -368,18 +381,6 @@
 				73089DEC29233D00004C0A63 /* libyuv.a */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		73089F1F29234A79004C0A63 /* MTDMulticastDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				73089F2029234A79004C0A63 /* MTDMulticastDelegate.h */,
-				73089F2129234A79004C0A63 /* MTDOriginMulticastDelegate.h */,
-				73089F2229234A79004C0A63 /* MTDMulticastDelegate.m */,
-				73089F2329234A79004C0A63 /* MTDOriginMulticastDelegate.m */,
-			);
-			name = MTDMulticastDelegate;
-			path = ../../../ARKitStream/ARKitStream/MTDMulticastDelegate;
 			sourceTree = "<group>";
 		};
 		73089F2429234A79004C0A63 /* SCNRecorder */ = {
@@ -808,8 +809,6 @@
 				73089F8929234A7A004C0A63 /* PixelBufferPoolFactory.swift in Sources */,
 				1A0A2C4C28F7BAF1009C16BF /* MixerViewController.swift in Sources */,
 				73089FB029234A7A004C0A63 /* ReadWriteLock.swift in Sources */,
-				73089F7B29234A7A004C0A63 /* MTDOriginMulticastDelegate.m in Sources */,
-				73089F7A29234A7A004C0A63 /* MTDMulticastDelegate.m in Sources */,
 				73089FCB29237B47004C0A63 /* VideoTexturedFace.swift in Sources */,
 				73089FB229234A7A004C0A63 /* Atomic.swift in Sources */,
 				73089F9C29234A7A004C0A63 /* BaseRecorder.AudioInput.swift in Sources */,
@@ -818,6 +817,7 @@
 				73089FAE29234A7A004C0A63 /* UnfairLock.swift in Sources */,
 				73089F8829234A7A004C0A63 /* PixelBuffer.swift in Sources */,
 				73089F9629234A7A004C0A63 /* SCNView+MulticastDelegate.swift in Sources */,
+				1A040D66292BC09200CB25D3 /* MTDOriginMulticastDelegate.m in Sources */,
 				73089F8D29234A7A004C0A63 /* AudioEngine.Player.State.swift in Sources */,
 				73089F8729234A7A004C0A63 /* MetalPixelBufferProducer.swift in Sources */,
 				73089F9429234A7A004C0A63 /* CAMetalLayer+RecordableLayer.swift in Sources */,
@@ -850,6 +850,7 @@
 				73089F9529234A7A004C0A63 /* MTLPixelFormat+Helpers.swift in Sources */,
 				73089FA129234A7A004C0A63 /* CleanRecorder.VideoInput.swift in Sources */,
 				73089FCE29237B47004C0A63 /* TexturedFace.swift in Sources */,
+				1A040D65292BC09200CB25D3 /* MTDMulticastDelegate.m in Sources */,
 				73089FAB29234A7A004C0A63 /* Property.swift in Sources */,
 				73089F8629234A7A004C0A63 /* MetalTexturePoolFactory.swift in Sources */,
 				73089FB629234A7A004C0A63 /* Observable.swift in Sources */,

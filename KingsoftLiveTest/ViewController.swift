@@ -13,7 +13,7 @@ import ARKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var previewView: ARSCNView!
-    private var cameraSize = CGSize(width: 1080, height: 1920)
+    private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
     @IBOutlet weak var rectImageView: UIImageView!
@@ -67,7 +67,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        previewView.preferredFramesPerSecond = 30
+        previewView.preferredFramesPerSecond = 24
+        previewView.contentScaleFactor = 1
+        if #available(iOS 13.0, *) {
+            previewView.rendersMotionBlur = false
+        } else {
+            // Fallback on earlier versions
+        }
         previewView.prepareForRecording()
         arFilterManager = ARFilterManager.shared
         arFilterManager.startPreview(previewView)
@@ -260,8 +266,10 @@ class ViewController: UIViewController {
             if PHPhotoLibrary.authorizationStatus() == .authorized {
                 recordBtn.isHidden = true
             }
+            UIApplication.shared.isIdleTimerDisabled = true
         } else {
-            kit.streamerBase.startStream(URL(string: "rtmp://192.168.58.161/live/hello"))
+            UIApplication.shared.isIdleTimerDisabled = true
+            kit.streamerBase.startStream(URL(string: "rtmp://192.168.1.3/live/hello"))
             startLiveBtn.setTitle("Stop Live", for: .normal)
             recordBtn.isHidden = false
             
