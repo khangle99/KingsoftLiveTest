@@ -285,9 +285,9 @@ extension ARFilterManager: ARSessionDelegate {
         guard ARFaceTrackingConfiguration.isSupported else { return }
         let configuration = ARFaceTrackingConfiguration()
         if #available(iOS 13.0, *) {
-            configuration.maximumNumberOfTrackedFaces = ARFaceTrackingConfiguration.supportedNumberOfTrackedFaces
+            configuration.maximumNumberOfTrackedFaces = 1
         }
-        configuration.isLightEstimationEnabled = true
+        configuration.isLightEstimationEnabled = false
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
         faceAnchorsAndContentControllers.removeAll()
