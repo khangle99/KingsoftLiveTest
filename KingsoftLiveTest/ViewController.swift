@@ -59,13 +59,73 @@ class ViewController: UIViewController {
     }
     // recorder
     private var liveRecorder = LiveRecorder()
-    
     private var streamInfo: ZLSStreamInfo!
+
+    func getDimension(_ sz: CGSize, byOrientation ori: UIInterfaceOrientation) -> CGSize {
+        var outSz = sz
+        if ori == .portraitUpsideDown || ori == .portrait {
+            outSz.height = max(sz.width, sz.height);
+            outSz.width  = min(sz.width, sz.height);
+        }
+        else  {
+            outSz.height = min(sz.width, sz.height);
+            outSz.width  = max(sz.width, sz.height);
+        }
+        return outSz;
+    }
+    
+    func calcCropRect(_ camSz: CGSize, to outSz: CGSize) -> CGRect {
+        let x = (camSz.width  - outSz.width )/2/camSz.width;
+        let y = (camSz.height - outSz.height)/2/camSz.height;
+        let wdt = outSz.width/camSz.width;
+        let hgt = outSz.height/camSz.height;
+        return CGRect(x: x, y: y, width: wdt, height: hgt)
+    }
+    
+    func calcCropSize(_ inSz: CGSize, to targetSz: CGSize) -> CGSize {
+        let preRatio = targetSz.width / targetSz.height;
+        var cropSz = inSz; // set width
+        cropSz.height = cropSz.width / preRatio;
+        if (cropSz.height > inSz.height){
+            cropSz.height = inSz.height; // set height
+            cropSz.width  = cropSz.height * preRatio;
+        }
+        return cropSz;
+    }
+    
+    func updatePreDimension() {
+        guard let streamerKit = streamerKit else { return }
+        streamerKit.previewDimension = getDimension(streamerKit.previewDimension, byOrientation: streamerKit.videoOrientation)
+        var inSz = streamerKit.captureDimension()
+        inSz = getDimension(inSz, byOrientation: .portrait)
+        let cropSz = calcCropSize(inSz, to: streamerKit.previewDimension)
+        guard let capToGPU = streamerKit.capToGpu else { return }
+        capToGPU.cropRegion = calcCropRect(inSz, to: cropSz)
+        capToGPU.outputRotation = kGPUImageNoRotation
+        capToGPU.forceProcessing(at: streamerKit.previewDimension)
+    }
+    
+    func updateStrDimension(orie: UIInterfaceOrientation) {
+        guard let streamerKit = streamerKit,
+              let gpuToStream = streamerKit.gpuToStr else { return }
+        let dimension = streamerKit.streamDimension
+        streamerKit.streamDimension = getDimension(dimension, byOrientation: orie)
+        
+        gpuToStream.bCustomOutputSize = true
+        gpuToStream.outputSize = dimension
+        let preSz = getDimension(streamerKit.previewDimension, byOrientation: orie)
+        let cropSz = calcCropSize(preSz, to: dimension)
+        gpuToStream.cropRegion = calcCropRect(preSz, to: cropSz)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
         videoCamera.horizontallyMirrorFrontFacingCamera = true
+        
+        updatePreDimension()
+        updateStrDimension(orie: .portrait)
+        
         videoCamera.startCapture()
         videoCamera.frameRate = 24
         videoCamera.delegate = self
@@ -210,11 +270,8 @@ class ViewController: UIViewController {
             let session = AVAudioSession.sharedInstance()
             for output in session.currentRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                 print("headphones connected")
-                DispatchQueue.main.sync {
-                    //self.play()
-                    kit.aMixer.setTrack(kit.bgmTrack, enable: true)
-                    kit.aCapDev.bPlayCapturedAudio = true
-                }
+                kit.aMixer.setTrack(kit.bgmTrack, enable: true)
+                kit.aCapDev.bPlayCapturedAudio = true
                 break
             }
         case .oldDeviceUnavailable:
@@ -222,11 +279,8 @@ class ViewController: UIViewController {
                 userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
                 for output in previousRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                     print("headphones disconnected")
-                    DispatchQueue.main.sync {
-                        kit.aMixer.setTrack(kit.bgmTrack, enable: false)
-                        kit.aCapDev.bPlayCapturedAudio = false
-                        //self.pause()
-                    }
+                    kit.aMixer.setTrack(kit.bgmTrack, enable: false)
+                    kit.aCapDev.bPlayCapturedAudio = false
                     break
                 }
             }
@@ -365,8 +419,9 @@ class ViewController: UIViewController {
         } else {
             cameraPosition = .front
         }
-        streamerKit?.cameraPosition = cameraPosition
-        streamerKit?.switchCamera()
+//        streamerKit?.cameraPosition = cameraPosition
+//        streamerKit?.switchCamera()
+        videoCamera.rotateCamera()
     }
     @IBAction func songLibraryTap(_ sender: Any) {
         isShowSongLibrary.toggle()
