@@ -219,14 +219,14 @@
 		1AE4518628FD0851008EE1A4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				73AFE5A12913C10700F9CA2B /* LandmarkDetector */,
-				1AFAAE6D2902901000521ADA /* YUGPUImageCVPixelBufferInput.h */,
-				1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */,
 				1A08FD32290050B100395879 /* Category.h */,
 				1A08FD33290050B100395879 /* Category.m */,
+				73AFE5A12913C10700F9CA2B /* LandmarkDetector */,
+				1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */,
 				73AFE5CF2913D96600F9CA2B /* VideoCamera.h */,
 				73AFE5CE2913D96600F9CA2B /* VideoCamera.m */,
-				1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */,
+				1AFAAE6D2902901000521ADA /* YUGPUImageCVPixelBufferInput.h */,
+				1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";

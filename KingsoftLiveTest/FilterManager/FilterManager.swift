@@ -86,7 +86,7 @@ class FilterManager {
             filterList.append(faceWidgetFilter!)
             filterList.append(faceWidgetFilter1!)
             
-            stickerPath = Bundle.main.resourcePath?.appending("/stickers/100009") ?? ""
+            stickerPath = Bundle.main.resourcePath?.appending("/stickers/simplebear") ?? ""
             
             guard let data = NSData(contentsOfFile: stickerPath.appending("/config.json")),
                   let dictionary = try? JSONSerialization.jsonObject(with: data as Data) as? [AnyHashable: Any] else { return nil }

@@ -7,7 +7,7 @@ target 'KingsoftLiveTest' do
 pod 'libksygpulive/KSYGPUResource'
 pod 'libksygpulive/libksygpulive'
 pod 'OpenCV', '3.4.0'
-pod 'ZLivestreamSDK', :path => '../'
+pod 'ZLivestreamSDK', :path => '../zlivestreamsdk'
   # Pods for KingsoftLiveTest
 
 end
