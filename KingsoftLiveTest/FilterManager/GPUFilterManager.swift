@@ -9,17 +9,18 @@ import Foundation
 import GPUImage
 import libksygpulive
 
-class FilterManager {
-    private init() {}
+protocol LiveFilterManager: AnyObject {
     
-    static var shared: FilterManager = {
-        let manager = FilterManager()
-        manager.openCV = OpenCVWrapper()
-        manager.openCV.configure()
-        manager.openCV.cameraSize = manager.cameraSize
-        
-        return manager
-    }()
+}
+
+class GPUFilterManager: LiveFilterManager {
+     init() {
+         let openCv = OpenCVWrapper()
+         openCv.configure()
+         openCv.cameraSize = cameraSize
+         self.openCV = openCv
+     }
+    
     // public
     private var openCV: OpenCVWrapper!
     var cameraSize = CGSize(width: 720, height: 1280) {

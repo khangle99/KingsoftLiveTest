@@ -124,7 +124,6 @@ NSString *const kPeopleShaderString = SHADER_STRING
     {
         return nil;
     }
-    // MARK: map objc param voi code GLSL
     p_faceCount = [filterProgram uniformIndex:@"faceCnt"];
     p_size0 = [filterProgram uniformIndex:@"size0"];
     p_size1 = [filterProgram uniformIndex:@"size1"];
@@ -153,7 +152,6 @@ NSString *const kPeopleShaderString = SHADER_STRING
 }
 
 -(void)setStickerParams:(NSDictionary *)params{
-    // MARK: Set count, angle, point size cho filter
     [self setInteger:[params[@"count"] intValue] forUniform:p_faceCount program:filterProgram];
     int i = 0;
     for (NSString *str in params[@"angle"]) {

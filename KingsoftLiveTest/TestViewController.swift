@@ -16,7 +16,7 @@ class TestViewController: UIViewController {
     
     var streamKit = KSYGPUStreamerKit(defaultCfg: ())!
     
-    private let stickerManager =  FilterManager.shared
+    private let stickerManager =  GPUFilterManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()

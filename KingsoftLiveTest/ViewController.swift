@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
     
-    private var filterManager = FilterManager.shared
+    private var filterManager = GPUFilterManager()
     
     private var isShowBeautyConfigure: Bool = false {
         didSet {

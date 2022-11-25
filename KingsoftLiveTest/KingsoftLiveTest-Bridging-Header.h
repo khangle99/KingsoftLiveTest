@@ -6,3 +6,4 @@
 #import "GPUImageFaceWidgetComposeFilter.h"
 #import "YUGPUImageCVPixelBufferInput.h"
 #import "VideoCamera.h"
+#import "Utils.h"
