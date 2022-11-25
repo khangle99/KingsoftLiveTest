@@ -21,6 +21,8 @@
 		1A0A2C4828F71882009C16BF /* SongLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */; };
 		1A0A2C4C28F7BAF1009C16BF /* MixerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */; };
 		1A12CF2828FEC22E007DFF3F /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */; };
+		1A55A26C292F7A4E0040B53D /* LiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */; };
+		1A55A26E292FC0AD0040B53D /* KSYLiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */; };
 		1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70F2B928FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m */; };
 		1A70F2C228FFA2030009510B /* model in Resources */ = {isa = PBXBuildFile; fileRef = 1A70F2C128FFA2030009510B /* model */; };
 		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
@@ -68,6 +70,8 @@
 		1A12CF2528FEC22E007DFF3F /* KingsoftLiveTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KingsoftLiveTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamManager.swift; sourceTree = "<group>"; };
+		1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSYLiveStreamManager.swift; sourceTree = "<group>"; };
 		1A70F2B828FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFaceWidgetComposeFilter.h; sourceTree = "<group>"; };
 		1A70F2B928FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFaceWidgetComposeFilter.m; sourceTree = "<group>"; };
 		1A70F2C128FFA2030009510B /* model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model; path = KingsoftLiveTest/model; sourceTree = SOURCE_ROOT; };
@@ -158,6 +162,7 @@
 		1A03EC6328F5831C0006A745 /* KingsoftLiveTest */ = {
 			isa = PBXGroup;
 			children = (
+				1A55A26A292F7A390040B53D /* Managers */,
 				1A03EC6428F5831C0006A745 /* AppDelegate.swift */,
 				1A03EC6D28F5831E0006A745 /* Assets.xcassets */,
 				1AE4518628FD0851008EE1A4 /* Extension */,
@@ -197,6 +202,15 @@
 				1A0A2C4128F713B7009C16BF /* sontung.mp3 */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		1A55A26A292F7A390040B53D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */,
+				1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		1A70F2B728FF978B0009510B /* StickerFilter */ = {
@@ -414,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73AFE5CA2913C11A00F9CA2B /* IO.cpp in Sources */,
+				1A55A26C292F7A4E0040B53D /* LiveStreamManager.swift in Sources */,
 				73AFE5C82913C11A00F9CA2B /* FCheck.cpp in Sources */,
 				1AFAAE6829023D8C00521ADA /* FilterManager.swift in Sources */,
 				73AFE5C42913C11A00F9CA2B /* FaceDetect.mm in Sources */,
@@ -422,6 +437,7 @@
 				73AFE5C92913C11A00F9CA2B /* Detector.mm in Sources */,
 				73AFE627291CA3BA00F9CA2B /* AppConfig.swift in Sources */,
 				1AFAAE6B2902824E00521ADA /* LiveRecorder.swift in Sources */,
+				1A55A26E292FC0AD0040B53D /* KSYLiveStreamManager.swift in Sources */,
 				1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */,
 				73AFE5C52913C11A00F9CA2B /* Patch.cpp in Sources */,
 				1A0A2C4C28F7BAF1009C16BF /* MixerViewController.swift in Sources */,

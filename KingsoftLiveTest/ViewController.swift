@@ -12,7 +12,14 @@ import ZLivestreamSDK
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var previewView: GPUImageView!
+    
+    lazy private var liveStreamManager: LiveStreamManager = {
+        let manager = KSYLiveStreamManager()
+        manager.delegate = self
+        return manager
+    }()
+    
+    @IBOutlet weak var previewView: UIView!
     private var cameraSize = CGSize(width: 720, height: 1280)
     let streamerKit = KSYGPUStreamerKit(defaultCfg: ())
     
@@ -29,7 +36,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var songLibaryButton: UIButton!
     @IBOutlet weak var songLibraryView: UIView!
     
-    private var videoCamera: VideoCamera!
+    //private var videoCamera: VideoCamera!
     private var isShowSongLibrary = false {
         didSet {
             UIView.animate(withDuration: 0.2) {
@@ -63,47 +70,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoCamera = VideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue, cameraPosition: .front, useYuv: false)
-        videoCamera.horizontallyMirrorFrontFacingCamera = true
-        streamerKit?.vCapDev.captureSessionPreset = AVCaptureSession.Preset.hd1280x720.rawValue
         
-        videoCamera.startCapture()
-        videoCamera.frameRate = 24
-        videoCamera.delegate = self
+        liveStreamManager.videoConfiguration?.setupPreviewView(previewView)
+        
+        liveStreamManager.prepareForLive()
         
         songLibraryView.alpha = 0
         mixerViewHeight.constant = 0
         //isShowSongLibrary = false
-        streamerKit?.streamerBase.videoCodec = .X264
-        streamerKit?.streamerBase.audioCodec = .AAC
-        streamerKit?.capturePixelFormat = kCVPixelFormatType_32BGRA
-        streamerKit?.videoFPS = 24
         
-        // configure performance
-        streamerKit?.streamerBase.liveScene = .showself
-        streamerKit?.streamerBase.recScene = .constantBitRate
-        streamerKit?.streamerBase.videoEncodePerf = .per_Balance
-        
-        streamerKit?.setupFilter(filterManager.composedFilter())
-        
-        streamerKit?.streamerBase.bwEstimateMode = .estMode_Default
-        streamerKit?.cameraPosition = cameraPosition
-        streamerKit?.streamDimension = cameraSize
-        
-        observeBGM()
-        handleRouteInterrupt()
-        observeStreamState()
+        //streamerKit?.setupFilter(filterManager.composedFilter())
         
         focusView.frame.size = CGSize(width: 80, height: 80)
         
         // filter process
         filterManager.cameraSize = cameraSize
- 
-        previewView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill
-        streamerKit?.vPreviewMixer.addTarget(previewView)
-        streamerKit?.aCapDev.start()
-        
-        
+
         // setup recorder
         liveRecorder.delegate = self
         liveRecorder.size = cameraSize
@@ -155,102 +137,6 @@ class ViewController: UIViewController {
         }
     }
     
-    private func observeBGM() {
-        NotificationCenter.default.addObserver(self, selector: #selector(audioDidChange(notification:)), name: NSNotification.Name.KSYAudioStateDidChange, object: nil)
-    }
-    
-    private func handleRouteInterrupt() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleInterruption),
-                                       name: AVAudioSession.interruptionNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleRouteChange),
-                                       name: AVAudioSession.routeChangeNotification,
-                                       object: nil)
-    }
-    
-    
-    @objc func handleInterruption(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-            return
-        }
-        
-        if type == .began {
-            print("Interruption began")
-            // Interruption began, take appropriate actions
-        }
-        else if type == .ended {
-            if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
-                let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-                if options.contains(.shouldResume) {
-                    // Interruption Ended - playback should resume
-                    print("Interruption Ended - playback should resume")
-                    //play()
-                } else {
-                    // Interruption Ended - playback should NOT resume
-                    print("Interruption Ended - playback should NOT resume")
-                }
-            }
-        }
-    }
-    
-    @objc func handleRouteChange(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-              let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue),
-              let kit = streamerKit else {
-            return
-        }
-        switch reason {
-        case .newDeviceAvailable:
-            let session = AVAudioSession.sharedInstance()
-            for output in session.currentRoute.outputs where output.portType == AVAudioSession.Port.headphones {
-                print("headphones connected")
-                kit.aMixer.setTrack(kit.bgmTrack, enable: true)
-                kit.aCapDev.bPlayCapturedAudio = true
-                break
-            }
-        case .oldDeviceUnavailable:
-            if let previousRoute =
-                userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-                for output in previousRoute.outputs where output.portType == AVAudioSession.Port.headphones {
-                    print("headphones disconnected")
-                    kit.aMixer.setTrack(kit.bgmTrack, enable: false)
-                    kit.aCapDev.bPlayCapturedAudio = false
-                    break
-                }
-            }
-        default: ()
-        }
-    }
-    
-    @objc func audioDidChange(notification: Notification) {
-        guard let kit = streamerKit else { return }
-        let stateName = kit.bgmPlayer.getBgmStateName(kit.bgmPlayer.bgmPlayerState)
-        print("===name: \(stateName)")
-        
-        // KSYBgmPlayerStatePlaying / KSYBgmPlayerStatePaused / KSYBgmPlayerStateStopped
-        
-        switch stateName {
-        case "KSYBgmPlayerStatePlaying":
-            audioStateLabel.text = "Audio: Playing"
-            songLibaryButton.rotate360Degrees()
-        case "KSYBgmPlayerStatePaused":
-            songLibaryButton.layer.removeAllAnimations()
-            audioStateLabel.text = "Audio: Paused"
-        case "KSYBgmPlayerStateStopped":
-            audioStateLabel.text = "Audio: Stopped"
-            songLibaryButton.layer.removeAllAnimations()
-        default:
-            break
-        }
-        
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isShowBeautyConfigure = false
@@ -259,37 +145,34 @@ class ViewController: UIViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         let orientation = UIApplication.shared.statusBarOrientation
-        streamerKit?.videoOrientation = orientation
+        liveStreamManager.videoConfiguration?.orientation = orientation
         let saveValue = isShowBeautyConfigure
        isShowBeautyConfigure = saveValue
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let kit = streamerKit else { return }
         if segue.identifier == "songlib" {
             guard let vc = segue.destination as? SongLibraryViewController else { return }
             vc.delegate = self
-            vc.streamKit = kit
+            vc.liveStreamManager = liveStreamManager
         }
         
         if segue.identifier == "mixer" {
             guard let vc = segue.destination as? MixerViewController else { return }
             vc.delegate = self
-            vc.aMixer = kit.aMixer
-            vc.aCapDev = kit.aCapDev
-            vc.bgmPlayer = kit.bgmPlayer
+            vc.liveManager = liveStreamManager
         }
     }
     
     @IBAction func tapStartLive(_ sender: Any) {
-        guard let kit = streamerKit else { return }
-        if kit.streamerBase.isStreaming() {
-            kit.streamerBase.stopStream()
+        guard let streamConfiguration = liveStreamManager.streamConfiguration else { return }
+        if streamConfiguration.isStreaming {
+            streamConfiguration.stopStream()
+            stopLivetream()
             startLiveBtn.setTitle("Start Live", for: .normal)
             if PHPhotoLibrary.authorizationStatus() == .authorized {
                 recordBtn.isHidden = true
             }
-            UIApplication.shared.isIdleTimerDisabled = false
         } else {
             // zls call
             ZLSSDK.shared.createLivestream { [weak self] streamInfo in
@@ -303,44 +186,15 @@ class ViewController: UIViewController {
                     }
                     //self.streamInfo = streamInfo
                     let urlString = "\(streamInfo.upstreamURL!)/\(streamInfo.streamKey!)"
-                    kit.streamerBase.startStream(URL(string: urlString))
+                    streamConfiguration.startStream(with: URL(string: urlString))
                     self.startLiveBtn.setTitle("Stop Live", for: .normal)
                     self.recordBtn.isHidden = false
-                    UIApplication.shared.isIdleTimerDisabled = true
                 }
             } onError: {[weak self] error in
                 guard let `self` = self else { return }
                 print("\(error)")
 //                self.showError(error)
             }
-            
-            
-          
-            
-        }
-    }
-    
-    private func observeStreamState() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onStreamStateChange(notification:)), name: NSNotification.Name.KSYStreamStateDidChange, object: nil)
-    }
-    
-    @objc func onStreamStateChange(notification: Notification) {
-        switch streamerKit?.streamerBase.streamState {
-        case .idle:
-            streamStateLabel.text = "Idle"
-        case .connecting:
-            streamStateLabel.text = "Connecting"
-        case .connected:
-            streamStateLabel.text = "Connected"
-        case .disconnecting:
-            streamStateLabel.text = "Disconnecting"
-        case .error:
-            guard let errorCode = streamerKit?.streamerBase.streamErrorCode,
-            let errorName = streamerKit?.streamerBase.getKSYStreamErrorCodeName(errorCode) else { return }
-            
-            streamStateLabel.text = "Error: \(errorName)"
-        default:
-            break
         }
     }
     
@@ -361,9 +215,7 @@ class ViewController: UIViewController {
         } else {
             cameraPosition = .front
         }
-//        streamerKit?.cameraPosition = cameraPosition
-//        streamerKit?.switchCamera()
-        videoCamera.rotateCamera()
+        liveStreamManager.videoConfiguration?.rotateCamera()
     }
     @IBAction func songLibraryTap(_ sender: Any) {
         isShowSongLibrary.toggle()
@@ -375,7 +227,7 @@ class ViewController: UIViewController {
     }
     
     @objc func didBecomeActive() {
-        streamerKit?.aCapDev.start()
+        liveStreamManager.audioConfiguration?.startAudioCapture()
         // run 3rd background music app
     }
     
@@ -387,7 +239,7 @@ class ViewController: UIViewController {
     }
     
     @objc func didEnterBackground() {
-        streamerKit?.aCapDev.stop()
+        liveStreamManager.audioConfiguration?.stopAudioCapture()
     }
 
     
@@ -424,7 +276,6 @@ class ViewController: UIViewController {
         filterManager.isBeautyOn = sender.isOn
         streamerKit?.setupFilter(filterManager.composedFilter())
     }
-    
     
     @IBAction func pigStickerDidChange(_ sender: UISwitch) {
         filterManager.isPigStickerOn = sender.isOn
@@ -501,11 +352,10 @@ class ViewController: UIViewController {
     
     @IBAction func previewTouch(_ tapReg: UITapGestureRecognizer) {
         //guard let touch = touches.first,
-        guard let kit = streamerKit else { return }
         let viewPoint = tapReg.location(in: tapReg.view)
         let point = convertToPointOfInterestFromViewCoordinates(viewCoordinates: viewPoint, in: tapReg.view!)
-        kit.exposure(at: point)
-        kit.focus(at: point)
+        liveStreamManager.cameraController?.focus(at: point)
+        liveStreamManager.cameraController?.exposure(at: point)
         focusView.center = viewPoint
         focusView.transform = .init(scaleX: 1.5, y: 1.5)
         focusView.alpha = 1
@@ -521,10 +371,9 @@ class ViewController: UIViewController {
     private func convertToPointOfInterestFromViewCoordinates(viewCoordinates: CGPoint, in view: UIView) -> CGPoint {
         var pointOfInterest = CGPoint.init(x: 0.5, y: 0.5)
         let frameSize = view.frame.size
-        guard let kit = streamerKit else {
-            return pointOfInterest
-        }
-        let apertureSize = kit.captureDimension()
+        guard let videoConfiguration = liveStreamManager.videoConfiguration else  { return pointOfInterest }
+        
+        let apertureSize = videoConfiguration.captureResolution
         let point = viewCoordinates
         let apertureRatio = apertureSize.height / apertureSize.width
         let viewRatio = frameSize.width / frameSize.height
@@ -560,12 +409,13 @@ class ViewController: UIViewController {
 
 extension ViewController: SongLibraryViewControllerDelegate {
     func didSelectSong(urlString: String) {
-        if let isRunning = streamerKit?.bgmPlayer.isRunning, isRunning == true {
-            streamerKit?.bgmPlayer.stopPlayBgm({
-                self.streamerKit?.bgmPlayer.startPlayBgm(urlString, isLoop: false)
-            })
+        guard let controller = liveStreamManager.backgroundMusicController else { return }
+        if controller.isPlayingMusic {
+            controller.stopMusic {
+                controller.startBackgroundMusic(with: URL(string: urlString)!)
+            }
         } else {
-            streamerKit?.bgmPlayer.startPlayBgm(urlString, isLoop: false)
+            controller.startBackgroundMusic(with: URL(string: urlString)!)
         }
     }
 }
@@ -585,9 +435,47 @@ extension ViewController: MixerViewControllerDelegate {
     
 }
 
-extension ViewController: GPUImageVideoCameraDelegate {
-    func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
-        self.filterManager.configureFaceWidget(sampleBuffer: sampleBuffer)
-        streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
+//extension ViewController: GPUImageVideoCameraDelegate {
+//    func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
+//        self.filterManager.configureFaceWidget(sampleBuffer: sampleBuffer)
+//        streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
+//    }
+//}
+
+extension ViewController: LiveStreamManagerDelegate {
+    
+    func captureStateChange(_ captureState: CaptureState) {
+        
     }
+    
+    func backgroundMusicStateChange(_ musicState: MusicState) {
+        switch musicState {
+        case .play:
+            audioStateLabel.text = "Audio: Playing"
+            songLibaryButton.rotate360Degrees()
+        case .pause:
+            songLibaryButton.layer.removeAllAnimations()
+            audioStateLabel.text = "Audio: Paused"
+        case .stop:
+            audioStateLabel.text = "Audio: Stopped"
+            songLibaryButton.layer.removeAllAnimations()
+        }
+    }
+    
+    func streamStateChange(_ streamState: StreamState) {
+        switch streamState {
+        case .idle:
+            streamStateLabel.text = "Idle"
+        case .connecting:
+            streamStateLabel.text = "Connecting"
+        case .connected:
+            streamStateLabel.text = "Connected"
+        case .disconnecting:
+            streamStateLabel.text = "Disconnecting"
+        case .error(let name, let code):
+            streamStateLabel.text = "Error name: \(name), code: \(code)"
+        }
+    }
+    
+    
 }

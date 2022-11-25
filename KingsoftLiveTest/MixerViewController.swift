@@ -15,9 +15,8 @@ protocol MixerViewControllerDelegate: AnyObject {
 class MixerViewController: UIViewController {
 
     weak var delegate: MixerViewControllerDelegate?
-    weak var aMixer: KSYAudioMixer!
-    weak var aCapDev: KSYAUAudioCapture!
-    weak var bgmPlayer: KSYBgmPlayer!
+
+    weak var liveManager: LiveStreamManager!
     
     
     @IBOutlet weak var noiseReductionStack: UIStackView!
@@ -49,12 +48,9 @@ class MixerViewController: UIViewController {
     }
     
     func startStopAudioCapture() {
-        aCapDev?.pauseWithMuteData()
-        aCapDev?.resumeCapture()
-    }
-    
-    func selectReverbScene() {
-        aCapDev?.reverbType = 0
+//        aCapDev?.pauseWithMuteData()
+//        aCapDev?.resumeCapture()
+        //TODO: FIX
     }
     
     
@@ -64,21 +60,22 @@ class MixerViewController: UIViewController {
 //     - 3 small stages
 //     - 4 concerts
     @IBAction func selectReverbScene(_ sender: UIButton) {
+        guard let configuration = liveManager.audioConfiguration else { return }
         reverbStack.subviews.forEach { view in
             setSelectState(view: view, isSelected: false)
         }
         
         switch sender.tag {
         case 7:
-            aCapDev.reverbType = 0
+            configuration.reverbrationLevel = 0
         case 8:
-            aCapDev.reverbType = 1
+            configuration.reverbrationLevel = 1
         case 9:
-            aCapDev.reverbType = 2
+            configuration.reverbrationLevel = 2
         case 10:
-            aCapDev.reverbType = 3
+            configuration.reverbrationLevel = 3
         case 11:
-            aCapDev.reverbType = 4
+            configuration.reverbrationLevel = 4
         default:
             return
         }
@@ -87,27 +84,6 @@ class MixerViewController: UIViewController {
 
     
     @IBAction func selectEffect(_ sender: UIButton) {
-        audioEffectStack.subviews.forEach { view in
-            setSelectState(view: view, isSelected: false)
-        }
-        
-        switch sender.tag {
-        case 1:
-            aCapDev.effectType = .NONE
-        case 2:
-            aCapDev.effectType = .MALE
-        case 3:
-            aCapDev.effectType = .FEMALE
-        case 4:
-            aCapDev.effectType = .HEROIC
-        case 5:
-            aCapDev.effectType = .ROBOT
-        case 6:
-            aCapDev.effectType = .COUSTOM
-        default:
-            return
-        }
-        setSelectState(view: sender, isSelected: true)
     }
     
     private func setSelectState(view: UIView, isSelected: Bool) {
@@ -119,21 +95,22 @@ class MixerViewController: UIViewController {
     
     
     @IBAction func selectNRLevel(sender: UIButton) {
+        guard let configuration = liveManager.audioConfiguration else { return }
         noiseReductionStack.subviews.forEach { view in
             setSelectState(view: view, isSelected: false)
         }
         
         switch sender.titleLabel?.text {
         case "Off":
-            aCapDev.noiseSuppressionLevel = .OFF
+            configuration.noiseReductionLevel = -1
         case "Low":
-            aCapDev.noiseSuppressionLevel = .LOW
+            configuration.noiseReductionLevel = 0
         case "Medium":
-            aCapDev.noiseSuppressionLevel = .MEDIUM
+            configuration.noiseReductionLevel = 1
         case "High":
-            aCapDev.noiseSuppressionLevel = .HIGH
+            configuration.noiseReductionLevel = 2
         case "Very high":
-            aCapDev.noiseSuppressionLevel = .VERYHIGH
+            configuration.noiseReductionLevel = 3
         default:
             return
         }
@@ -141,31 +118,33 @@ class MixerViewController: UIViewController {
     }
     
     @IBAction func pitchChange(_ sender: UISlider) {
-        bgmPlayer.bgmPitch = Double(sender.value)
+        liveManager.backgroundMusicController?.musicPitch = Double(sender.value)
     }
     
     @IBAction func micSlider(_ sender: UISlider) {
-        aCapDev.micVolume = sender.value
+        liveManager.audioConfiguration?.micVolume = Double(sender.value)
     }
     
     @IBAction func stereoTap(_ sender: Any) {
-        aMixer.bStereo.toggle()
-        if aMixer.bStereo {
+        guard let configuration = liveManager.audioConfiguration else { return }
+        if configuration.isStereo {
+            configuration.isStereo = true
             setSelectState(view: stereoBtn, isSelected: true)
         } else {
+            configuration.isStereo = false
             setSelectState(view: stereoBtn, isSelected: false)
         }
     }
     
     @IBAction func earReturnTap(_ sender: Any) {
-        print("before \(aCapDev.bPlayCapturedAudio)")
+        guard let configuration = liveManager.audioConfiguration else { return }
+        print("before \( configuration.isHeadphoneEarBack)")
        
-        print(aCapDev.bPlayCapturedAudio)
-        if aCapDev.bPlayCapturedAudio {
-            aCapDev.bPlayCapturedAudio = false
+        if configuration.isHeadphoneEarBack {
+            configuration.isHeadphoneEarBack = false
             setSelectState(view: earReturnBtn, isSelected: true)
         } else {
-            aCapDev.bPlayCapturedAudio = true
+            configuration.isHeadphoneEarBack = true
             setSelectState(view: earReturnBtn, isSelected: false)
         }
     }

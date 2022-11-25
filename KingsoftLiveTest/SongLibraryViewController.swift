@@ -15,7 +15,7 @@ protocol SongLibraryViewControllerDelegate: AnyObject {
 class SongLibraryViewController: UIViewController {
     
     weak var delegate: SongLibraryViewControllerDelegate?
-    weak var streamKit: KSYGPUStreamerKit?
+    weak var liveStreamManager: LiveStreamManager?
     var isRunning = false
 
     @IBOutlet weak var hieuthu2SongView: UIStackView!
@@ -81,38 +81,32 @@ class SongLibraryViewController: UIViewController {
         isRunning = true
         playPaustBtn.setTitle("Pause", for: .normal)
         
-        guard let streamKit = streamKit else {
+        guard let controler = liveStreamManager?.backgroundMusicController else {
             return
         }
 
-        streamKit.aMixer.setMixVolume(0.5, of: streamKit.bgmTrack)
-        streamKit.bgmPlayer.bgmVolume = 0.5
+        controler.musicVolume = 0.5
+        controler.pushMusicVolume = 0.5
     }
     
     @IBAction func volumeChange(_ sender: UISlider) {
-        streamKit?.bgmPlayer.bgmVolume = Double(sender.value)
+        liveStreamManager?.backgroundMusicController?.musicVolume = Double(sender.value)
     }
     
     @IBAction func pushVolumeChange(_ sender: UISlider) {
-        guard let streamKit = streamKit else {
-            return
-        }
-        streamKit.aMixer.setMixVolume(sender.value, of: streamKit.bgmTrack)
+        liveStreamManager?.backgroundMusicController?.pushMusicVolume = Double(sender.value)
     }
     
-
-    
-    
     @IBAction func playPauseTap(_ sender: Any) {
-        guard let kit = streamKit else { return }
+        guard let controller = liveStreamManager?.backgroundMusicController else { return }
         if isRunning {
             isRunning = false
             playPaustBtn.setTitle("Play", for: .normal)
-            kit.bgmPlayer.pauseBgm()
+            controller.pauseMusic()
         } else {
             isRunning = true
             playPaustBtn.setTitle("Pause", for: .normal)
-            kit.bgmPlayer.resumeBgm()
+            controller.resumeMusic()
         }
     }
 }
