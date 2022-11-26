@@ -28,13 +28,30 @@
 		1A4C33862930BC4200E0A8D7 /* GPUImageMeshFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C337E2930BC4200E0A8D7 /* GPUImageMeshFilter.m */; };
 		1A4C33872930BC4200E0A8D7 /* MSTransform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C337F2930BC4200E0A8D7 /* MSTransform.mm */; };
 		1A4C338B2930BCBE00E0A8D7 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C33892930BCBE00E0A8D7 /* Utils.m */; };
+		1A4C38042930C0C400E0A8D7 /* 100107.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F42930C0C300E0A8D7 /* 100107.png */; };
+		1A4C38052930C0C400E0A8D7 /* skin_pierrot.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F52930C0C300E0A8D7 /* skin_pierrot.png */; };
+		1A4C38062930C0C400E0A8D7 /* 100009.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F62930C0C300E0A8D7 /* 100009.png */; };
+		1A4C38072930C0C400E0A8D7 /* skin_hlquinn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F72930C0C300E0A8D7 /* skin_hlquinn.png */; };
+		1A4C38082930C0C400E0A8D7 /* 100106.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F82930C0C300E0A8D7 /* 100106.png */; };
+		1A4C38092930C0C400E0A8D7 /* 100108.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37F92930C0C400E0A8D7 /* 100108.png */; };
+		1A4C380A2930C0C400E0A8D7 /* 100104.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FA2930C0C400E0A8D7 /* 100104.png */; };
+		1A4C380B2930C0C400E0A8D7 /* bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FB2930C0C400E0A8D7 /* bear.png */; };
+		1A4C380C2930C0C400E0A8D7 /* skin_beard.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FC2930C0C400E0A8D7 /* skin_beard.png */; };
+		1A4C380D2930C0C400E0A8D7 /* 100016.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FD2930C0C400E0A8D7 /* 100016.png */; };
+		1A4C380E2930C0C400E0A8D7 /* 100101.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FE2930C0C400E0A8D7 /* 100101.png */; };
+		1A4C380F2930C0C400E0A8D7 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C37FF2930C0C400E0A8D7 /* empty.png */; };
+		1A4C38102930C0C400E0A8D7 /* 100109.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38002930C0C400E0A8D7 /* 100109.png */; };
+		1A4C38112930C0C400E0A8D7 /* skin_cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38012930C0C400E0A8D7 /* skin_cat.png */; };
+		1A4C38122930C0C400E0A8D7 /* joker.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38022930C0C400E0A8D7 /* joker.png */; };
+		1A4C38132930C0C400E0A8D7 /* skin_butterfly.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38032930C0C400E0A8D7 /* skin_butterfly.png */; };
+		1A4C38152930C44F00E0A8D7 /* ZLSLiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C38142930C44F00E0A8D7 /* ZLSLiveStreamManager.swift */; };
 		1A55A26C292F7A4E0040B53D /* LiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */; };
 		1A55A26E292FC0AD0040B53D /* KSYLiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */; };
 		1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70F2B928FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m */; };
 		1A70F2C228FFA2030009510B /* model in Resources */ = {isa = PBXBuildFile; fileRef = 1A70F2C128FFA2030009510B /* model */; };
 		1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518028FAE62E008EE1A4 /* TestViewController.swift */; };
 		1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */; };
-		1AFAAE6829023D8C00521ADA /* GPUFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* GPUFilterManager.swift */; };
+		1AFAAE6829023D8C00521ADA /* GPUImageFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6729023D8C00521ADA /* GPUImageFilterManager.swift */; };
 		1AFAAE6B2902824E00521ADA /* LiveRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */; };
 		1AFAAE6E2902901000521ADA /* YUGPUImageCVPixelBufferInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */; };
 		6AC70155BCF3671336E8C400 /* Pods_KingsoftLiveTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249275FEBCE904011AA775B6 /* Pods_KingsoftLiveTest.framework */; };
@@ -90,6 +107,23 @@
 		1A4C33812930BC4200E0A8D7 /* MeshItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshItem.h; sourceTree = "<group>"; };
 		1A4C33892930BCBE00E0A8D7 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		1A4C338A2930BCBE00E0A8D7 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		1A4C37F42930C0C300E0A8D7 /* 100107.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100107.png; sourceTree = "<group>"; };
+		1A4C37F52930C0C300E0A8D7 /* skin_pierrot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_pierrot.png; sourceTree = "<group>"; };
+		1A4C37F62930C0C300E0A8D7 /* 100009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100009.png; sourceTree = "<group>"; };
+		1A4C37F72930C0C300E0A8D7 /* skin_hlquinn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_hlquinn.png; sourceTree = "<group>"; };
+		1A4C37F82930C0C300E0A8D7 /* 100106.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100106.png; sourceTree = "<group>"; };
+		1A4C37F92930C0C400E0A8D7 /* 100108.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100108.png; sourceTree = "<group>"; };
+		1A4C37FA2930C0C400E0A8D7 /* 100104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100104.png; sourceTree = "<group>"; };
+		1A4C37FB2930C0C400E0A8D7 /* bear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bear.png; sourceTree = "<group>"; };
+		1A4C37FC2930C0C400E0A8D7 /* skin_beard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_beard.png; sourceTree = "<group>"; };
+		1A4C37FD2930C0C400E0A8D7 /* 100016.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100016.png; sourceTree = "<group>"; };
+		1A4C37FE2930C0C400E0A8D7 /* 100101.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100101.png; sourceTree = "<group>"; };
+		1A4C37FF2930C0C400E0A8D7 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		1A4C38002930C0C400E0A8D7 /* 100109.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100109.png; sourceTree = "<group>"; };
+		1A4C38012930C0C400E0A8D7 /* skin_cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_cat.png; sourceTree = "<group>"; };
+		1A4C38022930C0C400E0A8D7 /* joker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joker.png; sourceTree = "<group>"; };
+		1A4C38032930C0C400E0A8D7 /* skin_butterfly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_butterfly.png; sourceTree = "<group>"; };
+		1A4C38142930C44F00E0A8D7 /* ZLSLiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSLiveStreamManager.swift; sourceTree = "<group>"; };
 		1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamManager.swift; sourceTree = "<group>"; };
 		1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSYLiveStreamManager.swift; sourceTree = "<group>"; };
 		1A70F2B828FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFaceWidgetComposeFilter.h; sourceTree = "<group>"; };
@@ -97,7 +131,7 @@
 		1A70F2C128FFA2030009510B /* model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model; path = KingsoftLiveTest/model; sourceTree = SOURCE_ROOT; };
 		1AE4518028FAE62E008EE1A4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1AE4518728FD0866008EE1A4 /* UIView+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animate.swift"; sourceTree = "<group>"; };
-		1AFAAE6729023D8C00521ADA /* GPUFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUFilterManager.swift; sourceTree = "<group>"; };
+		1AFAAE6729023D8C00521ADA /* GPUImageFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUImageFilterManager.swift; sourceTree = "<group>"; };
 		1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRecorder.swift; sourceTree = "<group>"; };
 		1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUGPUImageCVPixelBufferInput.m; sourceTree = "<group>"; };
 		1AFAAE6D2902901000521ADA /* YUGPUImageCVPixelBufferInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUGPUImageCVPixelBufferInput.h; sourceTree = "<group>"; };
@@ -182,7 +216,7 @@
 		1A03EC6328F5831C0006A745 /* KingsoftLiveTest */ = {
 			isa = PBXGroup;
 			children = (
-				1A55A26A292F7A390040B53D /* Managers */,
+				73AFE626291CA3BA00F9CA2B /* AppConfig.swift */,
 				1A03EC6428F5831C0006A745 /* AppDelegate.swift */,
 				1A03EC6D28F5831E0006A745 /* Assets.xcassets */,
 				1AE4518628FD0851008EE1A4 /* Extension */,
@@ -190,18 +224,17 @@
 				1A03EC7228F5831E0006A745 /* Info.plist */,
 				1A12CF2528FEC22E007DFF3F /* KingsoftLiveTest-Bridging-Header.h */,
 				1A03EC6F28F5831E0006A745 /* LaunchScreen.storyboard */,
+				1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */,
 				1A03EC6A28F5831C0006A745 /* Main.storyboard */,
+				1A55A26A292F7A390040B53D /* Managers */,
 				1A0A2C4B28F7BAF1009C16BF /* MixerViewController.swift */,
 				1A0A2C4028F713A3009C16BF /* Resource */,
 				1A03EC6628F5831C0006A745 /* SceneDelegate.swift */,
 				1A0A2C4728F71882009C16BF /* SongLibraryViewController.swift */,
-				1AFAAE692902421F00521ADA /* FilterManager */,
 				1A08FD3029000E4000395879 /* stickers */,
 				1AE4518028FAE62E008EE1A4 /* TestViewController.swift */,
 				1A0A2C3D28F7096D009C16BF /* View */,
 				1A03EC6828F5831C0006A745 /* ViewController.swift */,
-				1AFAAE6A2902824E00521ADA /* LiveRecorder.swift */,
-				73AFE626291CA3BA00F9CA2B /* AppConfig.swift */,
 			);
 			path = KingsoftLiveTest;
 			sourceTree = "<group>";
@@ -233,11 +266,56 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		1A55A26A292F7A390040B53D /* Managers */ = {
+		1A4C37F32930C0B000E0A8D7 /* FilterIcons */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C37F62930C0C300E0A8D7 /* 100009.png */,
+				1A4C37FD2930C0C400E0A8D7 /* 100016.png */,
+				1A4C37FE2930C0C400E0A8D7 /* 100101.png */,
+				1A4C37FA2930C0C400E0A8D7 /* 100104.png */,
+				1A4C37F82930C0C300E0A8D7 /* 100106.png */,
+				1A4C37F42930C0C300E0A8D7 /* 100107.png */,
+				1A4C37F92930C0C400E0A8D7 /* 100108.png */,
+				1A4C38002930C0C400E0A8D7 /* 100109.png */,
+				1A4C37FB2930C0C400E0A8D7 /* bear.png */,
+				1A4C37FF2930C0C400E0A8D7 /* empty.png */,
+				1A4C38022930C0C400E0A8D7 /* joker.png */,
+				1A4C37FC2930C0C400E0A8D7 /* skin_beard.png */,
+				1A4C38032930C0C400E0A8D7 /* skin_butterfly.png */,
+				1A4C38012930C0C400E0A8D7 /* skin_cat.png */,
+				1A4C37F72930C0C300E0A8D7 /* skin_hlquinn.png */,
+				1A4C37F52930C0C300E0A8D7 /* skin_pierrot.png */,
+			);
+			path = FilterIcons;
+			sourceTree = "<group>";
+		};
+		1A4C38162930C45A00E0A8D7 /* LiveStream */ = {
 			isa = PBXGroup;
 			children = (
 				1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */,
 				1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */,
+				1A4C38142930C44F00E0A8D7 /* ZLSLiveStreamManager.swift */,
+			);
+			path = LiveStream;
+			sourceTree = "<group>";
+		};
+		1A4C38172930C46700E0A8D7 /* VideoFilter */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C37F32930C0B000E0A8D7 /* FilterIcons */,
+				1A70F2B728FF978B0009510B /* StickerFilter */,
+				1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */,
+				1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */,
+				1AFAAE6729023D8C00521ADA /* GPUImageFilterManager.swift */,
+			);
+			path = VideoFilter;
+			sourceTree = "<group>";
+		};
+		1A55A26A292F7A390040B53D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C38172930C46700E0A8D7 /* VideoFilter */,
+				1A4C38162930C45A00E0A8D7 /* LiveStream */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -284,17 +362,6 @@
 				1AFAAE6C2902901000521ADA /* YUGPUImageCVPixelBufferInput.m */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		1AFAAE692902421F00521ADA /* FilterManager */ = {
-			isa = PBXGroup;
-			children = (
-				1A70F2B728FF978B0009510B /* StickerFilter */,
-				1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */,
-				1A12CF2728FEC22E007DFF3F /* OpenCVWrapper.mm */,
-				1AFAAE6729023D8C00521ADA /* GPUFilterManager.swift */,
-			);
-			path = FilterManager;
 			sourceTree = "<group>";
 		};
 		73AFE5A12913C10700F9CA2B /* LandmarkDetector */ = {
@@ -407,16 +474,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A4C38122930C0C400E0A8D7 /* joker.png in Resources */,
 				1A08FD3129000E4000395879 /* stickers in Resources */,
+				1A4C380F2930C0C400E0A8D7 /* empty.png in Resources */,
 				73089FD429238184004C0A63 /* beat.m4a in Resources */,
+				1A4C38072930C0C400E0A8D7 /* skin_hlquinn.png in Resources */,
+				1A4C38082930C0C400E0A8D7 /* 100106.png in Resources */,
 				1A03EC7128F5831E0006A745 /* LaunchScreen.storyboard in Resources */,
 				1A0A2C4428F71819009C16BF /* mono.mp3 in Resources */,
+				1A4C38052930C0C400E0A8D7 /* skin_pierrot.png in Resources */,
+				1A4C38092930C0C400E0A8D7 /* 100108.png in Resources */,
+				1A4C380E2930C0C400E0A8D7 /* 100101.png in Resources */,
 				1A70F2C228FFA2030009510B /* model in Resources */,
+				1A4C38062930C0C400E0A8D7 /* 100009.png in Resources */,
+				1A4C38042930C0C400E0A8D7 /* 100107.png in Resources */,
+				1A4C380B2930C0C400E0A8D7 /* bear.png in Resources */,
 				1A03EC6E28F5831E0006A745 /* Assets.xcassets in Resources */,
+				1A4C380D2930C0C400E0A8D7 /* 100016.png in Resources */,
+				1A4C380A2930C0C400E0A8D7 /* 100104.png in Resources */,
+				1A4C38132930C0C400E0A8D7 /* skin_butterfly.png in Resources */,
 				1A4C33832930BC4200E0A8D7 /* mesh.vsh in Resources */,
+				1A4C380C2930C0C400E0A8D7 /* skin_beard.png in Resources */,
+				1A4C38112930C0C400E0A8D7 /* skin_cat.png in Resources */,
 				1A03EC6C28F5831C0006A745 /* Main.storyboard in Resources */,
 				1A0A2C4628F7185C009C16BF /* hieuthu2.mp3 in Resources */,
 				1A0A2C4228F713B7009C16BF /* sontung.mp3 in Resources */,
+				1A4C38102930C0C400E0A8D7 /* 100109.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +557,7 @@
 				1A4C33852930BC4200E0A8D7 /* GPUFaceImageSkinFilter.m in Sources */,
 				1A55A26C292F7A4E0040B53D /* LiveStreamManager.swift in Sources */,
 				73AFE5C82913C11A00F9CA2B /* FCheck.cpp in Sources */,
-				1AFAAE6829023D8C00521ADA /* GPUFilterManager.swift in Sources */,
+				1AFAAE6829023D8C00521ADA /* GPUImageFilterManager.swift in Sources */,
 				1A4C33872930BC4200E0A8D7 /* MSTransform.mm in Sources */,
 				73AFE5C42913C11A00F9CA2B /* FaceDetect.mm in Sources */,
 				73AFE5C22913C11A00F9CA2B /* Warp.cpp in Sources */,
@@ -492,6 +575,7 @@
 				73AFE5CC2913C11A00F9CA2B /* myFaceAR.mm in Sources */,
 				1A0A2C4828F71882009C16BF /* SongLibraryViewController.swift in Sources */,
 				1A08FD34290050B100395879 /* Category.m in Sources */,
+				1A4C38152930C44F00E0A8D7 /* ZLSLiveStreamManager.swift in Sources */,
 				1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */,
 				73AFE5CB2913C11A00F9CA2B /* ShapePredictor.mm in Sources */,
 				1A03EC6528F5831C0006A745 /* AppDelegate.swift in Sources */,
@@ -660,6 +744,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KingsoftLiveTest/Extension/faceCamera",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/KingsoftLiveTest/FilterManager/faceCamera",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KingsoftLiveTest/Info.plist;
@@ -703,6 +788,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KingsoftLiveTest/Extension/faceCamera",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/KingsoftLiveTest/FilterManager/faceCamera",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KingsoftLiveTest/Info.plist;

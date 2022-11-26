@@ -14,7 +14,7 @@
 
 + (NSString *)openCVVersionString;
 - (void)configure;
-- (NSArray *)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+- (int)grepFacesForSampleBuffer:(CMSampleBufferRef)sampleBuffer widgetParams:(NSMutableArray **)params skinItems:(NSMutableArray **)skins meshItems:(NSMutableArray **)meshes;
 - (NSArray *)grepFacesForPixelBuffer:(CVPixelBufferRef)pixelBuffer;
 @end
 

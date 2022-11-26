@@ -50,8 +50,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterViewBottom: NSLayoutConstraint!
     
-    private var filterManager = GPUFilterManager()
-    
     private var isShowBeautyConfigure: Bool = false {
         didSet {
             if isShowBeautyConfigure {
@@ -80,11 +78,12 @@ class ViewController: UIViewController {
         //isShowSongLibrary = false
         
         //streamerKit?.setupFilter(filterManager.composedFilter())
+        liveStreamManager.videoConfiguration?.filterManager?.reset()
         
         focusView.frame.size = CGSize(width: 80, height: 80)
         
         // filter process
-        filterManager.cameraSize = cameraSize
+        //filterManager.cameraSize = cameraSize
 
         // setup recorder
         liveRecorder.delegate = self
@@ -99,6 +98,13 @@ class ViewController: UIViewController {
                 return
             }
             print("Init SDK success")
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [ weak self ] in
+            guard let `self` = self else { return }
+            print("test filter")
+            let stickerPath = Bundle.main.resourcePath?.appending("/stickers/simplebear") ?? ""
+            self.liveStreamManager.videoConfiguration?.filterManager?.selectSticker(FilterInfo(path: stickerPath, isFaceDetect: true))
         }
     }
     
@@ -266,20 +272,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func grindSliderDidChange(_ sender: UISlider) {
-        filterManager.grindRatio = CGFloat(sender.value)
+        //filterManager.grindRatio = CGFloat(sender.value)
     }
     
     @IBAction func whitenSliderDidChange(_ sender: UISlider) {
-        filterManager.whitenRatio = CGFloat(sender.value)
+        //filterManager.whitenRatio = CGFloat(sender.value)
     }
     @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
-        filterManager.isBeautyOn = sender.isOn
-        streamerKit?.setupFilter(filterManager.composedFilter())
+        //filterManager.isBeautyOn = sender.isOn
+        //streamerKit?.setupFilter(filterManager.composedFilter())
+        fatalError("not handle")
     }
     
     @IBAction func pigStickerDidChange(_ sender: UISwitch) {
-        filterManager.isPigStickerOn = sender.isOn
-        streamerKit?.setupFilter(filterManager.composedFilter())
+        //filterManager.isPigStickerOn = sender.isOn
+        //streamerKit?.setupFilter(filterManager.composedFilter())
+        fatalError("not handle")
     }
     
     // MARK: - Record while push

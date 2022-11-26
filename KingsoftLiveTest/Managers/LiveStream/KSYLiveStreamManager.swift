@@ -212,6 +212,7 @@ class KSYLiveVideoConfiguration: NSObject, LiveVideoConfiguration {
     private lazy var videoCamera: VideoCamera = {
         let videoCamera = VideoCamera(sessionPreset: capturePreset.rawValue, cameraPosition: cameraPosition, useYuv: false)
         videoCamera.horizontallyMirrorFrontFacingCamera = isMirrorPreview
+        videoCamera.delegate = self
         return videoCamera
     }()
     
@@ -298,11 +299,21 @@ class KSYLiveVideoConfiguration: NSObject, LiveVideoConfiguration {
         videoCamera.startCapture()
         streamerKit.aCapDev.start()
     }
+    
+    // Filter
+    lazy var filterManager: LiveFilterManager? = {
+        // configure filter manager
+        let manager = GPUImageFilterManager(streamerKit: streamerKit)
+        return manager
+    }()
 }
 
 extension KSYLiveVideoConfiguration: GPUImageVideoCameraDelegate {
     func willOutputSampleBuffer(_ sampleBuffer: CMSampleBuffer!) {
         delegate?.willOutputSampleBuffer(sampleBuffer)
+        if let gpuFilterManager = filterManager as? GPUImageFilterManager {
+            gpuFilterManager.configureFilters(with: sampleBuffer)
+        }
         streamerKit?.capToGpu.processSampleBuffer(sampleBuffer)
     }
 }

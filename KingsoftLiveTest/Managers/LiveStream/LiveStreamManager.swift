@@ -25,19 +25,22 @@ extension LiveStreamManagerDelegate {
 protocol LiveStreamManager: AnyObject {
     var delegate: LiveStreamManagerDelegate? { get set }
     
+    // video
     var videoConfiguration: LiveVideoConfiguration? { get set }
     
     func prepareForLive()
     
+    // audio
     var audioSession: AVAudioSession? { get set }
     var audioConfiguration: LiveAudioConfiguration? { get set }
     
+    // background music
     var backgroundMusicController: LiveBackgroundMusicController? { get set }
     
-    // MARK: PUBLISH STREAM
+    // publish stream
     var streamConfiguration: LiveStreamConfiguration? { get set }
     
-    // MARK: NATIVE CAMERA CONTROL
+    // camera control
     var cameraController: LiveCameraController? { get set }
 }
 
@@ -89,7 +92,11 @@ protocol LiveVideoConfiguration: AnyObject {
     var cameraPosition: AVCaptureDevice.Position { get set }
     func rotateCamera()
     func setupPreviewView(_ container: UIView)
+    
+    // filter module
+    var filterManager: LiveFilterManager? { get set }
 }
+
 // MARK: AUDIO
 protocol LiveAudioConfiguration: AnyObject {
     var micVolume: Double { get set } // 0 -> 1

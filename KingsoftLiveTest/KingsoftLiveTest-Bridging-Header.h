@@ -7,3 +7,6 @@
 #import "YUGPUImageCVPixelBufferInput.h"
 #import "VideoCamera.h"
 #import "Utils.h"
+#import "GPUImageMeshFilter.h"
+#import "GPUFaceImageSkinFilter.h"
+#import "GPUImageBlendFilter.h"
