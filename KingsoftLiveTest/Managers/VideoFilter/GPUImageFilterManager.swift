@@ -52,7 +52,7 @@ class GPUImageFilterManager: LiveFilterManager {
     private var currentFilterInfo: FilterInfo?
     
     // beautify filters
-    var isBeautyOn = false // TODO: Support generic beautify filter protocol in next version
+    var isBeautyOn = true // TODO: Support generic beautify filter protocol in next version
     
     //private var beautifyFilterList: [GPUBeautifyFilter] // TODO: Support generic beautify filter protocol in next version
     private var beautyFilter = KSYBeautifyFaceFilter()
@@ -64,7 +64,7 @@ class GPUImageFilterManager: LiveFilterManager {
     private var faceWidgetPicture1: GPUImagePicture?
     
     
-    private var filterGroupList: [GPUImageOutput & GPUImageInput] = []
+    private var filterGroupList: [GPUImageOutput] = []
     private var filterIndicesDict: [String: Int] = [:] // for random access for marked filter by key (unique string)
     //private var faceWidgetFilterList: [GPUImageFaceWidgetComposeFilter] = [] // used for random access to inject image overlay
     
@@ -102,19 +102,19 @@ class GPUImageFilterManager: LiveFilterManager {
         // beautify filter
         let filterGroup = GPUImageFilterGroup()
         
-        let firstFilter = GPUImageFilter() // placeholder first filter
-        var lastFilter: GPUImageFilter = firstFilter
+        let firstFilter: GPUImageOutput = GPUImageFilter() // placeholder first filter
+        var lastFilter = firstFilter
         filterGroupList.append(firstFilter)
-        filterGroup.addFilter(firstFilter)
+        filterGroup.addFilter(firstFilter as! GPUImageOutput & GPUImageInput)
        
-//        if isBeautyOn {
-//            beautyFilter?.removeAllTargets()
-//            beautyFilter = KSYBeautifyFaceFilter()
-//            lastFilter.addTarget(beautyFilter)
-//            filterGroup.addFilter(beautyFilter)
-//            lastFilter = beautyFilter
-//            filterGroupList.append(beautyFilter!)
-//        }
+        if isBeautyOn {
+            beautyFilter?.removeAllTargets()
+            beautyFilter = KSYBeautifyFaceFilter()
+            lastFilter.addTarget(beautyFilter)
+            filterGroup.addFilter(beautyFilter)
+            lastFilter = beautyFilter ?? GPUImageFilter()
+            filterGroupList.append(beautyFilter!)
+        }
         
         // STEP 1: clear old widget sticker
         
@@ -194,7 +194,7 @@ class GPUImageFilterManager: LiveFilterManager {
         }
         
         filterGroup.initialFilters = [firstFilter]
-        filterGroup.terminalFilter = lastFilter
+        filterGroup.terminalFilter = lastFilter as! any GPUImageOutput & GPUImageInput
         
         return filterGroup
     }
@@ -301,99 +301,13 @@ class GPUImageFilterManager: LiveFilterManager {
             // access to filter
             let range = 0...filterGroupList.count
             if let filterIndex = filterIndicesDict["item:\(item["folderName"]).\(idx)"], range.contains(filterIndex) {
-                itemPic?.addTarget(filterGroupList[filterIndex])
+                itemPic?.addTarget(filterGroupList[filterIndex] as! GPUImageInput)
             }
             itemPic?.processImage()
-//            switch idx {
-//            case 0:
-//                self.faceWidgetPicture?.removeAllTargets()
-//                self.faceWidgetPicture = itemPic
-//                self.faceWidgetPicture?.addTarget(filter, atTextureLocation: 1)
-//                self.faceWidgetPicture?.processImage()
-//                break
-//            case 1:
-//                self.faceWidgetPicture1?.removeAllTargets()
-//                self.faceWidgetPicture1 = itemPic
-//                self.faceWidgetPicture1?.addTarget(filter1, atTextureLocation: 1)
-//                self.faceWidgetPicture1?.processImage()
-//                break
-//            default:
-//                break
-//            }
-            
         }
         
         self.stickerFrameIndex += 1
     }
-    
-    /*
-    /// call to update frame ( face param/ change sticker frames) for filter
-    func configureFaceWidget(sampleBuffer: CMSampleBuffer?) {
-        
-        if faceWidgetFilterList.isEmpty {
-            return
-        }
-        guard let sampleBuffer = sampleBuffer,
-              let filter = self.faceWidgetFilter,
-              let filter1 = self.faceWidgetFilter1,
-              let faces = self.openCV.grepFaces(for: sampleBuffer) as? [[AnyHashable: Any]] else { return }
-        if faces.count == 0 { // reset filter
-            let empty = ["count": 0]
-            filter.setStickerParams(empty)
-            filter1.setStickerParams(empty)
-            return
-        }
-        
-        // get image frame from file and wire filter
-        guard let configs = self.openCV.stickerConfig["items"] as? [[String:Any]] else { return }
-        
-        for (idx, item) in configs.enumerated() {
-            let frames = item["frames"] as! Int
-            let frameIndex = self.stickerFrameIndex % frames
-            let folderName = item["folderName"] as! String
-            let folderPath = "\(self.stickerPath)/\(folderName)"
-            let fileName = "\(folderName)_\(String(format: "%03d", frameIndex)).png"
-            let filePath = "\(folderPath)/\(fileName)"
-            
-            var itemPic: GPUImagePicture?
-            if self.gpuImageCache[filePath] == nil {
-                if FileManager.default.fileExists(atPath: filePath) {
-                    let image =  UIImage(contentsOfFile: filePath)
-                    itemPic = GPUImagePicture(image: image)
-                }
-                if itemPic == nil {
-                    continue // next item
-                }
-                self.gpuImageCache[filePath] = itemPic
-            }
-            itemPic = self.gpuImageCache[filePath]
-            
-            switch idx {
-            case 0:
-                self.faceWidgetPicture?.removeAllTargets()
-                self.faceWidgetPicture = itemPic
-                self.faceWidgetPicture?.addTarget(filter, atTextureLocation: 1)
-                self.faceWidgetPicture?.processImage()
-                break
-            case 1:
-                self.faceWidgetPicture1?.removeAllTargets()
-                self.faceWidgetPicture1 = itemPic
-                self.faceWidgetPicture1?.addTarget(filter1, atTextureLocation: 1)
-                self.faceWidgetPicture1?.processImage()
-                break
-            default:
-                break
-            }
-            
-        }
-        
-        self.stickerFrameIndex += 1
-        
-        // su dung faces data len sticker filter
-        filter.setStickerParams(faces[0])
-        filter1.setStickerParams(faces[1])
-    }
-     */
     
     func reset() {
         //TODO: Reset filter
