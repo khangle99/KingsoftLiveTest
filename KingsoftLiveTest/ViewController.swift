@@ -105,7 +105,7 @@ class ViewController: UIViewController {
             guard let `self` = self else { return }
             print("test filter")
             let stickerPath = Bundle.main.resourcePath?.appending("/stickers/simplebear") ?? ""
-            self.liveStreamManager.videoConfiguration?.filterManager?.selectSticker(FilterInfo(path: stickerPath, isFaceDetect: true))
+            self.liveStreamManager.videoConfiguration?.filterManager?.selectSticker(FilterInfo(id:"test" ,path: stickerPath, isFaceDetect: true))
         }
     }
     

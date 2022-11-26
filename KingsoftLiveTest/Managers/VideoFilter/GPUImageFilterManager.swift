@@ -10,12 +10,14 @@ import GPUImage
 import libksygpulive
 
 struct FilterInfo {
+    let id: String // id for update param
     let path: String // the path for resource compatible with adopted FilterManager
     let isFaceDetect: Bool
 }
 
 protocol LiveFilterManager: AnyObject {
     func selectSticker(_ info: FilterInfo)
+    func updateFilterParams(params: [String: Any], for id: String)
     func reset()
 }
 
@@ -24,24 +26,14 @@ class GPUImageFilterManager: LiveFilterManager {
     
     weak var streamerKit: KSYGPUStreamerKit?
     
-    // face skin image filter
-    private var skinImage: GPUImagePicture = GPUImagePicture(image: UIImage(named: "empty"))
-    private var faceSkinImageFilter = GPUFaceImageSkinFilter()
+    init(streamerKit: KSYGPUStreamerKit?) {
+        self.streamerKit = streamerKit
+        let openCv = OpenCVWrapper()
+        openCv.configure()
+        openCv.cameraSize = cameraSize
+        self.openCV = openCv
+    }
     
-    private var blendFilter =  GPUImageBlendFilter()
-    
-    // mesh
-    private let meshFilter = GPUImageMeshFilter()
-    
-     init(streamerKit: KSYGPUStreamerKit?) {
-         self.streamerKit = streamerKit
-         let openCv = OpenCVWrapper()
-         openCv.configure()
-         openCv.cameraSize = cameraSize
-         self.openCV = openCv
-     }
-    
-    // public
     private var openCV: OpenCVWrapper!
     var cameraSize = CGSize(width: 720, height: 1280) {
         didSet {
@@ -49,35 +41,35 @@ class GPUImageFilterManager: LiveFilterManager {
         }
     }
     
+    private var needFaceDetect = false
+    
     private var currentFilterInfo: FilterInfo?
-    
-    // beautify filters
-    var isBeautyOn = true // TODO: Support generic beautify filter protocol in next version
-    
-    //private var beautifyFilterList: [GPUBeautifyFilter] // TODO: Support generic beautify filter protocol in next version
-    private var beautyFilter = KSYBeautifyFaceFilter()
-    
-    // face widget filters
-    
-    private var faceWidgetPictureList: [GPUImagePicture] = []
-    private var faceWidgetPicture: GPUImagePicture?
-    private var faceWidgetPicture1: GPUImagePicture?
-    
-    
-    private var filterGroupList: [GPUImageOutput] = []
-    private var filterIndicesDict: [String: Int] = [:] // for random access for marked filter by key (unique string)
-    //private var faceWidgetFilterList: [GPUImageFaceWidgetComposeFilter] = [] // used for random access to inject image overlay
-    
-    private var faceWidgetFilter: GPUImageFaceWidgetComposeFilter?
-    private var faceWidgetFilter1: GPUImageFaceWidgetComposeFilter?
-    
-    private let placeHolder =  GPUImagePicture(image: UIImage(named: "empty")!)
-
-    private var stickerFrameIndex: Int = 0 // index for animated sticker
     
     private var stickerPath: String {
         currentFilterInfo?.path ?? ""
     }
+    
+    // MARK: - FACE STICKER / SKIN / MESH
+    
+    // face skin image filter
+    private var skinImage: GPUImagePicture = GPUImagePicture(image: UIImage(named: "empty"))
+    private var faceSkinImageFilter = GPUFaceImageSkinFilter()
+    
+    // blend for face skin
+    private var blendFilter =  GPUImageBlendFilter()
+    
+    // mesh
+    private let meshFilter = GPUImageMeshFilter()
+    
+    // face widget filters
+    private var faceWidgetPictureList: [GPUImagePicture] = []
+    
+    private var filterGroupList: [GPUImageOutput] = []
+    private var filterIndicesDict: [String: Int] = [:] // for random access for marked filter by key (unique string)
+    
+    private let placeHolder =  GPUImagePicture(image: UIImage(named: "empty")!)
+
+    private var stickerFrameIndex: Int = 0 // index for animated sticker
     
     private var gpuImageCache: [String: GPUImagePicture] = [:]
     
@@ -92,7 +84,6 @@ class GPUImageFilterManager: LiveFilterManager {
     /// Compose filter render pineline (compose all sticker/ beautify filters) to a single filter group for ksy
     /// recall whenever single filter chain remove or add
     func composeFilterGroup() -> GPUImageFilterGroup? {
-        
         // Step 0: clear all filter in group list
         filterGroupList.forEach { filter in
             filter.removeAllTargets()
@@ -206,8 +197,6 @@ class GPUImageFilterManager: LiveFilterManager {
     
     private var previousFaceCount: Int = 0
     
-    private var needFaceDetect = false
-    
     /// face detect for AR Filter
     func configureFilters(with sampleBuffer: CMSampleBuffer?) {
         
@@ -309,11 +298,41 @@ class GPUImageFilterManager: LiveFilterManager {
         self.stickerFrameIndex += 1
     }
     
-    func reset() {
+    func updateFilterParams(params: [String : Any], for id: String) {
+        
+    }
+    
+    func reset() { // remove all filter
         //TODO: Reset filter
+        filterGroupList.forEach { filter in
+            filter.removeAllTargets()
+        }
+        
+        filterIndicesDict.removeAll()
+        
+        stickerFrameIndex = 0
+        
+        filterGroupList.removeAll()
+        
+        gpuImageCache.removeAll()
+        
+        skinImage.removeAllTargets()
+        
+        blendFilter.removeAllTargets()
+        
+        faceSkinImageFilter.removeAllTargets()
+        
+        meshFilter.removeAllTargets()
     }
     
     // MARK: -  BEAUTIFY FILTER
+    
+    // beautify filters
+    var isBeautyOn = true // TODO: Support generic beautify filter protocol in next version
+    
+    //private var beautifyFilterList: [GPUBeautifyFilter] // TODO: Support generic beautify filter protocol in next version
+    private var beautyFilter = KSYBeautifyFaceFilter()
+    
     var grindRatio: CGFloat  = 0.87 {
         didSet {
             beautyFilter?.grindRatio = grindRatio
