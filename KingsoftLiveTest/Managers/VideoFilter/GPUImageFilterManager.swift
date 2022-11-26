@@ -64,7 +64,7 @@ class GPUImageFilterManager: LiveFilterManager {
     private var faceWidgetPicture1: GPUImagePicture?
     
     
-    private var filterGroupList: [GPUImageOutput] = []
+    private var filterGroupList: [GPUImageOutput & GPUImageInput] = []
     private var filterIndicesDict: [String: Int] = [:] // for random access for marked filter by key (unique string)
     //private var faceWidgetFilterList: [GPUImageFaceWidgetComposeFilter] = [] // used for random access to inject image overlay
     
@@ -100,15 +100,21 @@ class GPUImageFilterManager: LiveFilterManager {
         filterGroupList.removeAll()
                 
         // beautify filter
-       
         let filterGroup = GPUImageFilterGroup()
-     
-        if isBeautyOn {
-            beautyFilter?.removeAllTargets()
-            beautyFilter = KSYBeautifyFaceFilter()
-            filterGroup.addFilter(beautyFilter)
-            filterGroupList.append(beautyFilter!)
-        }
+        
+        let firstFilter = GPUImageFilter() // placeholder first filter
+        var lastFilter: GPUImageFilter = firstFilter
+        filterGroupList.append(firstFilter)
+        filterGroup.addFilter(firstFilter)
+       
+//        if isBeautyOn {
+//            beautyFilter?.removeAllTargets()
+//            beautyFilter = KSYBeautifyFaceFilter()
+//            lastFilter.addTarget(beautyFilter)
+//            filterGroup.addFilter(beautyFilter)
+//            lastFilter = beautyFilter
+//            filterGroupList.append(beautyFilter!)
+//        }
         
         // STEP 1: clear old widget sticker
         
@@ -123,129 +129,76 @@ class GPUImageFilterManager: LiveFilterManager {
         openCV.stickerConfig = dictionary // opencv need json to configure widget param
         
         // STEP 2: create list of widget filter base on selected widget sticker
- 
-        
-//        if let items = dictionary["items"] as? [[String:Any]] {
-//            var widgetParams: [String: Any] = ["count": "0"] // reset param
-//            for (idx, item) in items.enumerated() {
-//                // init widget filter at location 0
-//                let filter = GPUImageFaceWidgetComposeFilter()
-//                filter.imgSize = self.cameraSize
-//                filter.setStickerParams(widgetParams)
-//                filterGroup.addFilter(filter)
-//                filterGroupList.append(filter)
-//                //store logic:
-//                filterIndicesDict["\(item["folderName"]).\(idx)"] = filterGroupList.count - 1
-//            }
-//        }
+
+        if let items = dictionary["items"] as? [[String:Any]] {
+            
+            let placeholderPicture = GPUImagePicture(image: UIImage(named: "empty"))
+            gpuImageCache["empty"] = placeholderPicture
+            
+            let widgetParams: [String: Any] = ["count": "0"] // reset param
+            for (idx, item) in items.enumerated() {
+                // init widget filter at location 0
+                let filter = GPUImageFaceWidgetComposeFilter()
+                filter.imgSize = self.cameraSize
+                filter.setStickerParams(widgetParams)
+                filterGroup.addFilter(filter)
+                filterGroupList.append(filter)
+                placeholderPicture?.addTarget(filter, atTextureLocation: 1)
+                lastFilter.addTarget(filter)
+                lastFilter = filter
+                //store index of filter by key logic:
+                filterIndicesDict["item:\(item["folderName"]).\(idx)"] = filterGroupList.count - 1
+            }
+            
+            placeholderPicture?.processImage()
+        }
         
         // STEP 3: configure face skin filter
-//        if let skins = self.openCV.stickerConfig["skins"] as? [[String:Any]] {
-//            let skin = skins[0]
-//            let folderName = skin["folderName"] as! String
-//            let idxFile = String(format: "%@/%@/%@.idx", stickerPath, folderName, folderName)
-//            let crdFile = String(format: "%@/%@/%@.crd", stickerPath, folderName, folderName)
-//            let pngFile = String(format: "%@/%@/%@_000.png", stickerPath, folderName, folderName)
-//            skinImage.removeAllTargets()
-//            if FileManager.default.fileExists(atPath: pngFile) {
-//                skinImage = GPUImagePicture(image: UIImage(contentsOfFile: pngFile)!) // force cast
-//
-//                /* compose Face Image Skin Filter
-//                 camera(lastFilter) -> faceSkinFilter (bottom layer: index 0)
-//                 faceSkinImage      -> faceSkinFilter (top layer: index 1)
-//                */
-//                filterGroupList.append(faceSkinImageFilter)
-//                filterGroup.addFilter(faceSkinImageFilter)
-//                faceSkinImageFilter.update(with: crdFile, idxFile)
-//                //skinImage.addTarget(faceSkinImageFilter, atTextureLocation: 1)
-//
-//                /* compose Blend Filter
-//                 camera(lastFilter)  -> blendfilter (bottom layer: index 0)
-//                 faceImageSkinFilter -> blendfilter (top layer: index 1)
-//                */
-//                filterGroupList.append(blendFilter)
-//                filterGroup.addFilter(blendFilter)
-//                faceSkinImageFilter.addTarget(blendFilter, atTextureLocation: 1)
-//
-//                skinImage.processImage()
-//            }
-//        }
+        if let skins = self.openCV.stickerConfig["skins"] as? [[String:Any]] {
+            let skin = skins[0]
+            let folderName = skin["folderName"] as! String
+            let idxFile = String(format: "%@/%@/%@.idx", stickerPath, folderName, folderName)
+            let crdFile = String(format: "%@/%@/%@.crd", stickerPath, folderName, folderName)
+            let pngFile = String(format: "%@/%@/%@_000.png", stickerPath, folderName, folderName)
+            skinImage.removeAllTargets()
+            if FileManager.default.fileExists(atPath: pngFile) {
+                skinImage = GPUImagePicture(image: UIImage(contentsOfFile: pngFile)!) // force cast
+
+                /* compose Face Image Skin Filter
+                 camera(lastFilter) -> faceSkinFilter (bottom layer: index 0)
+                 faceSkinImage      -> faceSkinFilter (top layer: index 1)
+                */
+                faceSkinImageFilter.update(with: crdFile, idxFile)
+                lastFilter.addTarget(faceSkinImageFilter, atTextureLocation: 0)
+                skinImage.addTarget(faceSkinImageFilter, atTextureLocation: 1)
+                filterGroup.addFilter(faceSkinImageFilter)
+
+                /* compose Blend Filter
+                 camera(lastFilter)  -> blendfilter (bottom layer: index 0)
+                 faceImageSkinFilter -> blendfilter (top layer: index 1)
+                */
+                lastFilter.addTarget(blendFilter, atTextureLocation: 0)
+                faceSkinImageFilter.addTarget(blendFilter, atTextureLocation: 1)
+                filterGroup.addFilter(blendFilter)
+                lastFilter = blendFilter
+                skinImage.processImage()
+            }
+        }
         
         // STEP 4: configure mesh filter
         
-        filterGroup.addFilter(meshFilter)
-        filterGroupList.append(meshFilter)
-        
-        // Step 5: Connect all filter in group list at location 0
-        guard filterGroupList.count > 0 else { return nil }
-        for idx in 0..<filterGroupList.count - 1 {
-            let filter = filterGroupList[idx]
-            filter.addTarget((filterGroupList[idx + 1] as! GPUImageInput), atTextureLocation: 0)
+        if let meshs = self.openCV.stickerConfig["meshs"] as? [[String:Any]] {
+            lastFilter.addTarget(meshFilter)
+            filterGroup.addFilter(meshFilter)
+            lastFilter = meshFilter
         }
         
-        filterGroup.initialFilters = [filterGroupList.first!] // force cast
-        filterGroup.terminalFilter = filterGroupList.last as! GPUImageOutput & GPUImageInput
+        filterGroup.initialFilters = [firstFilter]
+        filterGroup.terminalFilter = lastFilter
         
         return filterGroup
     }
-    /*
-    func composedFilter() -> GPUImageFilterGroup? {
-        // init filter
-        if !isBeautyOn && faceWidgetFilterList.isEmpty {
-            return nil
-        }
-        
-        var filterList: [GPUImageOutput] = []
-        let filterGroup = GPUImageFilterGroup()
-     
-        if isBeautyOn {
-            beautyFilter?.removeAllTargets()
-            beautyFilter = KSYBeautifyFaceFilter()
-            filterGroup.addFilter(beautyFilter)
-            filterList.append(beautyFilter!)
-        }
-        
-        if !faceWidgetFilterList.isEmpty {
-            faceWidgetFilter?.removeAllTargets()
-            faceWidgetFilter1?.removeAllTargets()
-            faceWidgetFilter = GPUImageFaceWidgetComposeFilter()
-            faceWidgetFilter1 = GPUImageFaceWidgetComposeFilter()
-            faceWidgetFilter!.imgSize = self.cameraSize
-           
-            faceWidgetFilter1!.imgSize = self.cameraSize
-            
-            faceWidgetFilter!.addTarget(faceWidgetFilter1)
-            
-            placeHolder?.addTarget(faceWidgetFilter, atTextureLocation: 1)
-            placeHolder?.addTarget(faceWidgetFilter1, atTextureLocation: 1)
-            placeHolder?.processImage()
-            
-            filterGroup.addFilter(faceWidgetFilter)
-            filterGroup.addFilter(faceWidgetFilter1)
-            filterList.append(faceWidgetFilter!)
-            filterList.append(faceWidgetFilter1!)
-            
-            //stickerPath = Bundle.main.resourcePath?.appending("/stickers/simplebear") ?? ""
-            
-            guard let data = NSData(contentsOfFile: stickerPath.appending("/config.json")),
-                  let dictionary = try? JSONSerialization.jsonObject(with: data as Data) as? [AnyHashable: Any] else { return nil }
-            
-            openCV.stickerConfig = dictionary
-        }
-        
-        // su dung array de get ra init terminal filter, wire filter
-        
-        for idx in 0..<filterList.count - 1 {
-            let filter = filterList[idx]
-            filter.addTarget((filterList[idx + 1] as! GPUImageInput))
-        }
-        
-        filterGroup.initialFilters = [filterList.first!]
-        filterGroup.terminalFilter = filterList.last as! GPUImageOutput & GPUImageInput
-
-        return filterGroup
-    }
-    */
+    
     /// base on selected list of beautify filter
     func appendBeautyfiFilter() { // TODO: Support generic beautify filter protocol in next version
         
@@ -272,12 +225,12 @@ class GPUImageFilterManager: LiveFilterManager {
             previousFaceCount = Int(faceCount)
         }
         
-        
-        if faceCount < 1 { // reset widget filter data
+        // reset widget filter data
+        if faceCount < 1 {
             let parames = ["count" : "0"]
             if let items = self.openCV.stickerConfig["items"] as? [[String:Any]] {
                 for (idx, item) in items.enumerated() {
-                    if let filterIndex = filterIndicesDict["\(item["folderName"]).\(idx)"],
+                    if let filterIndex = filterIndicesDict["item:\(item["folderName"]).\(idx)"],
                        let widgetFilter = filterGroupList[filterIndex] as? GPUImageFaceWidgetComposeFilter {
                         widgetFilter.setStickerParams(parames)
                     }
@@ -298,28 +251,79 @@ class GPUImageFilterManager: LiveFilterManager {
         }
         // update skins data if need
         if let skins = self.openCV.stickerConfig["skins"] as? [[String:Any]] {
-            //faceSkinImageFilter.items = skinItems
+            faceSkinImageFilter.items = skinItems
         }
-        
+//        print("debug face params")
+//        print(faceParams)
         // update item filter if need
-//        if let items = self.openCV.stickerConfig["items"] as? [[String:Any]],
-//           let params = faceParams as? [[AnyHashable: Any]] {
-//
-//            for (idx, item) in items.enumerated() {
-//                if let filterIndex = filterIndicesDict["\(item["folderName"]).\(idx)"],
-//                   let widgetFilter = filterGroupList[filterIndex] as? GPUImageFaceWidgetComposeFilter {
-//                    widgetFilter.setStickerParams(params[idx])
-//                }
-//
-//            }
-//        }
+        if let items = self.openCV.stickerConfig["items"] as? [[String:Any]],
+           let params = faceParams as? [[AnyHashable: Any]] {
+
+            for (idx, item) in items.enumerated() {
+                if let filterIndex = filterIndicesDict["item:\(item["folderName"]).\(idx)"],
+                   let widgetFilter = filterGroupList[filterIndex] as? GPUImageFaceWidgetComposeFilter {
+                    
+                    widgetFilter.setStickerParams(params[idx])
+                }
+
+            }
+        }
         
         // update frame picture for animated sticker
         updateWidgetPictureFrame()
+        
     }
     
     private func updateWidgetPictureFrame() {
+        guard let items = self.openCV.stickerConfig["items"] as? [[String:Any]] else { return }
         
+        for (idx, item) in items.enumerated() {
+            let frames = item["frames"] as! Int
+            let frameIndex = self.stickerFrameIndex % frames
+            let folderName = item["folderName"] as! String
+            let folderPath = "\(self.stickerPath)/\(folderName)"
+            let fileName = "\(folderName)_\(String(format: "%03d", frameIndex)).png"
+            let filePath = "\(folderPath)/\(fileName)"
+            
+            var itemPic: GPUImagePicture?
+            if self.gpuImageCache[filePath] == nil {
+                if FileManager.default.fileExists(atPath: filePath) {
+                    let image =  UIImage(contentsOfFile: filePath)
+                    itemPic = GPUImagePicture(image: image)
+                }
+                if itemPic == nil {
+                    continue // next item
+                }
+                self.gpuImageCache[filePath] = itemPic
+            }
+            itemPic = self.gpuImageCache[filePath]
+            
+            // access to filter
+            let range = 0...filterGroupList.count
+            if let filterIndex = filterIndicesDict["item:\(item["folderName"]).\(idx)"], range.contains(filterIndex) {
+                itemPic?.addTarget(filterGroupList[filterIndex])
+            }
+            itemPic?.processImage()
+//            switch idx {
+//            case 0:
+//                self.faceWidgetPicture?.removeAllTargets()
+//                self.faceWidgetPicture = itemPic
+//                self.faceWidgetPicture?.addTarget(filter, atTextureLocation: 1)
+//                self.faceWidgetPicture?.processImage()
+//                break
+//            case 1:
+//                self.faceWidgetPicture1?.removeAllTargets()
+//                self.faceWidgetPicture1 = itemPic
+//                self.faceWidgetPicture1?.addTarget(filter1, atTextureLocation: 1)
+//                self.faceWidgetPicture1?.processImage()
+//                break
+//            default:
+//                break
+//            }
+            
+        }
+        
+        self.stickerFrameIndex += 1
     }
     
     /*

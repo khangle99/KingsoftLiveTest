@@ -100,7 +100,8 @@ class ViewController: UIViewController {
             print("Init SDK success")
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [ weak self ] in
+        // demo sticker
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [ weak self ] in
             guard let `self` = self else { return }
             print("test filter")
             let stickerPath = Bundle.main.resourcePath?.appending("/stickers/simplebear") ?? ""
