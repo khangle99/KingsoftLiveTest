@@ -45,6 +45,10 @@
 		1A4C38122930C0C400E0A8D7 /* joker.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38022930C0C400E0A8D7 /* joker.png */; };
 		1A4C38132930C0C400E0A8D7 /* skin_butterfly.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C38032930C0C400E0A8D7 /* skin_butterfly.png */; };
 		1A4C38152930C44F00E0A8D7 /* ZLSLiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C38142930C44F00E0A8D7 /* ZLSLiveStreamManager.swift */; };
+		1A4C381A2932676300E0A8D7 /* BeautifyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C38192932676300E0A8D7 /* BeautifyInfo.swift */; };
+		1A4C38212933138F00E0A8D7 /* KSYSkinFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C38202933138F00E0A8D7 /* KSYSkinFilter.swift */; };
+		1A4C3824293329EA00E0A8D7 /* 3_tianmeikeren.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C3823293329EA00E0A8D7 /* 3_tianmeikeren.png */; };
+		1A4C382629332B3D00E0A8D7 /* 2_liangli.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4C382529332B3D00E0A8D7 /* 2_liangli.png */; };
 		1A55A26C292F7A4E0040B53D /* LiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */; };
 		1A55A26E292FC0AD0040B53D /* KSYLiveStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */; };
 		1A70F2BA28FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A70F2B928FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.m */; };
@@ -124,6 +128,10 @@
 		1A4C38022930C0C400E0A8D7 /* joker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joker.png; sourceTree = "<group>"; };
 		1A4C38032930C0C400E0A8D7 /* skin_butterfly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skin_butterfly.png; sourceTree = "<group>"; };
 		1A4C38142930C44F00E0A8D7 /* ZLSLiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSLiveStreamManager.swift; sourceTree = "<group>"; };
+		1A4C38192932676300E0A8D7 /* BeautifyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautifyInfo.swift; sourceTree = "<group>"; };
+		1A4C38202933138F00E0A8D7 /* KSYSkinFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSYSkinFilter.swift; sourceTree = "<group>"; };
+		1A4C3823293329EA00E0A8D7 /* 3_tianmeikeren.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3_tianmeikeren.png; sourceTree = "<group>"; };
+		1A4C382529332B3D00E0A8D7 /* 2_liangli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2_liangli.png; sourceTree = "<group>"; };
 		1A55A26B292F7A4E0040B53D /* LiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamManager.swift; sourceTree = "<group>"; };
 		1A55A26D292FC0AD0040B53D /* KSYLiveStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSYLiveStreamManager.swift; sourceTree = "<group>"; };
 		1A70F2B828FF97DA0009510B /* GPUImageFaceWidgetComposeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFaceWidgetComposeFilter.h; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 		1A0A2C4028F713A3009C16BF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1A4C3822293329DB00E0A8D7 /* RuddyMaterial */,
 				73089FD32923813B004C0A63 /* beat.m4a */,
 				1A0A2C4528F7185C009C16BF /* hieuthu2.mp3 */,
 				1A0A2C4328F71819009C16BF /* mono.mp3 */,
@@ -302,6 +311,7 @@
 		1A4C38172930C46700E0A8D7 /* VideoFilter */ = {
 			isa = PBXGroup;
 			children = (
+				1A4C38182932629300E0A8D7 /* BeautifyFilter */,
 				1A4C37F32930C0B000E0A8D7 /* FilterIcons */,
 				1A70F2B728FF978B0009510B /* StickerFilter */,
 				1A12CF2628FEC22E007DFF3F /* OpenCVWrapper.h */,
@@ -309,6 +319,24 @@
 				1AFAAE6729023D8C00521ADA /* GPUImageFilterManager.swift */,
 			);
 			path = VideoFilter;
+			sourceTree = "<group>";
+		};
+		1A4C38182932629300E0A8D7 /* BeautifyFilter */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C38192932676300E0A8D7 /* BeautifyInfo.swift */,
+				1A4C38202933138F00E0A8D7 /* KSYSkinFilter.swift */,
+			);
+			path = BeautifyFilter;
+			sourceTree = "<group>";
+		};
+		1A4C3822293329DB00E0A8D7 /* RuddyMaterial */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C382529332B3D00E0A8D7 /* 2_liangli.png */,
+				1A4C3823293329EA00E0A8D7 /* 3_tianmeikeren.png */,
+			);
+			path = RuddyMaterial;
 			sourceTree = "<group>";
 		};
 		1A55A26A292F7A390040B53D /* Managers */ = {
@@ -483,10 +511,12 @@
 				1A03EC7128F5831E0006A745 /* LaunchScreen.storyboard in Resources */,
 				1A0A2C4428F71819009C16BF /* mono.mp3 in Resources */,
 				1A4C38052930C0C400E0A8D7 /* skin_pierrot.png in Resources */,
+				1A4C382629332B3D00E0A8D7 /* 2_liangli.png in Resources */,
 				1A4C38092930C0C400E0A8D7 /* 100108.png in Resources */,
 				1A4C380E2930C0C400E0A8D7 /* 100101.png in Resources */,
 				1A70F2C228FFA2030009510B /* model in Resources */,
 				1A4C38062930C0C400E0A8D7 /* 100009.png in Resources */,
+				1A4C3824293329EA00E0A8D7 /* 3_tianmeikeren.png in Resources */,
 				1A4C38042930C0C400E0A8D7 /* 100107.png in Resources */,
 				1A4C380B2930C0C400E0A8D7 /* bear.png in Resources */,
 				1A03EC6E28F5831E0006A745 /* Assets.xcassets in Resources */,
@@ -575,9 +605,11 @@
 				73AFE5CC2913C11A00F9CA2B /* myFaceAR.mm in Sources */,
 				1A0A2C4828F71882009C16BF /* SongLibraryViewController.swift in Sources */,
 				1A08FD34290050B100395879 /* Category.m in Sources */,
+				1A4C38212933138F00E0A8D7 /* KSYSkinFilter.swift in Sources */,
 				1A4C38152930C44F00E0A8D7 /* ZLSLiveStreamManager.swift in Sources */,
 				1AE4518828FD0866008EE1A4 /* UIView+Animate.swift in Sources */,
 				73AFE5CB2913C11A00F9CA2B /* ShapePredictor.mm in Sources */,
+				1A4C381A2932676300E0A8D7 /* BeautifyInfo.swift in Sources */,
 				1A03EC6528F5831C0006A745 /* AppDelegate.swift in Sources */,
 				1AE4518128FAE62E008EE1A4 /* TestViewController.swift in Sources */,
 				73AFE5C32913C11A00F9CA2B /* ATM.mm in Sources */,

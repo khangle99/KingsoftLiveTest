@@ -273,11 +273,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func grindSliderDidChange(_ sender: UISlider) {
-        //filterManager.grindRatio = CGFloat(sender.value)
+        liveStreamManager.videoConfiguration?.filterManager?.skinBeauty?.grindIntensity = sender.value
     }
     
     @IBAction func whitenSliderDidChange(_ sender: UISlider) {
-        //filterManager.whitenRatio = CGFloat(sender.value)
+        liveStreamManager.videoConfiguration?.filterManager?.skinBeauty?.whitenIntensity = sender.value
     }
     @IBAction func beautySwitchDidChange(_ sender: UISwitch) {
         //filterManager.isBeautyOn = sender.isOn

@@ -10,12 +10,14 @@ import GPUImage
 import libksygpulive
 
 struct FilterInfo {
-    let id: String // id for update param
+    let id: String
     let path: String // the path for resource compatible with adopted FilterManager
     let isFaceDetect: Bool
 }
 
 protocol LiveFilterManager: AnyObject {
+    var skinBeauty: SkinBeauty? { get }
+    var shapeBeautyList: [FaceShapeBeauty] { get set }
     func selectSticker(_ info: FilterInfo)
     func updateFilterParams(params: [String: Any], for id: String)
     func reset()
@@ -99,12 +101,12 @@ class GPUImageFilterManager: LiveFilterManager {
         filterGroup.addFilter(firstFilter as! GPUImageOutput & GPUImageInput)
        
         if isBeautyOn {
-            beautyFilter?.removeAllTargets()
-            beautyFilter = KSYBeautifyFaceFilter()
-            lastFilter.addTarget(beautyFilter)
-            filterGroup.addFilter(beautyFilter)
-            lastFilter = beautyFilter ?? GPUImageFilter()
-            filterGroupList.append(beautyFilter!)
+            skinBeautyFilter?.removeAllTargets()
+            skinBeautyFilter = KSYBeautifyFaceFilter()
+            lastFilter.addTarget(skinBeautyFilter)
+            filterGroup.addFilter(skinBeautyFilter)
+            lastFilter = skinBeautyFilter ?? GPUImageFilter()
+            filterGroupList.append(skinBeautyFilter!)
         }
         
         // STEP 1: clear old widget sticker
@@ -327,21 +329,19 @@ class GPUImageFilterManager: LiveFilterManager {
     
     // MARK: -  BEAUTIFY FILTER
     
+    private var skinBeautyFilter = KSYBeautifyFaceFilter(rubbyMaterial: UIImage(named: "2_liangli")!)
+    
+    lazy var skinBeauty: SkinBeauty? = {
+        guard let skinBeautyFilter = self.skinBeautyFilter else { return nil }
+        let skinBeauty = KSYSkinFilter(ksyBeauty: skinBeautyFilter)
+        return skinBeauty
+    }()
+    
+    var shapeBeautyList: [FaceShapeBeauty] = []
+    
     // beautify filters
     var isBeautyOn = true // TODO: Support generic beautify filter protocol in next version
     
     //private var beautifyFilterList: [GPUBeautifyFilter] // TODO: Support generic beautify filter protocol in next version
-    private var beautyFilter = KSYBeautifyFaceFilter()
-    
-    var grindRatio: CGFloat  = 0.87 {
-        didSet {
-            beautyFilter?.grindRatio = grindRatio
-        }
-    }
-    
-    var whitenRatio: CGFloat = 0.6 {
-        didSet {
-            beautyFilter?.whitenRatio = whitenRatio
-        }
-    }
+  
 }
